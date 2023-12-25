@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; align-items: auto; justify-content: flex-start; align-self: auto; flex-direction: column; flex-wrap: nowrap;">
+        <ui:Button text="Server" name="Server" focusable="false" style="align-self: flex-end; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 10%; height: 5%;" />
+        <ui:Button text="Client" name="Client" focusable="false" style="align-self: flex-end; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 10%; height: 5%;" />
+        <ui:Button text="Host" name="Host" focusable="false" style="align-self: flex-end; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 10%; height: 5%;" />
+    </ui:VisualElement>
+</ui:UXML>
