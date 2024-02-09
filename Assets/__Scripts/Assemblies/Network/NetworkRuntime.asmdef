@@ -1,0 +1,21 @@
+{
+    "name": "NetworkRuntime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5eb30ad89f0df394784cb87bce2554b2",
+        "GUID:3b8ed52f1b5c64994af4c4e0aa4b6c4b",
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:30f0cc27e102cbd41867caebcd5992f2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

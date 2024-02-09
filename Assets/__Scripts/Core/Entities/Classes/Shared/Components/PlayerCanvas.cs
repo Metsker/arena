@@ -1,4 +1,4 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.UI;
+﻿using Arena.__Scripts.Core.Entities.Classes.Shared.UI;
 using UnityEngine;
 namespace Arena.__Scripts.Core.Entities.Classes.Shared.Components
 {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using __Scripts.Core.Network;
+using __Scripts.Core.Network.Payloads;
+using __Scripts.Generic.Input;
+using __Scripts.Generic.Utils.Extensions;
+using __Scripts.Generic.Utils.Timer;
 using Arena.__Scripts.Core.Entities.Classes.Shared.Stats.Components;
-using Arena.__Scripts.Core.Network;
-using Arena.__Scripts.Core.Network.Payloads;
-using Arena.__Scripts.Generic.Input;
-using Arena.__Scripts.Shared.Utils.Extensions;
-using Arena.__Scripts.Shared.Utils.Timer;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
@@ -12,8 +12,10 @@ namespace Arena.__Scripts.Core.Entities.Classes.Shared.Components
 {
     public class PlayerMove : NetworkBehaviour
     {
-        [SerializeField] private Animator animator;
+        private const float SpeedMultiplier = 2;
         
+        [SerializeField] private Animator animator;
+
         [Header("Netcode")]
         [SerializeField] private float reconciliationThreshold = 10f;
         [SerializeField] private float reconciliationCooldownTime = 1f;
@@ -95,7 +97,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Shared.Components
             if (IsServer)
                 HandleServerTick();
         }
-        
+
         private void HandleClientTick()
         {
             int currentTick = _networkTimer.CurrentTick;
@@ -134,7 +136,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Shared.Components
             
             SendToClientRpc(_serverStateBuffer.Get(bufferIndex));
         }
-        
+
         private void HandleServerReconciliation()
         {
             if(!ShouldReconcile())
@@ -202,7 +204,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Shared.Components
         private void Move(Vector2 direction)
         {
             Vector2 velocity = _rigidBody.velocity;
-            _rigidBody.velocity = velocity.With(x: direction.x * _classDataContainer.speed.Value);
+            _rigidBody.velocity = velocity.With(x: direction.x * _classDataContainer.speed.Value * SpeedMultiplier);
         }
 
         [ClientRpc]

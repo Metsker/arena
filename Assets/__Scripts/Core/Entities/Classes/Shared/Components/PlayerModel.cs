@@ -1,5 +1,5 @@
-﻿using Arena.__Scripts.Generic.Input;
-using Arena.__Scripts.Shared.Utils.Extensions;
+﻿using __Scripts.Generic.Input;
+using __Scripts.Generic.Utils.Extensions;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +10,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Shared.Components
     public class PlayerModel : NetworkBehaviour
     {
         public int FacingDirection => _scale.Value.x > 0 ? 1 : -1;
-        
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+
         private NetworkVariable<Vector2> _scale;
 
         private SpriteRenderer _spriteRenderer;

@@ -1,7 +1,5 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Classes.Data;
+using Arena.__Scripts.Core.Entities.Classes.Shared.Data;
 using Arena.__Scripts.Core.Entities.Generic;
 using Unity.Netcode;
 using UnityEngine;

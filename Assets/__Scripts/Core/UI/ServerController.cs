@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,18 +7,27 @@ namespace Arena.__Scripts.Core.UI
     [RequireComponent(typeof(UIDocument))]
     public class ServerController : MonoBehaviour
     {
+        private UIDocument _uiDocument;
+
         private void Awake()
         {
-            UIDocument uiDocument = GetComponent<UIDocument>();
+            _uiDocument = GetComponent<UIDocument>();
 
-            uiDocument.rootVisualElement.Q<Button>("Server")
+            _uiDocument.enabled = true;
+
+            _uiDocument.rootVisualElement.Q<Button>("Server")
                 .clickable.clicked += ServerOnClick;
 
-            uiDocument.rootVisualElement.Q<Button>("Client")
+            _uiDocument.rootVisualElement.Q<Button>("Client")
                 .clickable.clicked += ClientOnClick;
 
-            uiDocument.rootVisualElement.Q<Button>("Host")
+            _uiDocument.rootVisualElement.Q<Button>("Host")
                 .clickable.clicked += HostOnClick;
+        }
+
+        private void OnDisable()
+        {
+            _uiDocument.enabled = false;
         }
 
         private void ServerOnClick()

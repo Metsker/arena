@@ -4,11 +4,12 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using __Scripts.Generic.Utils;
 using Arena.__Scripts.Core.Entities.Data;
-using Arena.__Scripts.Shared.Utils;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Networking;
 namespace Arena.__Scripts.Core.Entities.Classes.Shared.Stats.Components
@@ -27,12 +28,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Shared.Stats.Components
         
         private string APIKey => string.IsNullOrEmpty(_overrideAPIKey) ? PlayerAPIKey : _overrideAPIKey;
 
-        public T CopyData()
-        {
-            string data = JsonConvert.SerializeObject(AvailableData);
-            return JsonConvert.DeserializeObject<T>(data);
-        }
-        
+        public T CopyData() =>
+            SerializationUtility.CreateCopy(AvailableData) as T;
+
         private void OnEnable()
         {
             if (Application.isEditor)
