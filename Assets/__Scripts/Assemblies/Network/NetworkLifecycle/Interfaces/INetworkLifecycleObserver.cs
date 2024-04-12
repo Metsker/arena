@@ -1,10 +1,8 @@
 ﻿using Unity.Netcode;
-namespace __Scripts.Core.Network.PlayerNetworkLoop.Interfaces
+
+namespace __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces
 {
-    /// <summary>
-    /// Please register your observer via NetworkHooksSubject
-    /// </summary>
-    public interface INetworkLifecycleObserver : INetworkObserver
+    public interface INetworkLifecycleObserver : INetworkOwnershipObserver
     {
         void OnNetworkSpawn(NetworkBehaviour networkBehaviour);
         void OnNetworkDespawn(NetworkBehaviour networkBehaviour);

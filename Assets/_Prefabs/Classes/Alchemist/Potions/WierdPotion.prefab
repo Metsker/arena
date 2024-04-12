@@ -62,7 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947092067904036117, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Name
-      value: WierdPotion Variant
+      value: WierdPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159355204330591467, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585531237004196347, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1197646541
       objectReference: {fileID: 0}
     - target: {fileID: 8155643189122004541, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Color.g

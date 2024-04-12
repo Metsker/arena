@@ -1,0 +1,16 @@
+{
+    "name": "UtilitiesRuntime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:0a0471484b079be408cb3a0d7fe94736"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

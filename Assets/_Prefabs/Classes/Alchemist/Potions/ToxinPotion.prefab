@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2941643727322817962, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_Mass
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3294016567158361476, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -66,7 +70,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947092067904036117, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Name
-      value: ToxinPotion Variant
+      value: ToxinPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159355204330591467, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159355204330591467, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585531237004196347, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2600863122
       objectReference: {fileID: 0}
     - target: {fileID: 8155643189122004541, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Color.b

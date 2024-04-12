@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; align-items: auto; justify-content: flex-start; align-self: auto; flex-direction: column; flex-wrap: nowrap;">
-        <ui:Button text="Server" name="Server" focusable="false" style="align-self: flex-end; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 10%; height: 5%;" />
-        <ui:Button text="Client" name="Client" focusable="false" style="align-self: flex-end; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 10%; height: 5%;" />
-        <ui:Button text="Host" name="Host" focusable="false" style="align-self: flex-end; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 10%; height: 5%;" />
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; align-self: auto; flex-direction: column; flex-wrap: nowrap; background-color: rgb(255, 255, 255); background-image: url(&apos;project://database/Assets/Plugins/Doozy/_Extras/Sprites/Wallpapers/NebulaInk_1.png?fileID=21300000&amp;guid=40ff0e805d6fdad4f860d41c3ccf8a24&amp;type=3#NebulaInk_1&apos;); -unity-background-image-tint-color: rgb(255, 255, 255);">
+        <ui:Button text="Host" name="Host" focusable="false" style="align-self: auto; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 15%; height: 5%;" />
+        <ui:Button text="Client" name="Client" focusable="false" style="align-self: auto; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 15%; height: 5%;" />
+        <ui:Button text="Server" name="Server" focusable="false" style="align-self: auto; margin-right: 4px; margin-top: 4px; justify-content: flex-start; width: 15%; height: 5%;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,35 +1,36 @@
 ﻿using System;
 using Doozy.Runtime.Signals;
 using Sirenix.Serialization;
-using Unity.Netcode;
 
 namespace __Scripts.Assemblies.Network.Messages
 {
-    public class NetworkMessage<T> : IDisposable where T : unmanaged
+    public class NetworkMessage<T> : UniqueNetworkMessage where T : struct
     {
-        private readonly string _signalName;
-        private readonly Action<T> _onSignalDeserialize;
-        
-        private ISignalReceiver _receiver;
+        private readonly Action<T> _onSignalDeserialized;
 
-        public NetworkMessage(string signalName, Action<T> onSignalDeserialize)
+        private ISignalReceiver _receiver;
+        
+        public NetworkMessage(ulong networkObjectId, string messageName, Action<T> onSignalDeserialized) : base(networkObjectId, messageName)
         {
-            _onSignalDeserialize = onSignalDeserialize;
-            _signalName = signalName;
+            _onSignalDeserialized = onSignalDeserialized;
             
             ConnectSignal();
         }
 
-        public void Dispose() =>
+        public override void Dispose()
+        {
+            base.Dispose();
+            
             _receiver.Disconnect();
+        }
 
-        public void Send(T payload, SendTo sendTo) =>
-            NetworkMessageSystem.Send(_signalName, payload, sendTo);
+        public void Send(T payload, Receivers receivers) =>
+            NetworkMessageSystem.Send(uniqueName, payload, receivers);
 
         private void ConnectSignal()
         {
             _receiver = new SignalReceiver().SetOnSignalCallback(OnSignal);
-            SignalStream.Get(NetworkMessageSystem.MessageStreamCategory, _signalName).ConnectReceiver(_receiver);
+            SignalStream.Get(NetworkMessageSystem.MessageStreamCategory, uniqueName).ConnectReceiver(_receiver);
         }
 
         private void OnSignal(Signal signal)
@@ -37,7 +38,7 @@ namespace __Scripts.Assemblies.Network.Messages
             byte[] bytes = signal.GetValueUnsafe<byte[]>();
             T value = SerializationUtility.DeserializeValue<T>(bytes, DataFormat.Binary);
             
-            _onSignalDeserialize?.Invoke(value);
+            _onSignalDeserialized?.Invoke(value);
         }
     }
 }

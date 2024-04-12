@@ -1,0 +1,338 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd3c3a2c72949d4932b2b2efe7a8f9b, type: 3}
+  m_Name: SyncablePlayerStaticData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: localData
+      Entry: 7
+      Data: 0|Arena.__Scripts.Core.Entities.Common.Data.PlayerStaticData, Assembly-CSharp
+    - Name: commonStaticData
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.CommonStaticData, Assembly-CSharp
+    - Name: groundDrag
+      Entry: 4
+      Data: 0.2
+    - Name: airDrag
+      Entry: 4
+      Data: 0.95
+    - Name: <GravityStrength>k__BackingField
+      Entry: 4
+      Data: -37.5
+    - Name: <GravityScale>k__BackingField
+      Entry: 4
+      Data: 3.82262969
+    - Name: fallGravityMult
+      Entry: 4
+      Data: 2
+    - Name: dashDuration
+      Entry: 4
+      Data: 0.2
+    - Name: attackLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 8421376
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: dashBlockLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 3145728
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: jumpHeight
+      Entry: 4
+      Data: 3
+    - Name: jumpTimeToApex
+      Entry: 4
+      Data: 0.4
+    - Name: <JumpForce>k__BackingField
+      Entry: 4
+      Data: 15
+    - Name: secondaryJumpsForceModifier
+      Entry: 4
+      Data: 0.75
+    - Name: jumpCutGravityMult
+      Entry: 4
+      Data: 5
+    - Name: jumpHangGravityMult
+      Entry: 4
+      Data: 0.5
+    - Name: jumpHangVelocityThreshold
+      Entry: 4
+      Data: 1
+    - Name: coyoteTime
+      Entry: 4
+      Data: 0.2
+    - Name: comboResetTime
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: reaperStaticData
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.Class.ReaperStaticData, Assembly-CSharp
+    - Name: attackBoxHeight
+      Entry: 4
+      Data: 1
+    - Name: comboModifiers
+      Entry: 7
+      Data: 1|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[Arena.__Scripts.Core.Entities.Common.Data.ComboAttackData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 2|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.ComboAttackData, Assembly-CSharp
+    - Name: damageModifier
+      Entry: 4
+      Data: 1
+    - Name: rangeModifier
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.ComboAttackData, Assembly-CSharp
+    - Name: damageModifier
+      Entry: 4
+      Data: 1
+    - Name: rangeModifier
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.ComboAttackData, Assembly-CSharp
+    - Name: damageModifier
+      Entry: 4
+      Data: 2
+    - Name: rangeModifier
+      Entry: 4
+      Data: 1.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: glideTimeModifier
+      Entry: 4
+      Data: 2
+    - Name: glideEase
+      Entry: 3
+      Data: 4
+    - Name: hookThrowDuration
+      Entry: 4
+      Data: 0.7
+    - Name: hookThrowEase
+      Entry: 3
+      Data: 3
+    - Name: hookReturnDuration
+      Entry: 4
+      Data: 0.3
+    - Name: hookReturnEase
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: summonerStaticData
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.Class.SummonerStaticData, Assembly-CSharp
+    - Name: riftTweenSpeed
+      Entry: 4
+      Data: 3
+    - Name: riftTweenEase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: remoteData
+      Entry: 7
+      Data: 3|Arena.__Scripts.Core.Entities.Common.Data.PlayerStaticData, Assembly-CSharp
+    - Name: commonStaticData
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.CommonStaticData, Assembly-CSharp
+    - Name: groundDrag
+      Entry: 4
+      Data: 0
+    - Name: airDrag
+      Entry: 4
+      Data: 0
+    - Name: <GravityStrength>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: <GravityScale>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: fallGravityMult
+      Entry: 4
+      Data: 0
+    - Name: dashDuration
+      Entry: 4
+      Data: 0
+    - Name: attackLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: dashBlockLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: jumpHeight
+      Entry: 4
+      Data: 0
+    - Name: jumpTimeToApex
+      Entry: 4
+      Data: 0
+    - Name: <JumpForce>k__BackingField
+      Entry: 4
+      Data: 0
+    - Name: secondaryJumpsForceModifier
+      Entry: 4
+      Data: 0
+    - Name: jumpCutGravityMult
+      Entry: 4
+      Data: 0
+    - Name: jumpHangGravityMult
+      Entry: 4
+      Data: 0
+    - Name: jumpHangVelocityThreshold
+      Entry: 4
+      Data: 0
+    - Name: coyoteTime
+      Entry: 4
+      Data: 0
+    - Name: comboResetTime
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: reaperStaticData
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.Class.ReaperStaticData, Assembly-CSharp
+    - Name: attackBoxHeight
+      Entry: 4
+      Data: 0
+    - Name: comboModifiers
+      Entry: 6
+      Data: 
+    - Name: glideTimeModifier
+      Entry: 4
+      Data: 0
+    - Name: glideEase
+      Entry: 3
+      Data: 0
+    - Name: hookThrowDuration
+      Entry: 4
+      Data: 0
+    - Name: hookThrowEase
+      Entry: 3
+      Data: 0
+    - Name: hookReturnDuration
+      Entry: 4
+      Data: 0
+    - Name: hookReturnEase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: summonerStaticData
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Common.Data.Class.SummonerStaticData, Assembly-CSharp
+    - Name: riftTweenSpeed
+      Entry: 4
+      Data: 0
+    - Name: riftTweenEase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  useProxy: 0

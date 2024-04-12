@@ -1,5 +1,7 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions;
-using Arena.__Scripts.Core.Entities.Generic.UI;
+﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions;
+using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
+using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions;
+using Arena.__Scripts.Core.Entities.Common.UI;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
@@ -11,21 +13,20 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.UI
         
         private PotionBelt _potionBelt;
         private UIFactory _uiFactory;
-        
+        private PotionTable _potionTable;
+
         [Inject]
-        public void Construct(UIFactory uiFactory, PotionBelt potionBelt)
+        public void Construct(PotionBelt potionBelt, PotionTable potionTable)
         {
+            _potionTable = potionTable;
             _potionBelt = potionBelt;
-            _uiFactory = uiFactory;
         }
 
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
             {
-                _uiFactory
-                    .Create(potionBeltUI)
-                    .Init(_potionBelt);
+                potionBeltUI.Init(_potionBelt, _potionTable);
             }
         }
     }

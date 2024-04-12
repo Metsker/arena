@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecc76c362984ef9aa9f758ade5977a3, type: 3}
+  m_Name: PotionTable
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 5645948265431395907, guid: 23c271eb18ffcba44b16746783afa652, type: 3}
+    - {fileID: 21300000, guid: 5834b4f42390ba449aad59e0c380fb5b, type: 3}
+    - {fileID: 769392747901221242, guid: 26a7f8985255c034dbf311555ebcc993, type: 3}
+    - {fileID: 21300000, guid: b617b31243f431c488ffd54247375452, type: 3}
+    - {fileID: -2692197570500414531, guid: 107707099d161b242aabbc372028da1f, type: 3}
+    - {fileID: 21300000, guid: 29043d7bcc73c7946864bcbb1ccf8f72, type: 3}
+    - {fileID: 7561947486395992549, guid: af68f6b16cf2a4746b41bf7610ce6668, type: 3}
+    - {fileID: 21300000, guid: a6c3cbbba5198ae4baa31ec27a8a7305, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _table
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums.PotionType,
+        Assembly-CSharp],[Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums.PotionType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+    - Name: prefab
+      Entry: 10
+      Data: 0
+    - Name: progressBarColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.2216981
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.35470292
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sprite
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+    - Name: prefab
+      Entry: 10
+      Data: 2
+    - Name: progressBarColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.8509804
+    - Name: 
+      Entry: 4
+      Data: 0.410172552
+    - Name: 
+      Entry: 4
+      Data: 0.410172552
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sprite
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+    - Name: prefab
+      Entry: 10
+      Data: 4
+    - Name: progressBarColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.184313715
+    - Name: 
+      Entry: 4
+      Data: 0.6067869
+    - Name: 
+      Entry: 4
+      Data: 0.831372559
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sprite
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+    - Name: prefab
+      Entry: 10
+      Data: 6
+    - Name: progressBarColor
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.7288388
+    - Name: 
+      Entry: 4
+      Data: 0.211730123
+    - Name: 
+      Entry: 4
+      Data: 0.735849
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sprite
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

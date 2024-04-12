@@ -1,4 +1,4 @@
-﻿namespace __Scripts.Core.Network.Enums
+﻿namespace __Scripts.Assemblies.Network.Enums
 {
     public enum AuthorityMode
     {

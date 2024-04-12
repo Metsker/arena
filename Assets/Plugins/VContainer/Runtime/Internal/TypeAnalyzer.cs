@@ -193,7 +193,7 @@ namespace VContainer.Internal
 
             if (injectConstructor == null)
             {
-                var allowNoConstructor = type.IsEnum;
+                var allowNoConstructor = type.IsValueType;
 #if UNITY_2018_4_OR_NEWER
                 // It seems that Unity sometimes strips the constructor of Component at build time.
                 // In that case, allow null.

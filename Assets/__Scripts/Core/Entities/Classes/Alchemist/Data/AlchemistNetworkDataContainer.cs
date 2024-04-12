@@ -1,25 +1,15 @@
 ﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
-using Arena.__Scripts.Core.Entities.Classes.Shared.Stats.Components;
+using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
 using Unity.Netcode;
-using VContainer;
+
 namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Data
 {
-    public class AlchemistNetworkDataContainer : ClassNetworkDataContainer
+    public class AlchemistNetworkDataContainer : ClassNetworkDataContainer<AlchemistData>
     {
-        public NetworkVariable<PotionType> SelectedPotionType { get; private set; }
+        public NetworkVariable<PotionType> selectedPotionType = new (writePerm: NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float> selectedPotionCd = new (writePerm: NetworkVariableWritePermission.Owner);
         
-        public PotionBeltData PotionBeltData { get; private set; }
-        
-        [Inject]
-        private void Construct(SyncableData<AlchemistData> alchemistSyncableData)
-        {
-            AlchemistData alchemistData = alchemistSyncableData.CopyData();
-
-            SelectedPotionType = new NetworkVariable<PotionType>(PotionType.Toxin, writePerm: NetworkVariableWritePermission.Owner);
-            
-            PotionBeltData = alchemistData.potionBeltData;
-
-            Init(alchemistData);
-        }
+        //Define setters
+        public PotionBeltStats PotionBeltStats => data.Value.potionBeltStats;
     }
 }

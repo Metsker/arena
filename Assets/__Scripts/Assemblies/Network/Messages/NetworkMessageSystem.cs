@@ -6,32 +6,30 @@ using JetBrains.Annotations;
 using Sirenix.Serialization;
 using Unity.Collections;
 using Unity.Netcode;
+using VContainer.Unity;
 
 namespace __Scripts.Assemblies.Network.Messages
 {
     [UsedImplicitly]
-    public class NetworkMessageSystem : IDisposable
+    public class NetworkMessageSystem : IInitializable
     {
+        private const string DirectMessageName = "Direct";
+        private const string RedirectMessageName = "Redirect";
         public const string MessageStreamCategory = "NetworkMessages";
-        private const string ClientRedirectMessageName = "ClientRedirect";
 
         private static ulong ServerClientId => NetworkManager.ServerClientId;
-        private static ulong LocalClientId => NetworkManager.Singleton.LocalClientId;
         private static IEnumerable<ulong> ConnectedClients => NetworkManager.Singleton.ConnectedClientsIds;
 
-        public NetworkMessageSystem()
+        public void Initialize() =>
+            NetworkManager.Singleton.OnClientStarted += RegisterHandlers;
+
+        private static void RegisterHandlers()
         {
-            NetworkManager.Singleton.CustomMessagingManager.OnUnnamedMessage += OnUnnamedMessage;
-            NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(ClientRedirectMessageName, OnRedirectFromClient);
+            NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(DirectMessageName, OnDirectMessage);
+            NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(RedirectMessageName, OnRedirectFromClient);
         }
 
-        public void Dispose()
-        {
-            NetworkManager.Singleton.CustomMessagingManager.OnUnnamedMessage -= OnUnnamedMessage;
-            NetworkManager.Singleton.CustomMessagingManager.UnregisterNamedMessageHandler(ClientRedirectMessageName);
-        }
-
-        public static void Send<T>(string streamName, T payload, SendTo sendTo) where T : unmanaged
+        public static void Send<T>(string streamName, T payload, Receivers receivers) where T : struct
         {
             byte[] streamNameBytes = SerializationUtility.SerializeValue(streamName, DataFormat.Binary);
             byte[] payloadBytes = SerializationUtility.SerializeValue(payload, DataFormat.Binary);
@@ -41,16 +39,16 @@ namespace __Scripts.Assemblies.Network.Messages
 
             int writerSize = FastBufferWriter.GetWriteSize(streamArray) + FastBufferWriter.GetWriteSize(dataArray);
 
-            if (ClientToClient(sendTo))
-                writerSize += FastBufferWriter.GetWriteSize(sendTo);
+            if (ClientToClient(receivers))
+                writerSize += FastBufferWriter.GetWriteSize(receivers);
             
             FastBufferWriter writer = new (writerSize, Allocator.Temp);
             
             using (writer)
             {
-                if (ClientToClient(sendTo))
+                if (ClientToClient(receivers))
                 {
-                    RedirectMessage message = new (streamArray, dataArray, sendTo);
+                    RedirectMessage message = new (streamArray, dataArray, receivers);
                     writer.WriteNetworkSerializable(message);
                 }
                 else
@@ -61,141 +59,153 @@ namespace __Scripts.Assemblies.Network.Messages
 
                 if (NetworkManager.Singleton.IsServer)
                 {
-                    List<ulong> receivers = new ();
-                    switch (sendTo)
+                    List<ulong> receiverIds;
+                    switch (receivers)
                     {
-                        case SendTo.Server:
+                        case Receivers.Server:
                             Signal.Send(MessageStreamCategory, streamName, payloadBytes);
                             return;
-                        case SendTo.NotMe:
-                        case SendTo.Everyone:
-                            receivers = ConnectedClients.Where(i => i != ServerClientId).ToList();
+                        case Receivers.NotMe:
+                        case Receivers.NotServer:
+                            receiverIds = ConnectedClients.Where(i => i != ServerClientId).ToList();
+                            break;
+                        case Receivers.Everyone:
+                            Signal.Send(MessageStreamCategory, streamName, payloadBytes);
+                            receiverIds = ConnectedClients.Where(i => i != ServerClientId).ToList();
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException(nameof(sendTo), sendTo, null);
+                            throw new ArgumentOutOfRangeException(nameof(receivers), receivers, null);
                     }
                     
                     NetworkManager.Singleton.CustomMessagingManager
-                        .SendUnnamedMessage(receivers, writer, NetworkDelivery.Reliable);
-                    
-                    if (sendTo == SendTo.Everyone)
-                        Signal.Send(MessageStreamCategory, streamName, payloadBytes);
+                        .SendNamedMessage(DirectMessageName, receiverIds, writer, NetworkDelivery.Reliable);
                 }
                 else
                 {
-                    if (sendTo == SendTo.Server)
-                    {
-                        NetworkManager.Singleton.CustomMessagingManager
-                            .SendUnnamedMessage(ServerClientId, writer, NetworkDelivery.Reliable);
-                    }
-                    else
-                    {
-                        NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage(
-                            ClientRedirectMessageName, ServerClientId, writer, NetworkDelivery.Reliable);
+                    if (receivers is Receivers.Everyone or Receivers.NotServer)
+                        Signal.Send(MessageStreamCategory, streamName, payloadBytes);
                         
-                        if (sendTo == SendTo.Everyone)
-                            Signal.Send(MessageStreamCategory, streamName, payloadBytes);
-                    }
+                    NetworkManager.Singleton.CustomMessagingManager.SendNamedMessage(
+                        RedirectMessageName, ServerClientId, writer, NetworkDelivery.Reliable);
                 }
             }
         }
 
-        private static void SendRedirected(ulong senderId, NativeArray<byte> streamArray, NativeArray<byte> dataArray, SendTo sendTo)
+        private static void SendRedirected(ulong senderId, NativeArray<byte> streamArray, NativeArray<byte> payloadArray, Receivers receivers)
         {
             if (!NetworkManager.Singleton.IsServer)
                 return;
             
-            int writerSize = FastBufferWriter.GetWriteSize(streamArray) + FastBufferWriter.GetWriteSize(dataArray);
+            int writerSize = FastBufferWriter.GetWriteSize(streamArray) + FastBufferWriter.GetWriteSize(payloadArray);
             FastBufferWriter writer = new (writerSize, Allocator.Temp);
             
             using (writer)
             {
                 Message message = new ()
                 {
-                    StreamName = streamArray,
-                    Payload = dataArray
+                    streamName = streamArray,
+                    payload = payloadArray
                 };
                 
                 writer.WriteNetworkSerializable(message);
 
-                List<ulong> receivers = new ();
-                switch (sendTo)
+                List<ulong> receiverIds;
+                switch (receivers)
                 {
-                    case SendTo.NotMe:
-                    case SendTo.Everyone:
-                        receivers = ConnectedClients.Where(i => i != senderId && i != ServerClientId).ToList();
+                    case Receivers.Server:
+                        DirectToServer();
+                        return;
+                    case Receivers.Everyone:
+                    case Receivers.NotMe:
+                        DirectToServer();
+                        receiverIds = ConnectedClients.Where(i => i != senderId && i != ServerClientId).ToList();
+                        break;
+                    case Receivers.NotServer:
+                        receiverIds = ConnectedClients.Where(i => i != senderId && i != ServerClientId).ToList();
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(sendTo), sendTo, null);
+                        throw new ArgumentOutOfRangeException(nameof(receivers), receivers, null);
                 }
-                    
-                NetworkManager.Singleton.CustomMessagingManager
-                    .SendUnnamedMessage(receivers, writer, NetworkDelivery.Reliable);
                 
-                string streamName = SerializationUtility.DeserializeValue<string>(message.StreamName.ToArray(), DataFormat.Binary);
-                Signal.Send(MessageStreamCategory, streamName, dataArray.ToArray());
+                NetworkManager.Singleton.CustomMessagingManager
+                    .SendNamedMessage(DirectMessageName, receiverIds, writer, NetworkDelivery.Reliable);
+
+                void DirectToServer()
+                {
+                    string streamName = SerializationUtility.DeserializeValue<string>(message.streamName.ToArray(), DataFormat.Binary);
+                    Signal.Send(MessageStreamCategory, streamName, payloadArray.ToArray());
+                }
             }
         }
 
-        private static void OnUnnamedMessage(ulong clientId, FastBufferReader reader)
+        private static void OnDirectMessage(ulong senderId, FastBufferReader reader)
         {
             reader.ReadNetworkSerializable(out Message message);
             
-            string streamName = SerializationUtility.DeserializeValue<string>(message.StreamName.ToArray(), DataFormat.Binary);
-            byte[] payloadBytes = message.Payload.ToArray();
+            string streamName = SerializationUtility.DeserializeValue<string>(message.streamName.ToArray(), DataFormat.Binary);
+            byte[] payloadBytes = message.payload.ToArray();
             
             Signal.Send(MessageStreamCategory, streamName, payloadBytes);
         }
 
-        private static void OnRedirectFromClient(ulong senderclientid, FastBufferReader reader)
+        private static void OnRedirectFromClient(ulong senderClientId, FastBufferReader reader)
         {
             reader.ReadNetworkSerializable(out RedirectMessage message);
             
-            SendRedirected(senderclientid, message.StreamName, message.Payload, message.sendTo);
+            SendRedirected(senderClientId, message.streamName, message.payload, message.receivers);
         }
 
-        private static bool ClientToClient(SendTo sendTo) =>
-            !NetworkManager.Singleton.IsServer && sendTo != SendTo.Server;
+        private static bool ClientToClient(Receivers sendTo) =>
+            !NetworkManager.Singleton.IsServer && sendTo != Receivers.Server;
 
         [Serializable]
         private struct Message : INetworkSerializable
         {
-            public NativeArray<byte> StreamName;
-            public NativeArray<byte> Payload;
+            public NativeArray<byte> streamName;
+            public NativeArray<byte> payload;
 
             public Message(NativeArray<byte> streamName, NativeArray<byte> payload)
             {
-                StreamName = streamName;
-                Payload = payload;
+                this.streamName = streamName;
+                this.payload = payload;
             }
 
             public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
             {
-                serializer.SerializeValue(ref StreamName, Allocator.Temp);
-                serializer.SerializeValue(ref Payload, Allocator.Temp);
+                serializer.SerializeValue(ref streamName, Allocator.Temp);
+                serializer.SerializeValue(ref payload, Allocator.Temp);
             }
         }
-        
+
         [Serializable]
         private struct RedirectMessage : INetworkSerializable
         {
-            public NativeArray<byte> StreamName;
-            public NativeArray<byte> Payload;
-            public SendTo sendTo;
+            public NativeArray<byte> streamName;
+            public NativeArray<byte> payload;
+            public Receivers receivers;
 
-            public RedirectMessage(NativeArray<byte> streamName, NativeArray<byte> payload, SendTo sendTo)
+            public RedirectMessage(NativeArray<byte> streamName, NativeArray<byte> payload, Receivers receivers)
             {
-                StreamName = streamName;
-                Payload = payload;
-                this.sendTo = sendTo;
+                this.streamName = streamName;
+                this.payload = payload;
+                this.receivers = receivers;
             }
 
             public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
             {
-                serializer.SerializeValue(ref StreamName, Allocator.Temp);
-                serializer.SerializeValue(ref Payload, Allocator.Temp);
-                serializer.SerializeValue(ref sendTo);
+                serializer.SerializeValue(ref streamName, Allocator.Temp);
+                serializer.SerializeValue(ref payload, Allocator.Temp);
+                serializer.SerializeValue(ref receivers);
             }
         }
+    }
+    
+    public enum Receivers : byte
+    {
+        Server,
+        NotServer,
+        NotMe,
+        Everyone,
+        //SpecifiedInParams,
     }
 }

@@ -1,7 +1,8 @@
-﻿using __Scripts.Core.Network.Enums;
+﻿using __Scripts.Assemblies.Network.Enums;
 using Unity.Netcode.Components;
 using UnityEngine;
-namespace __Scripts.Core.Network.Components
+
+namespace __Scripts.Assemblies.Network.Components
 {
     [DisallowMultipleComponent]
     public class ClientNetworkAnimator : NetworkAnimator

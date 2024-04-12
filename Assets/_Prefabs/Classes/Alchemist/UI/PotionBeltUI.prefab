@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5500286523102150538
 CanvasRenderer:
@@ -85,10 +85,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6640135707988166661}
-  - component: {fileID: 2872408223977085573}
-  - component: {fileID: 5251155150858433911}
-  - component: {fileID: 8267658612837246932}
   - component: {fileID: 2707470575289571942}
+  - component: {fileID: 6685166379266236941}
+  - component: {fileID: 2872408223977085573}
+  - component: {fileID: 8267658612837246932}
   m_Layer: 0
   m_Name: PotionBeltUI
   m_TagString: Untagged
@@ -118,6 +118,44 @@ RectTransform:
   m_AnchoredPosition: {x: 150, y: -50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2707470575289571942
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446106311210888572}
+  m_CullTransparentMesh: 1
+--- !u!114 &6685166379266236941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446106311210888572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.30588236}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &2872408223977085573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,27 +175,13 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 5
   m_Spacing: 0
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &5251155150858433911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6446106311210888572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
 --- !u!114 &8267658612837246932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,10 +198,6 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: a12f244636e15b148b438d46977d0d20, type: 3}
-    - {fileID: 21300000, guid: 288f6e70000310d43ab1c76bbe436bf5, type: 3}
-    - {fileID: 21300000, guid: c300b075a295ff14fb97a2355a674d91, type: 3}
-    - {fileID: 21300000, guid: 7c1fd888a8441014ba4cd328853554b7, type: 3}
     - {fileID: 7742084526062661290}
     - {fileID: 1180509677277508909}
     - {fileID: 6593659966534464302}
@@ -186,109 +206,27 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _potionSprites
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums.PotionType,
-        Assembly-CSharp],[UnityEngine.Sprite, UnityEngine.CoreModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums.PotionType,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: _potionImages
       Entry: 7
-      Data: 2|UnityEngine.UI.Image[], UnityEngine.UI
+      Data: 0|UnityEngine.UI.Image[], UnityEngine.UI
     - Name: 
       Entry: 12
       Data: 3
     - Name: 
       Entry: 10
-      Data: 4
+      Data: 0
     - Name: 
       Entry: 10
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 10
-      Data: 6
+      Data: 2
     - Name: 
       Entry: 13
       Data: 
     - Name: 
       Entry: 8
       Data: 
---- !u!222 &2707470575289571942
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6446106311210888572}
-  m_CullTransparentMesh: 1
 --- !u!1 &6988299400024635042
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +262,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5054644907564115075
 CanvasRenderer:
@@ -399,7 +337,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2669811974672511172
 CanvasRenderer:

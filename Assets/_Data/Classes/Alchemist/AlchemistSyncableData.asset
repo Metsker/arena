@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bfa7e4d18a04eb7984d32af9ebafb34, type: 3}
+  m_Name: AlchemistSyncableData
+  m_EditorClassIdentifier: 
+  localData:
+    baseStats:
+      health: 95
+      maxHealth: 95
+      speed: 1.196
+      damage: 90
+      attacksPerSec: 2.55
+      attackRange: 10
+    actionMapData:
+      action1Cd: 0
+      action2Cd: 0
+      dashCd: 0.5
+      dashRange: 2
+      jumpCount: 2
+      ultimateCombo: 100
+    potionBeltStats:
+      toxin:
+        percentPerTick: 4
+        intervalSec: 9
+        duration: 11
+        cd: 8
+      healing:
+        onHitHealAmount: 2
+        puddleHealPerSec: 35
+        puddleSize: 19
+        puddleDuration: 7
+        cd: 8
+      bomba:
+        duration: 3
+        damage: 6
+        aoe: 4
+        cd: 2
+      wierd:
+        positiveChance: 0.12
+        cd: 2
+        highRollChance: 0.59
+        midRollChance: 1.09
+        lowRollChance: 1.31
+  remoteData:
+    baseStats:
+      health: 0
+      maxHealth: 0
+      speed: 0
+      damage: 0
+      attacksPerSec: 0
+      attackRange: 0
+    actionMapData:
+      action1Cd: 1
+      action2Cd: 1
+      dashCd: 1
+      dashRange: 2
+      jumpCount: 2
+      ultimateCombo: 100
+    potionBeltStats:
+      toxin:
+        percentPerTick: 0
+        intervalSec: 0
+        duration: 0
+        cd: 0
+      healing:
+        onHitHealAmount: 0
+        puddleHealPerSec: 0
+        puddleSize: 0
+        puddleDuration: 0
+        cd: 0
+      bomba:
+        duration: 0
+        damage: 0
+        aoe: 0
+        cd: 0
+      wierd:
+        positiveChance: 0
+        cd: 0
+        highRollChance: 0.01
+        midRollChance: 0.2
+        lowRollChance: 0.5
+  useProxy: 0

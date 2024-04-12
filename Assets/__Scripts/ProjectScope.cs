@@ -1,4 +1,5 @@
-﻿using __Scripts.Generic.Input;
+﻿using __Scripts.Assemblies.Input;
+using __Scripts.Assemblies.Network.Messages;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,6 +13,7 @@ namespace Arena.__Scripts
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(inputReader);
+            builder.RegisterEntryPoint<NetworkMessageSystem>();
         }
     }
 }

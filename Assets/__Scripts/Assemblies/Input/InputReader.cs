@@ -1,13 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-namespace __Scripts.Generic.Input
+
+namespace __Scripts.Assemblies.Input
 {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Arena/Input Reader")]
     public class InputReader : ScriptableObject, Controls.IPlayerActions
     {
         public Vector2 MoveVector { get; private set; }
-
+        public bool IsEnabled { get; private set; }
         public event Action<InputAction.CallbackContext> Attack;
         public event Action<InputAction.CallbackContext> Move;
         public event Action<InputAction.CallbackContext> FallThrough;
@@ -29,11 +30,17 @@ namespace __Scripts.Generic.Input
             _inputActions.Player.SetCallbacks(this);
         }
 
-        public void Enable() =>
+        public void Enable()
+        {
             _inputActions.Enable();
+            IsEnabled = true;
+        }
 
-        public void Disable() =>
+        public void Disable()
+        {
             _inputActions.Disable();
+            IsEnabled = false;
+        }
 
         public void OnMove(InputAction.CallbackContext context)
         {

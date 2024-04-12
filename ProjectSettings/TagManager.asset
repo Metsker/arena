@@ -12,24 +12,24 @@ TagManager:
   - 
   - Water
   - UI
-  - Hitbox
-  - Ground
-  - Player
   - 
   - 
+  - PlayerPhysics
+  - PlayerHitbox
+  - 
+  - PlayerProjectile
   - 
   - 
+  - EnemyPhysics
+  - EnemyHitbox
+  - 
+  - EnemyProjectile
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - PassThroughObstacle
+  - Environment
+  - DestructibleEnvironment
   - 
   - 
   - 
@@ -47,4 +47,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3073251121
+    locked: 0
+  - name: UI
+    uniqueID: 305453625
     locked: 0

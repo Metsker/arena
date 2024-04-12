@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2941643727322817962, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941643727322817962, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3294016567158361476, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Color.b
       value: 0.26666668
@@ -66,7 +74,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5947092067904036117, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Name
-      value: BombaPotion Variant
+      value: BombaPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159355204330591467, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159355204330591467, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7585531237004196347, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2494020087
       objectReference: {fileID: 0}
     - target: {fileID: 8155643189122004541, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Color.b
@@ -105,3 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5021eabb33dc4fb3a09a19b612343570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bombaAffectLayerMask:
+    serializedVersion: 2
+    m_Bits: 2560
