@@ -1,7 +1,6 @@
 ﻿using System;
 using Arena.__Scripts.Core.Entities.Common.Data.Class;
 using Newtonsoft.Json;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Arena.__Scripts.Core.Entities.Common.Data

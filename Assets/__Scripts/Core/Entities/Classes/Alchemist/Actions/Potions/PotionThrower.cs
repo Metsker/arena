@@ -1,20 +1,19 @@
-﻿using System;
-using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Utilities.Timer;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions;
+﻿using __Scripts.Assemblies.Input;
+using __Scripts.Assemblies.Utilities.Timers;
+using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions.Types;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggles;
+using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using NTC.Pool;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions
+
+namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions
 {
     public class PotionThrower : NetworkBehaviour, IToggleableAttack, IChargable
     {

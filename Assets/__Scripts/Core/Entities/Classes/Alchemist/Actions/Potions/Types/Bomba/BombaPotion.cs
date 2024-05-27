@@ -2,14 +2,13 @@
 using __Scripts.Assemblies.Utilities.Extensions;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Common;
 using Arena.__Scripts.Core.Entities.Common.Effects;
 using Arena.__Scripts.Core.Entities.Common.Effects.Variants;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions.Types.Bomba
+namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Bomba
 {
     public class BombaPotion : Potion
     {
@@ -34,18 +33,15 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions.Types.Bomba
             
             foreach (Collider2D col in _results)
             {
-                if (col.TryGetComponents(out EffectsHandler effectsHandler, out ActionToggler actionToggler))
+                if (col.TryGetComponent(out EffectsHandler effectsHandler) && col.HasComponent<ActionToggler>())
                 {
-                    effectsHandler
-                        .AddEffect<StunDebuff>(BombaStats.duration)
-                        .Initialize(actionToggler);
+                    effectsHandler.TryAddEffect<StunDebuff>(BombaStats.duration);
                 }
                 if (col.TryGetComponent(out IHealth health))
                 {
                     float distance = Vector2.Distance(collisionPoint, col.transform.position);
                     float damageT = Mathf.InverseLerp(0, BombaStats.aoe, distance);
                     float damage = Mathf.Lerp(BombaStats.damage, 0, damageT);
-                    print(damage);
                     
                     health.DealDamageRpc(damage);
                 }

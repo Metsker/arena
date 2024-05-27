@@ -1,4 +1,5 @@
 ﻿using Arena.__Scripts.Core.Entities.Classes.Common.Components;
+using Sirenix.OdinInspector;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,8 +7,13 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
 {
     public class HealthNetworkContainer : BaseNetworkHealth
     {
-        [Min(0)] [SerializeField] private int initialHealth;
-        [Min(0)] [SerializeField] private int initialMaxHealth;
+        [SerializeField] private bool autoInit = true;
+        
+        [Min(0)] [ShowIf(nameof(autoInit))] 
+        [SerializeField] private int initialHealth;
+        
+        [Min(0)] [ShowIf(nameof(autoInit))] 
+        [SerializeField] private int initialMaxHealth;
         
         [HideInInspector] public NetworkVariable<int> currentHealth = new ();
         [HideInInspector] public NetworkVariable<int> maxHealth = new ();
@@ -16,11 +22,26 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
         {
             if (!IsServer)
                 return;
-            
-            SetCurrentHealth(initialHealth);
+
+            if (!autoInit)
+                return;
+
             SetMaxHealth(initialMaxHealth);
+            SetCurrentHealth(initialHealth);
         }
 
+        public void ManualInit(int newHealth, int newMaxHealth)
+        {
+            if (autoInit)
+            {
+                Debug.LogError("Cannot initialize health manually if autoInit is true.");
+                return;
+            }
+
+            SetMaxHealth(newMaxHealth);
+            SetCurrentHealth(newHealth);
+        }
+        
         protected override int GetCurrentHealth() =>
             currentHealth.Value;
 

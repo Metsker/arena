@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Arena.__Scripts.Core.Entities.Common.Interfaces
 {
@@ -7,6 +8,7 @@ namespace Arena.__Scripts.Core.Entities.Common.Interfaces
         public int CurrentHealth { get; }
         public int MaxHealth { get; }
         public bool FullHealth { get; }
+        public GameObject Object { get; }
         public event Action HealthDepleted;
         void DealDamageRpc(int amount);
         void DealDamageRpc(float percent);

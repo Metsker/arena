@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions.Types;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;

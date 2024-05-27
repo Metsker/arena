@@ -17,6 +17,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
             get => GetMaxHealth();
             private set => SetMaxHealth(value);
         }
+
+        public GameObject Object => gameObject;
+        
         public bool FullHealth => CurrentHealth == MaxHealth;
         public float RemainingHeathNormalized => (float)CurrentHealth / MaxHealth;
 

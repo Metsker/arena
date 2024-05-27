@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Arena.__Scripts.Core.Entities.Common.Data
@@ -83,7 +82,7 @@ namespace Arena.__Scripts.Core.Entities.Common.Data
         [OdinSerialize] public float RunSecToEnter { get; private set; }
         [OdinSerialize] public float RunAnimationExitSpeed { get; private set; }*/
         #endregion
-
+        
         public void CalculateGravityStrength() =>
             GravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
 

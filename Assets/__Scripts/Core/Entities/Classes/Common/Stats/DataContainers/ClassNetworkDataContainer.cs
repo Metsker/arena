@@ -24,14 +24,14 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
         public float AttackRange => ClassData.baseStats.attackRange;
         private float AttacksPerSec => ClassData.baseStats.attacksPerSec;
         
-        private ClassData ClassData => data.Value;
+        private ClassData ClassData => Data.Value;
 
-        protected readonly NetworkVariable<T> data = new ();
+        protected readonly NetworkVariable<T> Data = new ();
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
-                data.Value = syncableData.CopyData();
+                Data.Value = syncableData.CopyData();
         }
 
         public void AddSpeed(float amount)
@@ -103,7 +103,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
         }
 
         private void MarkAsDirty() =>
-            data.SetDirty(true);
+            Data.SetDirty(true);
     }
 
     public class NotServerException : Exception

@@ -23,53 +23,46 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
             
             for (int index = 0; index < comboCommands.Length; index++)
             {
-                if (comboCommands[index] is not AttackCommand)
+                if (comboCommands[index] is not AttackCommand attackCommand)
+                {
                     Debug.LogError($"Command {index} is not an attack command");
+                    continue;
+                }
                 
-                AttackCommand attackCommand = (AttackCommand)comboCommands[index];
                 attackCommand.Init(
-                    NetworkObjectId,
-                    index,
-                    playerStaticData.reaperStaticData.attackBoxHeight,
-                    playerStaticData.commonStaticData.attackLayerMask);
-            }
-        }
-
-        public override void OnNetworkDespawn()
-        {
-            base.OnNetworkDespawn();
-            
-            foreach (IComboCommand command in comboCommands)
-            {
-                AttackCommand attackCommand = (AttackCommand)command;
-                attackCommand.Dispose();
+                    IsOwner,
+                    PlayerStaticData.reaperStaticData.attackBoxHeight,
+                    PlayerStaticData.commonStaticData.attackLayerMask);
             }
         }
 
         //Animation Event
         public void HitTargetsEvent()
         {
+            if (!IsOwner)
+                return;
+            
             AttackCommand attackCommand = (AttackCommand)CurrentCommand;
             attackCommand.HitTargets();
         }
         
         private void OnDrawGizmosSelected()
         {
-            foreach (IComboCommand command in comboCommands)
+            foreach (ICommand command in comboCommands)
             {
                 AttackCommand attackCommand = (AttackCommand)command;
                 attackCommand.DrawGizmos();
             }
         }
 
-        protected override void OnCombo(IComboCommand currentCommand)
+        protected override void OnCombo(ICommand currentCommand)
         {
             AttackCommand attackCommand = (AttackCommand)currentCommand;
-            ComboAttackData comboAttackData = playerStaticData.reaperStaticData.comboModifiers[comboPointer];
+            ComboAttackData comboAttackData = PlayerStaticData.reaperStaticData.comboModifiers[ComboPointer];
             int damage = Mathf.RoundToInt(_reaperNetworkData.Damage * comboAttackData.damageModifier);
             float range = _reaperNetworkData.AttackRange * comboAttackData.rangeModifier;
             
-            attackCommand.ProvideStats(damage, range);
+            attackCommand.SyncStats(damage, range);
         }
     }
 }

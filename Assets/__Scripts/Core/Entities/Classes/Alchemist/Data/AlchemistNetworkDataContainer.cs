@@ -10,6 +10,6 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Data
         public NetworkVariable<float> selectedPotionCd = new (writePerm: NetworkVariableWritePermission.Owner);
         
         //Define setters
-        public PotionBeltStats PotionBeltStats => data.Value.potionBeltStats;
+        public PotionBeltStats PotionBeltStats => Data.Value.potionBeltStats;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Unity.Netcode;
-using UnityEngine;
 
 namespace __Scripts.Assemblies.Network.Payloads
 {

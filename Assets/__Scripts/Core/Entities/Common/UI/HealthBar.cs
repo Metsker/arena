@@ -1,5 +1,4 @@
-﻿using System;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
+﻿using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;

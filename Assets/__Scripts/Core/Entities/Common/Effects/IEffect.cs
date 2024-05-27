@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using Arena.__Scripts.Core.Entities.Common.Enums;
-using UnityEngine;
 
-namespace Arena.__Scripts.Core.Effects
+namespace Arena.__Scripts.Core.Entities.Common.Effects
 {
-    public interface IEffect : IDisposable
+    public interface IEffect : IDisposable, IComparable<IEffect>
     {
+        float Duration { get; }
         Effect SetTimer(float duration, float tickDuration);
-        Effect SetCollection(Dictionary<Type, IEffect> activeEffects);
-        Effect SetTarget(GameObject gameObject);
+        Effect SetHandler(EffectsHandler handler);
         EffectType GetEffectType();
         void OnApply();
         void OnTick();
+        void ResetTimer();
         void OnComplete();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Arena.__Scripts
+namespace __Scripts.Assemblies.Utilities.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class DefaultAttribute : Attribute

@@ -1,6 +1,5 @@
 ﻿using System;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions.Types;
 using Arena.__Scripts.Core.Entities.Common.Effects;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
 using UnityEngine;

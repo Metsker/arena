@@ -5,6 +5,6 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Data
     public class ReaperNetworkDataContainer : ClassNetworkDataContainer<ReaperData> 
     {
         //Define setters
-        public ReaperStats ReaperStats => data.Value.reaperStats;
+        public ReaperStats ReaperStats => Data.Value.reaperStats;
     }
 }

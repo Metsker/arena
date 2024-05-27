@@ -2,6 +2,7 @@
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+
 namespace Arena.__Scripts.Core
 {
     public class CoreScope : LifetimeScope

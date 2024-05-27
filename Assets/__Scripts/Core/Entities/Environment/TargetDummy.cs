@@ -1,4 +1,4 @@
-﻿using __Scripts.Assemblies.Utilities.Timer;
+﻿using __Scripts.Assemblies.Utilities.Timers;
 using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
 using Unity.Netcode;
 using UnityEngine;

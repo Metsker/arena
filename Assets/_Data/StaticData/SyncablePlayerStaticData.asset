@@ -206,12 +206,24 @@ MonoBehaviour:
     - Name: summonerStaticData
       Entry: 7
       Data: Arena.__Scripts.Core.Entities.Common.Data.Class.SummonerStaticData, Assembly-CSharp
-    - Name: riftTweenSpeed
+    - Name: RiftTweenSpeed
       Entry: 4
       Data: 3
-    - Name: riftTweenEase
+    - Name: FinalSpiritAttackDamageMult
       Entry: 3
-      Data: 0
+      Data: 2
+    - Name: RiftTweenEase
+      Entry: 3
+      Data: 4
+    - Name: StunLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 32768
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -323,12 +335,24 @@ MonoBehaviour:
     - Name: summonerStaticData
       Entry: 7
       Data: Arena.__Scripts.Core.Entities.Common.Data.Class.SummonerStaticData, Assembly-CSharp
-    - Name: riftTweenSpeed
+    - Name: RiftTweenSpeed
       Entry: 4
       Data: 0
-    - Name: riftTweenEase
+    - Name: FinalSpiritAttackDamageMult
       Entry: 3
       Data: 0
+    - Name: RiftTweenEase
+      Entry: 3
+      Data: 0
+    - Name: StunLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

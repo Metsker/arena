@@ -1,8 +1,9 @@
 ﻿using __Scripts.Assemblies.Input;
 using __Scripts.Assemblies.Network.NetworkLifecycle;
 using __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggles;
+using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using JetBrains.Annotations;
 using VContainer.Unity;
 

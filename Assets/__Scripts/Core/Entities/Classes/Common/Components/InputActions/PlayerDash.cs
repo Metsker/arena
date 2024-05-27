@@ -1,14 +1,14 @@
 ﻿using __Scripts.Assemblies.Input;
 using __Scripts.Assemblies.Network.NetworkLifecycle;
 using __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces;
-using __Scripts.Assemblies.Utilities.Timer;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Collisions;
+using __Scripts.Assemblies.Utilities.Timers;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Classes.Common.Data.Player;
 using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
 using Arena.__Scripts.Core.Entities.Common.Data;
 using Arena.__Scripts.Core.Entities.Common.Enums;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggles;
+using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;

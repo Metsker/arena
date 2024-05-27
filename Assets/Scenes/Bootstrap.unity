@@ -218,11 +218,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4631335349027422727, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
       propertyPath: DebugSimulator.PacketDelayMS
-      value: 0
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
+      propertyPath: NetworkConfig.TickRate
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
+      propertyPath: NetworkConfig.ForceSamePrefabs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
+      propertyPath: NetworkConfig.RecycleNetworkIds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
+      propertyPath: NetworkConfig.EnableSceneManagement
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
       propertyPath: NetworkConfig.EnsureNetworkVariableLengthSafety

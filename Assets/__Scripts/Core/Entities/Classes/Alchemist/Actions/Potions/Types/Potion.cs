@@ -3,7 +3,7 @@ using NTC.Pool;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions.Types
+namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types
 {
     public abstract class Potion : MonoBehaviour
     {

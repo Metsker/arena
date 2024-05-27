@@ -1,11 +1,10 @@
-﻿using System;
-using __Scripts.Assemblies.Network.NetworkLifecycle;
+﻿using __Scripts.Assemblies.Network.NetworkLifecycle;
 using __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggles;
+using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using JetBrains.Annotations;
-using UniRx;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer.Unity;
@@ -24,9 +23,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
         private readonly PlayerStaticData _staticData;
         private readonly PhysicsWrapper _physicsWrapper;
         private readonly GroundCheck _groundCheck;
-
-        private IDisposable _groundCheckDisposable;
-
+        
         public PlayerGravity(
             PlayerStaticData playerStaticData,
             PhysicsWrapper physicsWrapper,
@@ -46,12 +43,12 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
 
         public void OnNetworkSpawnOwner(NetworkBehaviour networkBehaviour)
         {
-            _groundCheckDisposable = _groundCheck.IsOnGround.Subscribe(OnGroundChanged);
+            _groundCheck.isOnGround.OnValueChanged += OnGroundChanged;
         }
 
         public void OnNetworkDespawnOwner(NetworkBehaviour networkBehaviour)
         {
-            _groundCheckDisposable?.Dispose();
+            _groundCheck.isOnGround.OnValueChanged -= OnGroundChanged;
         }
         
         public void FixedTick()
@@ -62,7 +59,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
             if (!IsOwner)
                 return;
 
-            if (_groundCheck.IsOnGround.Value)
+            if (_groundCheck.isOnGround.Value)
                 return;
             
             HandleAirGravity();
@@ -78,7 +75,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
                 SetGravityMultiplier(CommonStaticData.fallGravityMult);
         }
 
-        private void OnGroundChanged(bool onGround)
+        private void OnGroundChanged(bool _, bool onGround)
         {
             if (Disabled)
                 return;

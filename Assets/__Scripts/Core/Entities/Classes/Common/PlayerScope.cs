@@ -1,14 +1,10 @@
-﻿using System;
-using __Scripts.Assemblies.Network.NetworkLifecycle;
-using __Scripts.Assemblies.Utilities;
+﻿using __Scripts.Assemblies.Network.NetworkLifecycle;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Collisions;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
 using Arena.__Scripts.Core.Entities.Common.Data;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using KBCore.Refs;
-using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -53,7 +49,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common
         private void RegisterData(IContainerBuilder builder)
         {
             builder.RegisterInstance(networkClassDataContainer)
-                .As<IClassNetworkDataContainer, INetworkDataContainer, TContainer>();
+                .As<IClassNetworkDataContainer, INetworkDataContainer, IHealth, TContainer>();
             
             builder.RegisterInstance(playerStaticData.AvailableData);
         }

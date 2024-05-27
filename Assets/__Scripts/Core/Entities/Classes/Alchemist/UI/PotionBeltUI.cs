@@ -1,7 +1,6 @@
 ﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions;
 using UnityEngine;
 using UnityEngine.UI;
 

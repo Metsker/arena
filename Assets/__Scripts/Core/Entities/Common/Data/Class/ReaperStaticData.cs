@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using Sirenix.Serialization;
 using UnityEngine;
 
 namespace Arena.__Scripts.Core.Entities.Common.Data.Class

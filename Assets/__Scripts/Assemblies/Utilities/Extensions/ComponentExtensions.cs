@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Arena.__Scripts;
+using __Scripts.Assemblies.Utilities.Attributes;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

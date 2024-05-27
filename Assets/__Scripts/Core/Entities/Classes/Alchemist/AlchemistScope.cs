@@ -1,8 +1,6 @@
 ﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions;
 using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Potions;
 using Arena.__Scripts.Core.Entities.Classes.Common;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
 using UnityEngine;
 using VContainer;

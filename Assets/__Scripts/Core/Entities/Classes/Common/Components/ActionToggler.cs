@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Common.Enums;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
 using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggles;
 using UnityEngine;
 using VContainer;
 

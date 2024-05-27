@@ -2,8 +2,8 @@
 using __Scripts.Assemblies.Network.NetworkLifecycle;
 using __Scripts.Assemblies.Utilities.Extensions;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Collisions;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
 using Arena.__Scripts.Core.Entities.Common.Data;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;

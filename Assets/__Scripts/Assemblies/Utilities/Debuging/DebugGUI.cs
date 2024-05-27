@@ -28,7 +28,7 @@ namespace __Scripts.Assemblies.Utilities.Debuging
         
         private static void OnToolbarGUI()
         {
-            DebugData.debugField = GUILayout.Toggle(DebugData.debugField,
+            DebugData.isDebug = GUILayout.Toggle(DebugData.isDebug,
                 new GUIContent("Debug", "Switch debug mode"));
         }
     }

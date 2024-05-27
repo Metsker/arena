@@ -1,6 +1,6 @@
-﻿using Arena.__Scripts.Core.Effects;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
+﻿using Arena.__Scripts.Core.Entities.Classes.Common.Components;
 using Arena.__Scripts.Core.Entities.Common.Enums;
+using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 
 namespace Arena.__Scripts.Core.Entities.Common.Effects.Variants
 {
@@ -8,14 +8,12 @@ namespace Arena.__Scripts.Core.Entities.Common.Effects.Variants
     {
         private ActionToggler _actionToggler;
 
-        public void Initialize(ActionToggler actionToggler)
-        {
-            _actionToggler = actionToggler;
-        }
-
         public override void OnApply()
         {
+            _actionToggler = Target.GetComponent<ActionToggler>();
+            
             _actionToggler.DisableAll(ChargableDisableMode.Release, true);
+            _actionToggler.Enable<IToggleablePhysics>();
         }
 
         public override void OnComplete()

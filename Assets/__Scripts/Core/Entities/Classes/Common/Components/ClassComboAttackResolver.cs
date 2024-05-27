@@ -1,7 +1,7 @@
 ﻿using __Scripts.Assemblies.Input;
 using Arena.__Scripts.Core.Entities.Common.Components;
 using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggles;
+using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using UnityEngine.InputSystem;
 using VContainer;
 
@@ -11,17 +11,19 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
     {
         public bool Disabled { get; set; }
 
-        protected PlayerStaticData playerStaticData;
-        
+        protected PlayerStaticData PlayerStaticData;
+        protected ActionToggler ActionToggler;
+
         private InputReader _inputReader;
 
         [Inject]
         private void Construct(
             InputReader inputReader,
-            PlayerStaticData staticData,
-            ActionToggler actionToggler)
+            ActionToggler actionToggler,
+            PlayerStaticData staticData)
         {
-            playerStaticData = staticData;
+            PlayerStaticData = staticData;
+            ActionToggler = actionToggler;
             _inputReader = inputReader;
 
             actionToggler.Register(this);
@@ -39,6 +41,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
 
         public override void OnNetworkDespawn()
         {
+            base.OnNetworkDespawn();
+            
             if (!IsOwner)
                 return;
             
@@ -52,11 +56,11 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
 
             if (!context.performed)
                 return;
-            
-            ProgressCombo();
+
+            ProgressComboByOwner();
         }
 
         protected override float ComboResetTime() =>
-            playerStaticData.commonStaticData.comboResetTime;
+            PlayerStaticData.commonStaticData.comboResetTime;
     }
 }

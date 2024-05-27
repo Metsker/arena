@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace __Scripts.Assemblies.Utilities.Timer
+namespace __Scripts.Assemblies.Utilities.Timers
 {
     public abstract class Timer
     {

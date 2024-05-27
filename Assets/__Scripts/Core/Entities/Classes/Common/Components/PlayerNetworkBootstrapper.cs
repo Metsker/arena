@@ -1,5 +1,4 @@
 ﻿using __Scripts.Assemblies.Input;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
 using Cinemachine;
 using Unity.Netcode;

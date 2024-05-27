@@ -1,40 +1,40 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Arena.__Scripts.Core.Entities.Common.Enums;
 using UniRx;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Effects
+namespace Arena.__Scripts.Core.Entities.Common.Effects
 {
     public abstract class Effect : IEffect
     {
-        protected GameObject Target;
-        protected int TickCount;
+        public float Duration { get; private set; }
         
+        protected float TickDuration;
+        protected ulong NetworkObjectId => _handler.NetworkObjectId;
+        protected Transform Target => _handler.transform;
+        
+        private float _startDuration;
+
         private IDisposable _timerDisposable;
-        private Dictionary<Type, IEffect> _activeEffects;
+        private EffectsHandler _handler;
 
         public Effect SetTimer(float duration, float tickDuration)
         {
-            TickCount = (int)(duration / tickDuration);
+            Duration = duration;
+            TickDuration = tickDuration;
+            _startDuration = duration;
             
             _timerDisposable = Observable
-                .FromCoroutine(() => Timer(duration, tickDuration))
+                .FromCoroutine(() => Timer(tickDuration))
                 .Subscribe();
             
             return this;
         }
 
-        public Effect SetCollection(Dictionary<Type, IEffect> activeEffects)
+        public Effect SetHandler(EffectsHandler handler)
         {
-            _activeEffects = activeEffects;
-            return this;
-        }
-
-        public Effect SetTarget(GameObject gameObject)
-        {
-            Target = gameObject;
+            _handler = handler;
             return this;
         }
 
@@ -44,22 +44,25 @@ namespace Arena.__Scripts.Core.Effects
 
         public virtual void OnComplete(){}
 
+        public void ResetTimer() =>
+            Duration = _startDuration;
+
         public void Dispose()
         {
             OnComplete();
             
             _timerDisposable?.Dispose();
-            _activeEffects.Remove(GetType());
+            _handler.RemoveEffectOfType(GetType());
         }
 
-        private IEnumerator Timer(float duration, float tickDuration)
+        private IEnumerator Timer(float tickDuration)
         {
             OnApply();
-            while (duration >= tickDuration)
+            while (Duration >= tickDuration)
             {
                 yield return new WaitForSeconds(tickDuration);
 
-                duration -= tickDuration;
+                Duration -= tickDuration;
 
                 OnTick();
             }
@@ -67,5 +70,8 @@ namespace Arena.__Scripts.Core.Effects
         }
 
         public abstract EffectType GetEffectType();
+        
+        public virtual int CompareTo(IEffect other) =>
+            Duration.CompareTo(other.Duration);
     }
 }

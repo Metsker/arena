@@ -29,22 +29,22 @@ MonoBehaviour:
       Data: Arena.__Scripts.Core.Entities.Classes.Common.Data.Player.BaseStats, Assembly-CSharp
     - Name: health
       Entry: 3
-      Data: 0
+      Data: 75
     - Name: maxHealth
       Entry: 3
-      Data: 0
+      Data: 75
     - Name: speed
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: damage
       Entry: 3
-      Data: 0
+      Data: 25
     - Name: attacksPerSec
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: attackRange
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -54,22 +54,22 @@ MonoBehaviour:
         Assembly-CSharp
     - Name: action1Cd
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: action2Cd
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: dashCd
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: dashRange
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: jumpCount
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: ultimateCombo
       Entry: 3
-      Data: 0
+      Data: 1000
     - Name: 
       Entry: 8
       Data: 
@@ -78,7 +78,28 @@ MonoBehaviour:
       Data: Arena.__Scripts.Core.Entities.Classes.Summoner.Data.SummonerStats, Assembly-CSharp
     - Name: riftAttackRange
       Entry: 4
-      Data: 0
+      Data: 3
+    - Name: bleedDamage
+      Entry: 3
+      Data: 10
+    - Name: bleedDuration
+      Entry: 4
+      Data: 3
+    - Name: drainHealPerStack
+      Entry: 3
+      Data: 5
+    - Name: materializeDuration
+      Entry: 4
+      Data: 4
+    - Name: materializeHealth
+      Entry: 3
+      Data: 250
+    - Name: stunRadius
+      Entry: 4
+      Data: 2
+    - Name: stunDuration
+      Entry: 4
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -141,6 +162,27 @@ MonoBehaviour:
       Entry: 7
       Data: Arena.__Scripts.Core.Entities.Classes.Summoner.Data.SummonerStats, Assembly-CSharp
     - Name: riftAttackRange
+      Entry: 4
+      Data: 0
+    - Name: bleedDamage
+      Entry: 3
+      Data: 0
+    - Name: bleedDuration
+      Entry: 4
+      Data: 0
+    - Name: drainHealPerStack
+      Entry: 3
+      Data: 0
+    - Name: materializeDuration
+      Entry: 4
+      Data: 0
+    - Name: materializeHealth
+      Entry: 3
+      Data: 0
+    - Name: stunRadius
+      Entry: 4
+      Data: 0
+    - Name: stunDuration
       Entry: 4
       Data: 0
     - Name: 

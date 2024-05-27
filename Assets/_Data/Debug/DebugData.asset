@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28022e87121473fb7c192bc9a9def32, type: 3}
   m_Name: DebugData
   m_EditorClassIdentifier: 
-  debugField: 1
+  isDebug: 0
+  playersToWait: 2

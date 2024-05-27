@@ -4,12 +4,14 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-namespace Arena.__Scripts.Core.UI
+
+namespace Arena.__Scripts.Meta.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class ConnectionController : MonoBehaviour
     {
         private UIDocument _uiDocument;
+        private int _playersInRoom;
 
         private void Awake()
         {
@@ -35,7 +37,7 @@ namespace Arena.__Scripts.Core.UI
 
         private void OnEnable()
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += SingletonOnOnClientConnectedCallback;
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
         }
 
         private void OnDisable()
@@ -43,17 +45,19 @@ namespace Arena.__Scripts.Core.UI
             if (NetworkManager.Singleton == null)
                 return;
             
-            NetworkManager.Singleton.OnClientConnectedCallback -= SingletonOnOnClientConnectedCallback;
+            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallback;
         }
 
-        private void SingletonOnOnClientConnectedCallback(ulong id)
+        private void OnClientConnectedCallback(ulong id)
         {
             if (!NetworkManager.Singleton.IsServer)
                 return;
             
-            if (id == NetworkManager.ServerClientId)
+            _playersInRoom++;
+            
+            if (_playersInRoom < DebugData.PlayersToWait)
                 return;
-
+            
             LoadCore();
         }
 

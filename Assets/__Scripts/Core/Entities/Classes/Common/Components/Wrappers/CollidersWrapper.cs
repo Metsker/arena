@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.Collisions
+namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers
 {
     public class CollidersWrapper : MonoBehaviour
     {
