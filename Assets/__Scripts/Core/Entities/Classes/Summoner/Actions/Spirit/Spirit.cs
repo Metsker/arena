@@ -32,13 +32,13 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
 
         private SummonerNetworkDataContainer _data;
         private PlayerStaticData _staticData;
+        
         private readonly CountdownTimer _materializeTimer = new (0);
 
         private readonly List<Collider2D> _stunTargets = new ();
-
-        public bool IsSummoned { get; private set; }
+        
         public bool IsMaterialized { get; private set; }
-        public IHealth Target { get; private set; }
+        public IHealth TargetHealth { get; private set; }
 
         public event Action OnMaterialize;
         public event Action OnDematerialize;
@@ -65,46 +65,37 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
             transform.parent = null;
             healthBar.gameObject.SetActive(false);
         }
-
+        
         public void Summon(Vector3 position)
         {
-            if (IsSummoned)
-                return;
-
-            IsSummoned = true;
-
             transform.position = position;
             gameObject.SetActive(true);
         }
         
         public void Release()
         {
-            if (!IsSummoned)
-                return;
-            
-            IsSummoned = false;
-
+            TargetHealth = null;
             gameObject.SetActive(false);
         }
-        
-        public void SetTarget(IHealth target) =>
-            Target = target;
-        
+
+        public void SetTarget(IHealth targetHealth) =>
+            TargetHealth = targetHealth;
+
         public void Byte(int damage, int bleedStacks = 1)
         {
             if (!IsServer)
                 return;
             
-            if (!IsSummoned || Target == null)
+            if (TargetHealth == null)
                 return;
 
-            Target.DealDamageRpc(damage);
+            TargetHealth.DealDamageRpc(damage);
 
-            if (!Target.Object.TryGetComponent(out EffectsHandler effectsHandler))
+            if (!TargetHealth.Object.TryGetComponent(out EffectsHandler effectsHandler))
                 return;
 
             if (effectsHandler.TryAddEffect(SummonerStats.bleedDuration, out BleedDebuff bleedDebuff, BleedTickDuration))
-                bleedDebuff.Initialize(SummonerStats.bleedDamage, Target);
+                bleedDebuff.Initialize(SummonerStats.bleedDamage, TargetHealth);
         }
 
         public void Materialize()
@@ -147,6 +138,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
         private void Dematerialize()
         {
             health.HealthDepleted -= Dematerialize;
+            _materializeTimer.Stop();
 
             DematerializeServerRpc();
         }
@@ -161,12 +153,12 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
         [Rpc(SendTo.Everyone)]
         private void DematerializeClientRpc()
         {
+            IsMaterialized = false;
             healthBar.gameObject.SetActive(false);
             materializeCollider.enabled = false;
-            IsMaterialized = false;
+            Release();
             
             OnDematerialize?.Invoke();
-            Release();
         }
 
         private void ApplyStun()

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using __Scripts.Assemblies.Input;
+using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
 using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine;
@@ -19,13 +20,15 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
 
         private InputReader _inputReader;
         private GroundCheck _groundCheck;
+        private CollidersWrapper _collidersWrapper;
 
         [Inject]
-        private void Construct(InputReader inputReader, GroundCheck groundCheck, ActionToggler actionToggler)
+        private void Construct(InputReader inputReader, GroundCheck groundCheck, ActionToggler actionToggler, CollidersWrapper collidersWrapper)
         {
             _groundCheck = groundCheck;
             _inputReader = inputReader;
-            
+            _collidersWrapper = collidersWrapper;
+
             actionToggler.Register(this);
         }
 
@@ -42,20 +45,18 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
             
             if (!_groundCheck.IsActuallyOnGround)
                 return;
-            
-            Collider2D rayCollider = Physics2D.OverlapBox(castPoint.position, size, 0, castMask.value);
 
-            if (rayCollider == null)
+            if (!Physics2D.OverlapBox(castPoint.position, size, 0, castMask.value))
                 return;
-
-            rayCollider.enabled = false;
-            StartCoroutine(ResetColliderWithDelay(rayCollider));
+            
+            StartCoroutine(AdjustColliderLayers());
         }
 
-        private IEnumerator ResetColliderWithDelay(Collider2D c)
+        private IEnumerator AdjustColliderLayers()
         {
+            _collidersWrapper.PhysicsBox.forceReceiveLayers = ~castMask;
             yield return new WaitForSeconds(ResetSec);
-            c.enabled = true;
+            _collidersWrapper.PhysicsBox.forceReceiveLayers = int.MaxValue;
         }
 
         private void OnDrawGizmosSelected() =>

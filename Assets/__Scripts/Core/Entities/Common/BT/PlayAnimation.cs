@@ -3,7 +3,7 @@ using Bonsai;
 using Bonsai.Core;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Common.BehaviourTree
+namespace Arena.__Scripts.Core.Entities.Common.BT
 {
     [BonsaiNode("Tasks/")]
     public class PlayAnimation : Task

@@ -29,22 +29,22 @@ MonoBehaviour:
       Data: Arena.__Scripts.Core.Entities.Classes.Common.Data.Player.BaseStats, Assembly-CSharp
     - Name: health
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: maxHealth
       Entry: 3
-      Data: 0
+      Data: 100
     - Name: speed
       Entry: 4
-      Data: 0
+      Data: 0.9
     - Name: damage
       Entry: 3
-      Data: 0
+      Data: 50
     - Name: attacksPerSec
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: attackRange
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -54,22 +54,22 @@ MonoBehaviour:
         Assembly-CSharp
     - Name: action1Cd
       Entry: 4
-      Data: 0
+      Data: 10
     - Name: action2Cd
       Entry: 4
-      Data: 0
+      Data: 8
     - Name: dashCd
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: dashRange
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: jumpCount
       Entry: 3
-      Data: 0
+      Data: 3
     - Name: ultimateCombo
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -78,31 +78,31 @@ MonoBehaviour:
       Data: Arena.__Scripts.Core.Entities.Classes.Reaper.Data.ReaperStats, Assembly-CSharp
     - Name: glideBaseDamage
       Entry: 3
-      Data: 24
+      Data: 25
     - Name: action1GlideCount
       Entry: 3
-      Data: 0
+      Data: 5
     - Name: action1Duration
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: action1CastRange
       Entry: 4
-      Data: 0
+      Data: 3
     - Name: glideHealPercent
       Entry: 4
-      Data: 0
+      Data: 1.5
     - Name: action2BaseDamage
       Entry: 3
-      Data: 0
+      Data: 40
     - Name: action2Range
       Entry: 3
-      Data: 0
+      Data: 7
     - Name: action2HitRefundMult
       Entry: 4
-      Data: 0
+      Data: 0.5
     - Name: ultimateStunDurationSec
       Entry: 4
-      Data: 0
+      Data: 4
     - Name: 
       Entry: 8
       Data: 

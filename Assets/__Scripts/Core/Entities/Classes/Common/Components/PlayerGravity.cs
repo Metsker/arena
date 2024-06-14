@@ -81,10 +81,10 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
                 return;
             
             if (onGround)
-                _physicsWrapper.SetGravityScale(CommonStaticData.GravityScale);
+                _physicsWrapper.SetGravityScale(CommonStaticData.gravityScale);
         }
         
         private void SetGravityMultiplier(float mult) =>
-            _physicsWrapper.SetGravityScale(CommonStaticData.GravityScale * mult);
+            _physicsWrapper.SetGravityScale(CommonStaticData.gravityScale * mult);
     }
 }

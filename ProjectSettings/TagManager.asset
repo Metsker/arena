@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - RoomBounds
   - 
   - PlayerPhysics
   - PlayerHitbox
@@ -25,9 +25,9 @@ TagManager:
   - 
   - EnemyProjectile
   - 
-  - 
-  - Obstacle
-  - PassThroughObstacle
+  - Ground
+  - Platform
+  - PassThroughPlatform
   - Environment
   - DestructibleEnvironment
   - 

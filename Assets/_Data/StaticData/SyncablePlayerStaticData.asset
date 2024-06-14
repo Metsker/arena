@@ -29,16 +29,16 @@ MonoBehaviour:
       Data: Arena.__Scripts.Core.Entities.Common.Data.CommonStaticData, Assembly-CSharp
     - Name: groundDrag
       Entry: 4
-      Data: 0.2
+      Data: 0.1
     - Name: airDrag
       Entry: 4
-      Data: 0.95
-    - Name: <GravityStrength>k__BackingField
+      Data: 0.975
+    - Name: gravityStrength
       Entry: 4
-      Data: -37.5
-    - Name: <GravityScale>k__BackingField
+      Data: -31.25
+    - Name: gravityScale
       Entry: 4
-      Data: 3.82262969
+      Data: 3.185525
     - Name: fallGravityMult
       Entry: 4
       Data: 2
@@ -59,25 +59,25 @@ MonoBehaviour:
       Data: UnityEngine.LayerMask, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 3145728
+      Data: 3670016
     - Name: 
       Entry: 8
       Data: 
     - Name: jumpHeight
       Entry: 4
-      Data: 3
+      Data: 2.5
     - Name: jumpTimeToApex
       Entry: 4
       Data: 0.4
-    - Name: <JumpForce>k__BackingField
+    - Name: jumpForce
       Entry: 4
-      Data: 15
+      Data: 12.5
     - Name: secondaryJumpsForceModifier
       Entry: 4
-      Data: 0.75
+      Data: 0.9
     - Name: jumpCutGravityMult
       Entry: 4
-      Data: 5
+      Data: 2
     - Name: jumpHangGravityMult
       Entry: 4
       Data: 0.5
@@ -242,10 +242,10 @@ MonoBehaviour:
     - Name: airDrag
       Entry: 4
       Data: 0
-    - Name: <GravityStrength>k__BackingField
+    - Name: gravityStrength
       Entry: 4
       Data: 0
-    - Name: <GravityScale>k__BackingField
+    - Name: gravityScale
       Entry: 4
       Data: 0
     - Name: fallGravityMult
@@ -278,7 +278,7 @@ MonoBehaviour:
     - Name: jumpTimeToApex
       Entry: 4
       Data: 0
-    - Name: <JumpForce>k__BackingField
+    - Name: jumpForce
       Entry: 4
       Data: 0
     - Name: secondaryJumpsForceModifier

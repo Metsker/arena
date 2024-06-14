@@ -1,7 +1,7 @@
 ﻿using Bonsai;
 using Bonsai.Standard;
 
-namespace Arena.__Scripts.Core.Entities.Common.BehaviourTree
+namespace Arena.__Scripts.Core.Entities.Common.BT
 {
     [BonsaiNode("Conditional/", "Condition")]
     public class IsValueNotSet : IsValueSet

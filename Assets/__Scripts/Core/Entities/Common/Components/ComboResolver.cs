@@ -1,21 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using __Scripts.Assemblies.Network.Serialization;
 using __Scripts.Assemblies.Utilities.Timers;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Sirenix.Serialization;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
 namespace Arena.__Scripts.Core.Entities.Common.Components
 {
-    public abstract class ComboResolver : SerializedNetworkBehaviour
+    public abstract class ComboResolver : NetworkBehaviour
     {
-        [OdinSerialize] protected ICommand[] comboCommands;
+        protected List<ICommand> ComboCommands;
         
         protected int ComboPointer;
-        protected ICommand CurrentCommand => comboCommands[ComboPointer];
+        protected ICommand CurrentCommand => ComboCommands[ComboPointer];
         
         private CountdownTimer _comboResetTimer;
         private Task _currentComboTask;
@@ -35,26 +34,36 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
 
         public override void OnNetworkSpawn()
         {
-            foreach (ICommand command in comboCommands)
+            ComboCommands = new List<ICommand>();
+            
+            CreateComboCommands(ComboCommands);
+            
+            foreach (ICommand command in ComboCommands)
                 _container.Inject(command);
             
             if (!IsOwner)
                 return;
-
-            _comboResetTimer = new CountdownTimer(ComboResetTime());
-            _comboResetTimer.OnTimerStop = OnComboResetRpc;
+            
+            _comboResetTimer = new CountdownTimer(ComboResetTime())
+            {
+                OnTimerStop = () =>
+                {
+                    OnComboReset();
+                    OnComboResetServerRpc();
+                }
+            };
         }
 
         public override void OnNetworkDespawn()
         {
-            foreach (ICommand command in comboCommands)
+            foreach (ICommand command in ComboCommands)
             {
                 if (command is IDisposable disposable)
                     disposable.Dispose();
             }
         }
         
-        protected void ProgressComboByOwner()
+        protected void ProgressComboOwner()
         {
             if (!CanProgressCombo() || _currentComboTask != null && _currentComboTask.Status != TaskStatus.RanToCompletion)
                 return;
@@ -66,24 +75,16 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
         }
 
         [Rpc(SendTo.Server)]
-        private void ProgressComboServerRpc(RpcParams rpcParams = default)
-        {
-            ProgressComboForProxiesRpc(new RpcParams
-            {
-                Send = new RpcSendParams
-                {
-                    Target = RpcTarget.Not(rpcParams.Receive.SenderClientId, RpcTargetUse.Persistent)
-                }
-            });
-        }
+        private void ProgressComboServerRpc() =>
+            ProgressComboProxiesRpc();
 
-        [Rpc(SendTo.SpecifiedInParams)]
-        private void ProgressComboForProxiesRpc(RpcParams _) =>
+        [Rpc(SendTo.NotOwner)]
+        private void ProgressComboProxiesRpc() =>
             ProgressCombo();
 
         private async void ProgressCombo()
         {
-            ICommand currentCommand = comboCommands[ComboPointer];
+            ICommand currentCommand = ComboCommands[ComboPointer];
             
             OnCombo(currentCommand);
             
@@ -93,22 +94,31 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
             
             if (currentCommand is IProgressable progressable && !progressable.CanProgress())
             {
-                if (IsOwner)
-                    OnComboResetRpc();
+                OnComboReset();
                 return;
             }
 
             if (IsOwner)
                 _comboResetTimer.Start();
             
-            ComboPointer = ++ComboPointer % comboCommands.Length;
+            ComboPointer = ++ComboPointer % ComboCommands.Count;
         }
 
         protected virtual void OnCombo(ICommand currentCommand)
         {
         }
         
-        protected virtual void OnComboResetRpc() =>
+        protected abstract void CreateComboCommands(List<ICommand> comboCommands);
+
+        [Rpc(SendTo.Server)]
+        private void OnComboResetServerRpc() =>
+            OnComboResetProxiesRpc();
+
+        [Rpc(SendTo.NotOwner)]
+        private void OnComboResetProxiesRpc() =>
+            OnComboReset();
+
+        protected virtual void OnComboReset() =>
             ComboPointer = 0;
 
         protected virtual bool CanProgressCombo() =>

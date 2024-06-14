@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using __Scripts.Assemblies.Utilities.Extensions;
@@ -11,55 +10,54 @@ using VContainer;
 
 namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
 {
-    [Serializable]
     public class AttackCommand : ICommand
     {
         private const float CrossFadeDuration = 0.2f;
-
-        [Header("Dependencies")]
-        [SerializeField] private ParticleSystem particleSystem;
-        [SerializeField] private string animationName;
-
         private float HalfRange => _range * 0.5f;
 
         private static int _animationHash;
 
-        private List<Collider2D> _hits;
-        private float _animationLength;
+        private readonly List<Collider2D> _hits;
+        private readonly LayerMask _attackLayer;
+        private readonly float _attackBoxHeight;
+        private readonly string _animationName;
+        private readonly ParticleSystem _fx;
+        private readonly ActionToggler _actionToggler;
 
+        private float _animationLength;
         private IEntityModel _entityModel;
         private Animator _animator;
-        private ActionToggler _actionToggler;
-        private LayerMask _attackLayer;
-        private float _attackBoxHeight;
         private float _range;
         private int _damage;
-        private bool _isOwner;
 
         [Inject]
         private void Construct(
             IEntityModel entityModel,
-            ActionToggler actionToggler,
             Animator animator)
         {
             _animator = animator;
             _entityModel = entityModel;
-            _actionToggler = actionToggler;
         }
 
-        public void Init(
-            bool isOwner,
+        public AttackCommand(
+            string animationName,
+            ParticleSystem fx,
             float attackBoxHeight,
-            LayerMask attackLayer)
+            LayerMask attackLayer,
+            ActionToggler actionToggler)
         {
-            _isOwner = isOwner;
+            _actionToggler = actionToggler;
+            _animationName = animationName;
+            _fx = fx;
             _attackBoxHeight = attackBoxHeight;
             _attackLayer = attackLayer;
 
             _hits = new List<Collider2D>();
             _animationHash = Animator.StringToHash(animationName);
 
-            FindClipLength();
+            //TODO: Animation
+            //FindClipLength();
+            _animationLength = 0.5f;
         }
 
         public void SyncStats(int damage, float range)
@@ -70,18 +68,15 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
 
         public async Task Execute()
         {
-            if (_isOwner)
-            {
-                _actionToggler.Disable<IToggleableMovement>(stopPlayer: true);
-                _animator.CrossFadeInFixedTime(_animationHash, CrossFadeDuration);
-            }
+            _actionToggler.Disable<IToggleableMovement>(stop: true);
+            
+            _animator.CrossFadeInFixedTime(_animationHash, CrossFadeDuration);
 
             PlayFx();
 
             await Awaitable.WaitForSecondsAsync(_animationLength);
 
-            if (_isOwner)
-                _actionToggler.Enable<IToggleableMovement>();
+            _actionToggler.Enable<IToggleableMovement>();
         }
 
         public void HitTargets()
@@ -106,16 +101,16 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
         private void FindClipLength()
         {
             AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
-            AnimationClip clip = clips.FirstOrDefault(c => c.name == animationName);
+            AnimationClip clip = clips.FirstOrDefault(c => c.name == _animationName);
 
             if (clip != null)
                 _animationLength = clip.length;
             else
-                Debug.LogWarning("Could not find animation clip: " + animationName);
+                Debug.LogWarning("Could not find animation clip: " + _animationName);
         }
 
         private void PlayFx() =>
-            particleSystem.Play();
+            _fx.Play();
 
         public void DrawGizmos()
         {

@@ -63,10 +63,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions
         {
             if (!context.performed)
                 return;
-
-            if (!_spirit.IsSummoned)
-                return;
-
+            
             if (_materializeTimer.IsRunning)
                 return;
             

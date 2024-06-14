@@ -24,12 +24,10 @@ namespace __Scripts.Assemblies.Network.Spawning
                 return;
             
             foreach (ulong client in clientscompleted)
-                NetworkManager.Singleton.SpawnManager
-                    .InstantiateAndSpawn(
-                        playerPrefab,
-                        client,
-                        true, 
-                        true);
+            {
+                NetworkObject playerObj = Instantiate(playerPrefab);
+                playerObj.SpawnAsPlayerObject(client, true);
+            }
         }
     }
 }

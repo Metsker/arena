@@ -76,11 +76,11 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
             if (!CanJump(callbackContext))
                 return;
 
-            float jumpForce = FirstJump ? StaticData.JumpForce : StaticData.JumpForce * StaticData.secondaryJumpsForceModifier;
+            float jumpForce = FirstJump ? StaticData.jumpForce : StaticData.jumpForce * StaticData.secondaryJumpsForceModifier;
 
             _jumpsLeft--;
 
-            _physicsWrapper.SetGravityScale(StaticData.GravityScale);
+            _physicsWrapper.SetGravityScale(StaticData.gravityScale);
             _physicsWrapper.SetVelocity(y: jumpForce);
         }
 

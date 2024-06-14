@@ -57,9 +57,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
             if (!context.performed)
                 return;
 
-            ProgressComboByOwner();
+            ProgressComboOwner();
         }
-
+        
         protected override float ComboResetTime() =>
             PlayerStaticData.commonStaticData.comboResetTime;
     }

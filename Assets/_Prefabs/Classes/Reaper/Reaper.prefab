@@ -15035,69 +15035,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e335dd359f0490eb43c5e9f47eb122f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 1853449122630781357}
-    - {fileID: 3016551362583685126}
-    - {fileID: 9177211560869650458}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: comboCommands
-      Entry: 7
-      Data: 0|Arena.__Scripts.Core.Entities.Common.Interfaces.ICommand[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 1|Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack.AttackCommand,
-        Assembly-CSharp
-    - Name: particleSystem
-      Entry: 10
-      Data: 0
-    - Name: animationName
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack.AttackCommand,
-        Assembly-CSharp
-    - Name: particleSystem
-      Entry: 10
-      Data: 1
-    - Name: animationName
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack.AttackCommand,
-        Assembly-CSharp
-    - Name: particleSystem
-      Entry: 10
-      Data: 2
-    - Name: animationName
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  attackCommandDependencies:
+  - particleSystem: {fileID: 1853449122630781357}
+    animationName: test
+  - particleSystem: {fileID: 3016551362583685126}
+    animationName: test
+  - particleSystem: {fileID: 9177211560869650458}
+    animationName: test
 --- !u!1 &2864156233861061052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7989301949692420801, guid: e319e87ce1da40f4b83ad7416536e859, type: 3}

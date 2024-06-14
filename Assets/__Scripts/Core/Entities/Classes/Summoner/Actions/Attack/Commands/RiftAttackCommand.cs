@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using __Scripts.Assemblies.Utilities.Extensions;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components;
 using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
@@ -7,28 +8,26 @@ using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using DG.Tweening;
 using UniRx;
 using UniRx.Triggers;
+using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 using Object = UnityEngine.Object;
 
 namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
 {
-    [Serializable]
     public class RiftAttackCommand : ICommand, IProgressable, IDisposable
     {
-        [SerializeField] private RiftModel riftModelPrefab;
+        private readonly float _tweenSpeed;
+        private readonly Ease _tweenEase;
+        private readonly ISpirit _spirit;
+        private readonly RiftModel _riftModel;
+        private readonly GroundCheck _groundCheck;
+        private readonly ActionToggler _actionToggler;
 
         private IEntityModel _entityModel;
-        private float _range;
-        private float _tweenSpeed;
-        private Ease _tweenEase;
         private IDisposable _hitObservable;
-        private ISpirit _spirit;
-
+        private float _range;
         private bool _hitSomething;
-        private RiftModel _riftModel;
-        private GroundCheck _groundCheck;
-        private ActionToggler _actionToggler;
 
         [Inject]
         private void Construct(IEntityModel entityModel)
@@ -36,7 +35,13 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
             _entityModel = entityModel;
         }
 
-        public void Init(ISpirit spirit, GroundCheck groundCheck, ActionToggler actionToggler, float tweenSpeed, Ease tweenEase)
+        public RiftAttackCommand(
+            RiftModel riftModelPrefab,
+            ISpirit spirit,
+            GroundCheck groundCheck,
+            ActionToggler actionToggler,
+            float tweenSpeed,
+            Ease tweenEase)
         {
             _spirit = spirit;
             _groundCheck = groundCheck;
@@ -55,11 +60,12 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
 
         public Task Execute()
         {
+            _actionToggler.Disable<IToggleableMovement>(stop: true);
+            
             _hitSomething = false;
             _hitObservable?.Dispose();
             _riftModel.gameObject.SetActive(true);
             _riftModel.transform.position = _groundCheck.transform.position;
-            _actionToggler.Disable<IToggleableMovement>(stopPlayer: true);
 
             var tween = _riftModel.transform
                 .DOMoveX(_entityModel.FacingSign * _range, _tweenSpeed)
@@ -76,12 +82,12 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
                 .OnTriggerEnter2DAsObservable()
                 .Subscribe(hit =>
                 {
-                    if (!hit.TryGetComponent(out IHealth health))
+                    if (!hit.TryGetComponent(out IHealth target))
                         return;
 
                     tween.Complete();
                     _spirit.Summon(hit.transform.position);
-                    _spirit.SetTarget(health);
+                    _spirit.SetTarget(target);
                     _hitSomething = true;
                     _hitObservable.Dispose();
                 });

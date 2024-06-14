@@ -366,7 +366,7 @@ MonoBehaviour:
   size: {x: 0.36, y: 0.08}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 3149952
+    m_Bits: 3670016
   isOnGround:
     m_InternalValue: 0
 --- !u!1 &3203222043933473467
@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4125880422
+  GlobalObjectIdHash: 3582106874
   InScenePlacedSourceGlobalObjectIdHash: 4000786105
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -1651,7 +1651,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _activeEffects
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Type, mscorlib],[Arena.__Scripts.Core.Effects.IEffect,
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Type, mscorlib],[Arena.__Scripts.Core.Entities.Common.Effects.IEffect,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7

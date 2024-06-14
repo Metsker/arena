@@ -78,5 +78,11 @@ namespace __Scripts.Assemblies.Utilities.Extensions
                 action(parent.GetChild(i));
             }
         }
+        
+        public static bool LeftFrom(this Transform transform, Transform target) =>
+            transform.position.x < target.position.x;
+
+        public static bool RightFrom(this Transform transform, Transform target) =>
+            transform.position.x > target.position.x;
     }
 }

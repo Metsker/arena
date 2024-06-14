@@ -1269,58 +1269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097e888dcfb74df6ba9d831e23a3ef52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 7981600975280302553, guid: 8d5f7793336f0294cb1200618de3d925, type: 3}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: comboCommands
-      Entry: 7
-      Data: 0|Arena.__Scripts.Core.Entities.Common.Interfaces.ICommand[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 1|Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.RiftAttackCommand,
-        Assembly-CSharp
-    - Name: riftModelPrefab
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.SpiritAttackCommand,
-        Assembly-CSharp
-    - Name: animationName
-      Entry: 1
-      Data: 112
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 3|Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.FinalSpiritAttackCommand,
-        Assembly-CSharp
-    - Name: animationName
-      Entry: 1
-      Data: 222
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  riftModelPrefab: {fileID: 7981600975280302553, guid: 8d5f7793336f0294cb1200618de3d925, type: 3}
 --- !u!114 &7600945692239654177
 MonoBehaviour:
   m_ObjectHideFlags: 0

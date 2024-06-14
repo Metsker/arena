@@ -19,13 +19,12 @@ namespace Arena.__Scripts.Core.Entities.Common.Data
         [SuffixLabel("Unused"), JsonIgnore][Range(0, 100)] public float fallingDistanceToBigLand;*/
         [Range(0f, 1f)] public readonly float groundDrag;
         [Range(0f, 1f)] public readonly float airDrag;
+
+        [OnInspectorInit(nameof(RecalculateGravity))]
+        [ReadOnly] public float gravityStrength;
+
+        [ReadOnly] public float gravityScale;
         
-        [OnInspectorInit(nameof(CalculateGravityStrength))]
-        [OnValueChanged(nameof(CalculateGravityScale)), OnValueChanged(nameof(CalculateJumpForce))]
-        [field: SerializeField, ReadOnly] public float GravityStrength  { get; private set; }
-        
-        [OnInspectorInit(nameof(CalculateGravityScale))]
-        [field: SerializeField, ReadOnly] public float GravityScale { get; private set; }
         public readonly float fallGravityMult;
         /*[SuffixLabel("Unused"), JsonIgnore] public float maxFallSpeed;
         [SuffixLabel("Unused"), JsonIgnore] public float fastFallGravityMult;
@@ -47,14 +46,13 @@ namespace Arena.__Scripts.Core.Entities.Common.Data
         public readonly LayerMask dashBlockLayerMask;
         
         [Header("Jump")]
-        [OnValueChanged(nameof(CalculateGravityStrength))]
+        [OnValueChanged(nameof(RecalculateGravity))]
         public readonly float jumpHeight;
         
-        [OnValueChanged(nameof(CalculateGravityStrength)), OnValueChanged(nameof(CalculateJumpForce))]
+        [OnValueChanged(nameof(RecalculateGravity))]
         public readonly float jumpTimeToApex;
-        
-        [OnInspectorInit(nameof(CalculateJumpForce))]
-        [field: SerializeField, ReadOnly] public float JumpForce { get; private set; }
+
+        [ReadOnly] public float jumpForce;
         
         public readonly float secondaryJumpsForceModifier;
         public readonly float jumpCutGravityMult;
@@ -83,13 +81,11 @@ namespace Arena.__Scripts.Core.Entities.Common.Data
         [OdinSerialize] public float RunAnimationExitSpeed { get; private set; }*/
         #endregion
         
-        public void CalculateGravityStrength() =>
-            GravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
-
-        public void CalculateGravityScale() =>
-            GravityScale = GravityStrength / Physics2D.gravity.y;
-
-        public void CalculateJumpForce() =>
-            JumpForce = Mathf.Abs(GravityStrength) * jumpTimeToApex;
+        public void RecalculateGravity()
+        {
+            gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+            gravityScale = gravityStrength / Physics2D.gravity.y;
+            jumpForce = Mathf.Abs(gravityStrength) * jumpTimeToApex;
+        }
     }
 }

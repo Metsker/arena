@@ -48,16 +48,16 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions
             if (!context.performed)
                 return;
 
-            if (!_spirit.IsSummoned)
+            if (_spirit.TargetHealth == null)
                 return;
-
+            
             DrainServerRpc();
         }
 
         [Rpc(SendTo.Server)]
         private void DrainServerRpc()
         {
-            EffectsHandler targetEffects = _spirit.Target.Object.GetComponent<EffectsHandler>();
+            EffectsHandler targetEffects = _spirit.TargetHealth.Object.GetComponent<EffectsHandler>();
 
             if (targetEffects == null || !targetEffects.TryGetEffectOfType(out BleedDebuff bleedDebuff))
                 return;

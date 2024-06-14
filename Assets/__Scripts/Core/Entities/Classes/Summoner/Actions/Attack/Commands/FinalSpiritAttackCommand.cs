@@ -6,15 +6,13 @@ using UnityEngine;
 
 namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
 {
-    [Serializable]
     public class FinalSpiritAttackCommand : ICommand
     {
-        [SerializeField] private string animationName;
+        private readonly ISpirit _spirit;
         
-        private ISpirit _spirit;
         private int _damage;
 
-        public void Init(ISpirit spirit)
+        public FinalSpiritAttackCommand(ISpirit spirit)
         {
             _spirit = spirit;
         }

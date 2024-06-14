@@ -1,26 +1,27 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using Arena.__Scripts.Core.Entities.Classes.Common.Components;
 using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands;
 using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
 using Arena.__Scripts.Core.Entities.Classes.Summoner.Data;
 using Arena.__Scripts.Core.Entities.Common.Data.Class;
 using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
-using Unity.Netcode;
+using UnityEngine;
 using VContainer;
 
 namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
 {
     public class SummonerComboAttackResolver : ClassComboAttackResolver
     {
+        [SerializeField] private RiftModel riftModelPrefab;
+
         private SummonerStaticData SummonerStaticData => PlayerStaticData.summonerStaticData;
 
         private SummonerNetworkDataContainer _summonerNetworkDataContainer;
         private ISpirit _spirit;
         private GroundCheck _groundCheck;
 
-        private ICommand[] _materializeComboCommands;
-        private ICommand[] _dematerializeComboCommands;
+        private List<ICommand> _materializeComboCommands;
+        private List<ICommand> _dematerializeComboCommands;
 
         [Inject]
         private void Construct(SummonerNetworkDataContainer summonerNetworkDataContainer, GroundCheck groundCheck, ISpirit spirit)
@@ -30,27 +31,35 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
             _spirit = spirit;
         }
 
+        protected override void CreateComboCommands(List<ICommand> comboCommands)
+        {
+            RiftAttackCommand riftAttackCommand = new (
+                riftModelPrefab,
+                _spirit,
+                _groundCheck,
+                ActionToggler,
+                SummonerStaticData.RiftTweenSpeed,
+                SummonerStaticData.RiftTweenEase);
+            SpiritAttackCommand spiritAttackCommand = new (_spirit);
+            FinalSpiritAttackCommand finalSpiritAttackCommand = new (_spirit);
+
+            comboCommands.AddRange(new ICommand[]
+            {
+                riftAttackCommand, spiritAttackCommand, finalSpiritAttackCommand
+            });
+
+            _materializeComboCommands = new List<ICommand>
+            {
+                spiritAttackCommand,
+                finalSpiritAttackCommand
+            };
+
+            _dematerializeComboCommands = new List<ICommand>(comboCommands);
+        }
+
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
-
-            foreach (ICommand comboCommand in comboCommands)
-            {
-                switch (comboCommand)
-                {
-                    case RiftAttackCommand riftAttackCommand:
-                        riftAttackCommand.Init(_spirit, _groundCheck, ActionToggler, SummonerStaticData.RiftTweenSpeed, SummonerStaticData.RiftTweenEase);
-                        break;
-                    case SpiritAttackCommand spiritAttackCommand:
-                        spiritAttackCommand.Init(_spirit);
-                        break;
-                    case FinalSpiritAttackCommand finalSpiritAttackCommand:
-                        finalSpiritAttackCommand.Init(_spirit);
-                        break;
-                }
-            }
-            _dematerializeComboCommands = comboCommands;
-            _materializeComboCommands = _dematerializeComboCommands.Skip(1).ToArray();
 
             _spirit.OnMaterialize += OnMaterialize;
             _spirit.OnDematerialize += OnDematerialize;
@@ -66,7 +75,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
 
         private void OnMaterialize()
         {
-            comboCommands = _materializeComboCommands;
+            ComboCommands = _materializeComboCommands;
 
             if (ComboPointer > 0)
                 ComboPointer--;
@@ -74,7 +83,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
 
         private void OnDematerialize()
         {
-            comboCommands = _dematerializeComboCommands;
+            ComboCommands = _dematerializeComboCommands;
 
             ComboPointer = 0;
         }
@@ -87,7 +96,6 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
                     riftAttackCommand.SyncStats(_summonerNetworkDataContainer.SummonerStats.riftAttackRange);
                     break;
                 case SpiritAttackCommand spiritAttackCommand:
-                    ActionToggler.Enable<IToggleableMovement>();
                     spiritAttackCommand.SyncStats(_summonerNetworkDataContainer.Damage);
                     break;
                 case FinalSpiritAttackCommand finalSpiritAttackCommand:
@@ -96,16 +104,18 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
             }
         }
 
-        protected override bool CanProgressCombo() =>
-            _groundCheck.isOnGround.Value;
-
-        [Rpc(SendTo.Everyone)]
-        protected override void OnComboResetRpc()
+        protected override bool CanProgressCombo()
         {
-            base.OnComboResetRpc();
+            if (!_spirit.IsMaterialized && ComboPointer == 0)
+                return _groundCheck.IsActuallyOnGround;
 
-            ActionToggler.Enable<IToggleableMovement>();
-            
+            return true;
+        }
+
+        protected override void OnComboReset()
+        {
+            base.OnComboReset();
+
             if (!_spirit.IsMaterialized)
                 _spirit.Release();
         }

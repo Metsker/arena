@@ -3,7 +3,15 @@ using UnityEngine;
 
 namespace Bonsai.Core
 {
-  public class BonsaiTreeComponent : MonoBehaviour
+  public interface IBonsaiTreeComponent
+  {
+    /// <summary>
+    /// The tree instance running in game.
+    /// </summary>
+    BehaviourTree Tree { get; }
+  }
+
+  public class BonsaiTreeComponent : MonoBehaviour, IBonsaiTreeComponent
   {
     /// <summary>
     /// The tree blueprint asset used.

@@ -57,12 +57,12 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
                 Process(toggleable, true);
         }
 
-        public void Disable<T>(ChargableDisableMode disableMode = ChargableDisableMode.None, bool stopPlayer = false) where T : IToggleable
+        public void Disable<T>(ChargableDisableMode disableMode = ChargableDisableMode.None, bool stop = false) where T : IToggleable
         {
             foreach (IToggleable toggleable in _toggleables.Where(t => t is T))
                 Process(toggleable, false, disableMode);
             
-            if (stopPlayer)
+            if (stop)
                 _physicsWrapper.Stop();
         }
 

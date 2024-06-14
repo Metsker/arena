@@ -8,7 +8,7 @@ namespace Arena.__Scripts.Core.Entities.Enemies.Bosses.Gargoyle.Stage2
     {
         public override Status Run()
         {
-            return Status.Success;
+            return Status.Failure;
         }
     }
 }
