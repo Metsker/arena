@@ -8,10 +8,10 @@ using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 
-namespace __Scripts.Assemblies.Utilities.Attributes
+namespace Assemblies.Utilities.Attributes
 {
     [UsedImplicitly]
-    public class DefaultValueDrawer : OdinAttributeDrawer<DefaultAttribute>
+    public class DefaultValueDrawer : OdinAttributeDrawer<DefaultValueAttribute>
     {
         private bool _notCastable;
         

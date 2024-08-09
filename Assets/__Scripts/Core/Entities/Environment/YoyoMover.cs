@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Environment
+namespace Tower.Core.Entities.Environment
 {
     public class YoyoMover : MonoBehaviour
     {

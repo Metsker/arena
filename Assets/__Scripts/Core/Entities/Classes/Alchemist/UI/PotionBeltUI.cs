@@ -1,28 +1,28 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
+﻿using Tower.Core.Entities.Classes.Alchemist.Actions.Potions;
+using Tower.Core.Entities.Classes.Alchemist.Data;
+using Tower.Core.Entities.Classes.Alchemist.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.UI
+namespace Tower.Core.Entities.Classes.Alchemist.UI
 {
     public class PotionBeltUI : MonoBehaviour
     {
         [SerializeField] private Image[] potionImages;
 
-        private PotionBelt _potionBelt;
+        private PotionSelector _potionSelector;
         private PotionTable _potionTable;
 
         private bool _inited;
 
-        public void Init(PotionBelt potionBelt, PotionTable potionTable)
+        public void Init(PotionSelector potionSelector, PotionTable potionTable)
         {
-            _potionBelt = potionBelt;
+            _potionSelector = potionSelector;
             _potionTable = potionTable;
 
-            UpdateUI(_potionBelt.SelectedType.Value);
+            UpdateUI(_potionSelector.SelectedType.Value);
 
-            _potionBelt.SelectedType.OnValueChanged += OnSelectedPotionTypeChanged;
+            _potionSelector.SelectedType.OnValueChanged += OnSelectedPotionTypeChanged;
 
             _inited = true;
         }
@@ -30,7 +30,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.UI
         private void OnDestroy()
         {
             if (_inited)
-                _potionBelt.SelectedType.OnValueChanged -= OnSelectedPotionTypeChanged;
+                _potionSelector.SelectedType.OnValueChanged -= OnSelectedPotionTypeChanged;
         }
 
         private void OnSelectedPotionTypeChanged(PotionType _, PotionType newValue)
@@ -41,15 +41,15 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.UI
         private void UpdateUI(PotionType potionType)
         {
             int selected = (int)potionType;
-            int next = ((int)potionType + 1) % _potionBelt.availableTypes.Count;
+            int next = ((int)potionType + 1) % _potionSelector.AvailableTypes.Count;
             int previous = (int)potionType - 1;
 
             if (previous < 0)
-                previous = _potionBelt.availableTypes.Count - 1;
+                previous = _potionSelector.AvailableTypes.Count - 1;
 
-            potionImages[0].sprite = _potionTable.GetPotionSprite(_potionBelt.availableTypes[previous]);
-            potionImages[1].sprite = _potionTable.GetPotionSprite(_potionBelt.availableTypes[selected]);
-            potionImages[2].sprite = _potionTable.GetPotionSprite(_potionBelt.availableTypes[next]);
+            potionImages[0].sprite = _potionTable.GetPotionSprite(_potionSelector.AvailableTypes[previous]);
+            potionImages[1].sprite = _potionTable.GetPotionSprite(_potionSelector.AvailableTypes[selected]);
+            potionImages[2].sprite = _potionTable.GetPotionSprite(_potionSelector.AvailableTypes[next]);
         }
     }
 }

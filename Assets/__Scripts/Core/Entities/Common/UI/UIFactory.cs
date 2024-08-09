@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Common.UI
+namespace Tower.Core.Entities.Common.UI
 {
     public class UIFactory : MonoBehaviour
     {

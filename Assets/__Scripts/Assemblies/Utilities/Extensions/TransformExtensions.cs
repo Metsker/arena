@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace __Scripts.Assemblies.Utilities.Extensions
+namespace Assemblies.Utilities.Extensions
 {
     public static class TransformExtensions {
         /// <summary>

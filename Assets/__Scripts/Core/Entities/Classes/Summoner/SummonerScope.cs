@@ -1,12 +1,12 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Common;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Data;
+﻿using Tower.Core.Entities.Classes.Common;
+using Tower.Core.Entities.Classes.Summoner.Actions.Spirit;
+using Tower.Core.Entities.Classes.Summoner.Data;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner
+namespace Tower.Core.Entities.Classes.Summoner
 {
-    public class SummonerScope : PlayerScope<SummonerNetworkDataContainer>
+    public class SummonerScope : PlayerScope<SummonerDataContainer>
     {
         [SerializeField] private Spirit spirit;
         

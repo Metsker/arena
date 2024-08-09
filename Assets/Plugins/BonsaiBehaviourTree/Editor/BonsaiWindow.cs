@@ -178,7 +178,7 @@ namespace Bonsai.Designer
         return;
       }
 
-      var btc = Selection.activeGameObject.GetComponent<IBonsaiTreeComponent>();
+      var btc = Selection.activeGameObject.GetComponent<IBonsaiTreeVisualizer>();
       BehaviourTree treeToView = btc?.Tree;
 
       // There must be a non-null tree to view,

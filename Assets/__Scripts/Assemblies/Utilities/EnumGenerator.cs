@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEditor;
 
-namespace __Scripts.Assemblies.Utilities
+namespace Assemblies.Utilities
 {
     public static class EnumGenerator
     {

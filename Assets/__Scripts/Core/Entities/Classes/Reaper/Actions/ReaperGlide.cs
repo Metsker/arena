@@ -1,35 +1,35 @@
 ﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Utilities.Extensions;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Classes.Reaper.Data;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Enums;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+using Assemblies.Input;
+using Assemblies.Utilities.Extensions;
+using Assemblies.Utilities.Timers;
 using DG.Tweening;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Common.Components.InputActions.Enums;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Classes.Reaper.Data;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Enums;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
+namespace Tower.Core.Entities.Classes.Reaper.Actions
 {
     public class ReaperGlide : NetworkBehaviour, IToggleableAbility
     {
         public bool Disabled { get; set; }
-        private float DashSpeed(float distance) => _playerStaticData.commonStaticData.DashSpeed(distance, _reaperNetworkDataContainer.Speed);
+        private float DashSpeed(float distance) => _classStaticData.commonStaticData.DashSpeed(distance, _reaperDataContainer.Speed);
 
         private BackstebDash _backstabDash;
         private InputReader _inputReader;
-        private ReaperNetworkDataContainer _reaperNetworkDataContainer;
+        private ReaperDataContainer _reaperDataContainer;
         private IEntityModel _playerModel;
         private CollidersWrapper _collidersWrapper;
-        private PlayerStaticData _playerStaticData;
+        private ClassStaticData _classStaticData;
         private ActionToggler _actionToggler;
         private PhysicsWrapper _physicsWrapper;
 
@@ -40,10 +40,10 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
 
         [Inject]
         private void Construct(
-            PlayerStaticData playerStaticData,
+            ClassStaticData classStaticData,
             CollidersWrapper collidersWrapper,
             IEntityModel playerModel,
-            ReaperNetworkDataContainer reaperNetworkDataContainer,
+            ReaperDataContainer reaperDataContainer,
             BackstebDash backstebDash,
             InputReader inputReader,
             ActionToggler actionToggler,
@@ -51,10 +51,10 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
         {
             _physicsWrapper = physicsWrapper;
             _actionToggler = actionToggler;
-            _playerStaticData = playerStaticData;
+            _classStaticData = classStaticData;
             _collidersWrapper = collidersWrapper;
             _playerModel = playerModel;
-            _reaperNetworkDataContainer = reaperNetworkDataContainer;
+            _reaperDataContainer = reaperDataContainer;
             _backstabDash = backstebDash;
             _inputReader = inputReader;
             
@@ -66,7 +66,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
             if (IsOwner)
             {
                 _inputReader.Action1 += OnActionInput;
-                _cdTimer = new CountdownTimer(_reaperNetworkDataContainer.ActionMapData.action1Cd);
+                _cdTimer = new CountdownTimer(_reaperDataContainer.ActionMapData.action1Cd);
             }
         }
 
@@ -98,8 +98,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
             RaycastHit2D hit = Physics2D.Raycast(
                 transform.position,
                 _playerModel.FacingDirectionVector,
-                _reaperNetworkDataContainer.ReaperStats.action1CastRange,
-                _playerStaticData.commonStaticData.attackLayerMask);
+                _reaperDataContainer.ReaperStats.action1CastRange,
+                _classStaticData.commonStaticData.attackLayerMask);
 
             if (hit.transform == null || !hit.transform.TryGetComponent(out _targetHealth))
             {
@@ -107,7 +107,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
                 return;
             }
             
-            _cdTimer.Start(_reaperNetworkDataContainer.ActionMapData.action1Cd);
+            _cdTimer.Start(_reaperDataContainer.ActionMapData.action1Cd);
             
             StartCoroutine(BounceGlidingCoroutine(hit));
         }
@@ -160,8 +160,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
 
         private void DealDamage(float modifier) =>
             _targetHealth.DealDamageRpc(
-                _reaperNetworkDataContainer.ReaperStats.glideBaseDamage +
-                _reaperNetworkDataContainer.Damage * modifier);
+                _reaperDataContainer.ReaperStats.glideBaseDamage +
+                _reaperDataContainer.Damage * modifier);
 
         private Vector2 OppositeTopCorner(Collider2D col2D) =>
             _startDirection == Direction.Right ?

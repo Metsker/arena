@@ -1,6 +1,6 @@
 ﻿using Unity.Netcode;
 
-namespace __Scripts.Assemblies.Network.Payloads
+namespace Assemblies.Network.Payloads
 {
     public struct InputPayload : INetworkSerializable
     {

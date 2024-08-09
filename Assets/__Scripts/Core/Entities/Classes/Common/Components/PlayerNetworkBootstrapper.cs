@@ -1,11 +1,12 @@
-﻿using __Scripts.Assemblies.Input;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using Assemblies.Input;
 using Cinemachine;
+using Tower.Core.Entities.Classes.Common.Components.UI;
+using Tower.Core.Entities.Common.Interfaces;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
+namespace Tower.Core.Entities.Classes.Common.Components
 {
     public class PlayerNetworkBootstrapper : NetworkBehaviour
     {
@@ -13,14 +14,14 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
         [SerializeField] private AudioListener audioListener;
         
         private InputReader _inputReader;
-        private PlayerCanvas _playerCanvas;
+        private PlayerLocalCanvas _playerLocalCanvas;
         private IEntityModel _playerModel;
 
         [Inject]
-        private void Construct(InputReader inputReader, PlayerCanvas playerCanvas, IEntityModel playerModel)
+        private void Construct(InputReader inputReader, PlayerLocalCanvas playerLocalCanvas, IEntityModel playerModel)
         {
             _playerModel = playerModel;
-            _playerCanvas = playerCanvas;
+            _playerLocalCanvas = playerLocalCanvas;
             _inputReader = inputReader;
         }
 
@@ -30,14 +31,14 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components
             {
                 audioListener.enabled = true;
                 virtualCamera.Priority = 100;
-                _playerCanvas.gameObject.SetActive(true);
+                _playerLocalCanvas.gameObject.SetActive(true);
                 _inputReader.Enable();
                 _playerModel.SpriteRenderer.sortingOrder++;
             }
             else
             {
                 audioListener.enabled = false;
-                _playerCanvas.gameObject.SetActive(false);
+                _playerLocalCanvas.gameObject.SetActive(false);
                 virtualCamera.Priority = 0;
             }
         }

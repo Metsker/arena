@@ -1,4 +1,4 @@
-﻿namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums
+﻿namespace Tower.Core.Entities.Classes.Alchemist.Enums
 {
     public enum PotionType
     {

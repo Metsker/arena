@@ -1,4 +1,4 @@
-﻿namespace Arena.__Scripts.Core.Entities.Enums
+﻿namespace Tower.Core.Entities.Enums
 {
     public enum Side : byte
     {

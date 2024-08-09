@@ -1,9 +1,9 @@
-﻿using __Scripts.Assemblies.Utilities.Extensions;
+﻿using Assemblies.Utilities.Extensions;
 using Generated;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Arena.__Scripts.Bootstrap
+namespace Tower.Bootstrap
 {
     public class Bootstrapper : MonoBehaviour
     {

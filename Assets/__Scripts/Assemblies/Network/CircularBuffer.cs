@@ -1,4 +1,4 @@
-﻿namespace __Scripts.Assemblies.Network
+﻿namespace Assemblies.Network
 {
     public class CircularBuffer<T>
     {

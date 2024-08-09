@@ -1,8 +1,8 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Classes.Common.Data.Player;
+using Tower.Core.Entities.Classes.Common.Data.Player;
 using Unity.Netcode;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Data
+namespace Tower.Core.Entities.Classes.Summoner.Data
 {
     [Serializable]
     public class SummonerData : ClassData

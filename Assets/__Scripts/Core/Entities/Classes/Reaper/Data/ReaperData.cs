@@ -1,8 +1,8 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Classes.Common.Data.Player;
+using Tower.Core.Entities.Classes.Common.Data.Player;
 using Unity.Netcode;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Data
+namespace Tower.Core.Entities.Classes.Reaper.Data
 {
     [Serializable]
     public class ReaperData : ClassData

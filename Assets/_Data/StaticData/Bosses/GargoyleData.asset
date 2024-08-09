@@ -14,14 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flightUpEase: 4
   flightSideEase: 1
-  attackRange: 2.5
+  attackRange: 3
+  fireRange: 5
   damage: 10
+  stepDuration: 5
+  stepSpeed: 3
+  jumpEase: 2
+  jumpDuration: 0.5
+  jumpPower: 3.5
   boundsLayer:
     serializedVersion: 2
     m_Bits: 64
   playerLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   platformLayers:
     serializedVersion: 2
     m_Bits: 3145728

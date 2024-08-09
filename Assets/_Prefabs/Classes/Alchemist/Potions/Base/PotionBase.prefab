@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Arena.__Scripts.Core.Entities.Classes.Alchemist.AlchemistScope
+    TypeName: Tower.Core.Entities.Classes.Alchemist.AlchemistScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 5947092067904036117}

@@ -1,20 +1,22 @@
 ﻿using System.Collections.Generic;
-using __Scripts.Assemblies.Utilities.Extensions;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Common.Effects;
-using Arena.__Scripts.Core.Entities.Common.Effects.Variants;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+using Assemblies.Utilities.Extensions;
+using Tower.Core.Entities.Classes.Alchemist.Data;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Common.Effects;
+using Tower.Core.Entities.Common.Effects.Variants.Debuffs;
+using Tower.Core.Entities.Common.Interfaces;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Bomba
+namespace Tower.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Bomba
 {
     public class BombaPotion : Potion
     {
+        [SerializeField] private AssetReference spriteReference;
         [SerializeField] private LayerMask bombaAffectLayerMask;
         
-        private PotionBeltStats.Bomba BombaStats => AlchemistNetworkData.PotionBeltStats.bomba;
+        private PotionsStats.Bomba BombaStats => AlchemistData.PotionsStats.bomba;
         
         private readonly List<Collider2D> _results = new ();
         
@@ -28,22 +30,26 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types.
             Physics2D.OverlapCircle(collisionPoint, BombaStats.aoe, new ContactFilter2D
             {
                 useLayerMask = true,
-                layerMask = bombaAffectLayerMask
+                layerMask = bombaAffectLayerMask,
+                useTriggers = true
             }, _results);
             
             foreach (Collider2D col in _results)
             {
-                if (col.TryGetComponent(out EffectsHandler effectsHandler) && col.HasComponent<ActionToggler>())
+                Transform root = col.transform.root;
+                
+                if (root.TryGetComponent(out EffectsHandler effectsHandler) && root.HasComponent<ActionToggler>())
                 {
-                    effectsHandler.TryAddEffect<StunDebuff>(BombaStats.duration);
+                    effectsHandler.Add(new StunDebuff(spriteReference, BombaStats.duration));
                 }
-                if (col.TryGetComponent(out IHealth health))
+                if (root.TryGetComponent(out IHealth health))
                 {
                     float distance = Vector2.Distance(collisionPoint, col.transform.position);
                     float damageT = Mathf.InverseLerp(0, BombaStats.aoe, distance);
-                    float damage = Mathf.Lerp(BombaStats.damage, 0, damageT);
+                    float damage = Mathf.Lerp(AlchemistData.Damage * BombaStats.damageScaling, 0, damageT);
                     
                     health.DealDamageRpc(damage);
+                    StackUltimate(BombaStats.overheat);
                 }
             }
         }

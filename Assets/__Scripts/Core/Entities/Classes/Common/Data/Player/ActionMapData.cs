@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Data.Player
+namespace Tower.Core.Entities.Classes.Common.Data.Player
 {
     [Serializable]
     public struct ActionMapData : INetworkSerializable
@@ -16,8 +16,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Data.Player
         [Space]
         [MinValue(1)] public int jumpCount;
         [Space]
-        [MinValue(1)] public int ultimateCombo;
-        
+        [MinValue(1)] public int ultStacks;
+        [MinValue(1)] public float ultDuration;
+
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {
             serializer.SerializeValue(ref action1Cd);
@@ -25,7 +26,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Data.Player
             serializer.SerializeValue(ref dashCd);
             serializer.SerializeValue(ref dashRange);
             serializer.SerializeValue(ref jumpCount);
-            serializer.SerializeValue(ref ultimateCombo);
+            serializer.SerializeValue(ref ultStacks);
         }
     }
 }

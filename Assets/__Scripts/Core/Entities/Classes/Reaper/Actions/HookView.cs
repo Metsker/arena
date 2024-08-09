@@ -1,7 +1,7 @@
 ﻿using KBCore.Refs;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
+namespace Tower.Core.Entities.Classes.Reaper.Actions
 {
     public class HookView : MonoBehaviour
     {

@@ -1,7 +1,8 @@
-﻿namespace __Scripts.Assemblies.Utilities.Timers
+﻿namespace Assemblies.Utilities.Timers
 {
     public class CountdownTimer : Timer
     {
+        public float Progress => Time / initialTime;
         public CountdownTimer(float value) : base(value) {}
 
         public override void Tick(float deltaTime)

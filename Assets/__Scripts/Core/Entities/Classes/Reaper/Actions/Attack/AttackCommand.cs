@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using __Scripts.Assemblies.Utilities.Extensions;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+using Assemblies.Utilities.Extensions;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
+namespace Tower.Core.Entities.Classes.Reaper.Actions.Attack
 {
     public class AttackCommand : ICommand
     {

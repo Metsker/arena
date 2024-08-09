@@ -2,7 +2,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Data.Player
+namespace Tower.Core.Entities.Classes.Common.Data.Player
 {
     [Serializable]
     public struct BaseStats : INetworkSerializable

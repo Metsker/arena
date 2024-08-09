@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace __Scripts.Assemblies.Utilities
+namespace Assemblies.Utilities
 {
     public static class AwaitableUtils
     {

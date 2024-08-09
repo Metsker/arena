@@ -1,8 +1,8 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Data;
 using Unity.Netcode;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Data.Player
+namespace Tower.Core.Entities.Classes.Common.Data.Player
 {
     [Serializable]
     public abstract class ClassData : TypeId, INetworkSerializable

@@ -1,15 +1,16 @@
-﻿using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Network.NetworkLifecycle;
-using __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+﻿using Assemblies.Input;
+using Assemblies.Network.NetworkLifecycle;
+using Assemblies.Network.NetworkLifecycle.Interfaces;
 using JetBrains.Annotations;
+using Tower.Core.Entities.Classes.Common.Components.Physics;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
+namespace Tower.Core.Entities.Classes.Common.Components.InputActions
 {
     [UsedImplicitly]
     public class PlayerJump : INetworkLifecycleOwnerObserver, IToggleableMovement
@@ -18,29 +19,29 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
         public bool Disabled { get; set; }
         public bool HoldingJump { get; private set; }
 
-        private int MaxJumps => _classNetworkDataContainer.ActionMapData.jumpCount;
+        private int MaxJumps => _classDataContainer.ActionMapData.jumpCount;
         private bool FirstJump => _jumpsLeft == MaxJumps;
-        private CommonStaticData StaticData => _playerStaticData.commonStaticData;
+        private CommonStaticData StaticData => _classStaticData.commonStaticData;
 
         private readonly PhysicsWrapper _physicsWrapper;
         private readonly InputReader _inputReader;
         private readonly GroundCheck _groundCheck;
-        private readonly IClassNetworkDataContainer _classNetworkDataContainer;
-        private readonly PlayerStaticData _playerStaticData;
-
+        private readonly IClassDataContainer _classDataContainer;
+        private readonly ClassStaticData _classStaticData;
+        
         private int _jumpsLeft;
         
         public PlayerJump(
-            PlayerStaticData playerStaticData,
+            ClassStaticData classStaticData,
             PhysicsWrapper physicsWrapper,
             InputReader inputReader,
             GroundCheck groundCheck,
-            IClassNetworkDataContainer classNetworkDataContainer,
+            IClassDataContainer classDataContainer,
             NetworkLifecycleSubject networkLifecycleSubject,
             ActionToggler actionToggler)
         {
-            _playerStaticData = playerStaticData;
-            _classNetworkDataContainer = classNetworkDataContainer;
+            _classStaticData = classStaticData;
+            _classDataContainer = classDataContainer;
             _groundCheck = groundCheck;
             _inputReader = inputReader;
             _physicsWrapper = physicsWrapper;

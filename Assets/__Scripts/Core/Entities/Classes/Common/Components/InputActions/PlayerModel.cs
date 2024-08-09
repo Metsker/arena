@@ -1,11 +1,12 @@
-﻿using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Utilities.Extensions;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using Assemblies.Input;
+using Assemblies.Utilities.Extensions;
+using Tower.Core.Entities.Classes.Common.Components.InputActions.Enums;
+using Tower.Core.Entities.Common.Interfaces;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
+namespace Tower.Core.Entities.Classes.Common.Components.InputActions
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlayerModel : NetworkBehaviour, IEntityModel

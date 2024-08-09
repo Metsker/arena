@@ -1,8 +1,8 @@
-﻿using __Scripts.Assemblies.Network.Enums;
+﻿using Assemblies.Network.Enums;
 using Unity.Netcode.Components;
 using UnityEngine;
 
-namespace __Scripts.Assemblies.Network.Components
+namespace Assemblies.Network.Components
 {
     [DisallowMultipleComponent]
     public class ClientNetworkTransform : NetworkTransform

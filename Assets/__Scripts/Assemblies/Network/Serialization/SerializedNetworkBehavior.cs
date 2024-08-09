@@ -3,7 +3,7 @@ using Sirenix.Serialization;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace __Scripts.Assemblies.Network.Serialization
+namespace Assemblies.Network.Serialization
 {
     /// <summary>
     /// A NetworkBehaviour which is serialized by the Sirenix serialization system.
@@ -20,10 +20,20 @@ namespace __Scripts.Assemblies.Network.Serialization
             set => serializationData = value;
         }
 
-        void ISerializationCallbackReceiver.OnAfterDeserialize() =>
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            if (this == null)
+                return;
+            
             UnitySerializationUtility.DeserializeUnityObject(this, ref serializationData);
+        }
 
-        void ISerializationCallbackReceiver.OnBeforeSerialize() =>
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            if (this == null)
+                return;
+            
             UnitySerializationUtility.SerializeUnityObject(this, ref serializationData);
+        }
     }
 }

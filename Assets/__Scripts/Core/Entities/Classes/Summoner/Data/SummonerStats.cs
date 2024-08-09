@@ -1,9 +1,9 @@
 ﻿using System;
-using __Scripts.Assemblies.Utilities.Attributes;
+using Assemblies.Utilities.Attributes;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Data
+namespace Tower.Core.Entities.Classes.Summoner.Data
 {
     [Serializable]
     public struct SummonerStats : INetworkSerializable
@@ -11,14 +11,14 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Data
         [Header("Attack")]
         public float riftAttackRange;
         [Header("Spirit")]
-        [Default(10)] public int bleedDamage;
-        [Default(2)] public float bleedDuration;
-        [Default(5)] public int drainHealPerStack;
+        [DefaultValue(10)] public int bleedDamage;
+        [DefaultValue(2)] public float bleedDuration;
+        [DefaultValue(5)] public int drainHealPerStack;
         [Header("Materialize")]
-        [Default(4)] public float materializeDuration;
-        [Default(250)] public int materializeHealth;
-        [Default(2)] public float stunRadius;
-        [Default(1)] public float stunDuration;
+        [DefaultValue(4)] public float materializeDuration;
+        [DefaultValue(250)] public int materializeHealth;
+        [DefaultValue(2)] public float stunRadius;
+        [DefaultValue(1)] public float stunDuration;
         
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {

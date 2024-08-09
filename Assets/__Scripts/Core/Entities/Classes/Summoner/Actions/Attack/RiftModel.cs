@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
+namespace Tower.Core.Entities.Classes.Summoner.Actions.Attack
 {
     public class RiftModel : MonoBehaviour
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using __Scripts.Assemblies.Utilities.Attributes;
+using Assemblies.Utilities.Attributes;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace __Scripts.Assemblies.Utilities.Extensions
+namespace Assemblies.Utilities.Extensions
 {
     public static class ComponentExtensions
     {
@@ -48,12 +48,12 @@ namespace __Scripts.Assemblies.Utilities.Extensions
                 
                 foreach (FieldInfo newStField in fieldType
                     .GetFields(flags)
-                    .Where(f => f.IsDefined(typeof(DefaultAttribute))))
+                    .Where(f => f.IsDefined(typeof(DefaultValueAttribute))))
                 {
-                    DefaultAttribute defaultAttribute = newStField.GetCustomAttribute<DefaultAttribute>();
+                    DefaultValueAttribute defaultValueAttribute = newStField.GetCustomAttribute<DefaultValueAttribute>();
                     try
                     {
-                        newStField.SetValue(newSt, defaultAttribute.value);
+                        newStField.SetValue(newSt, defaultValueAttribute.value);
                     }
                     catch (Exception)
                     {

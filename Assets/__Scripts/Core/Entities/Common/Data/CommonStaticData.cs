@@ -2,12 +2,13 @@
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-namespace Arena.__Scripts.Core.Entities.Common.Data
+namespace Tower.Core.Entities.Common.Data
 {
     [Serializable]
     [JsonObject(MemberSerialization.Fields)]
-    public struct CommonStaticData
+    public class CommonStaticData
     {
         [Header("Velocity")]
         /*[SuffixLabel("Unused"), JsonIgnore][Range(0, 100)] public float airVelocityCapX;
@@ -67,6 +68,10 @@ namespace Arena.__Scripts.Core.Entities.Common.Data
         
         [Header("Timers")]
         public readonly float comboResetTime;
+        
+        //TODO: move to outter scope
+        [Header("EffectsVisuals")]
+        public readonly AssetReference stunSpriteReference;
         
         #region Run(Unused)
         /*[PropertySpace(20)]

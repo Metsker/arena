@@ -1,17 +1,18 @@
-﻿using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Unity.Netcode;
+﻿using Assemblies.Network.Serialization;
+using Assemblies.Utilities.Timers;
+using Sirenix.Serialization;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Environment
+namespace Tower.Core.Entities.Environment
 {
-    public class TargetDummy : NetworkBehaviour
+    public class TargetDummy : SerializedNetworkBehaviour
     {
         [SerializeField] private ParticleSystem fxParticleSystem;
         
         [SerializeField] private float resetSec;
         [Header("Data")]
-        [SerializeField] private HealthNetworkContainer healthNetworkContainer;
+        [OdinSerialize] private IHealth health;
 
         private CountdownTimer _countdownTimer;
 
@@ -21,16 +22,16 @@ namespace Arena.__Scripts.Core.Entities.Environment
             {
                 _countdownTimer = new CountdownTimer(resetSec)
                 {
-                    OnTimerStop = healthNetworkContainer.FullHealRpc
+                    OnTimerStop = health.FullHealRpc
                 };
             }
         }
 
         public override void OnNetworkSpawn() =>
-            healthNetworkContainer.currentHealth.OnValueChanged += OnHealthChanged;
+            health.HealthChanged += OnHealthChanged;
 
         public override void OnNetworkDespawn() =>
-            healthNetworkContainer.currentHealth.OnValueChanged -= OnHealthChanged;
+            health.HealthChanged -= OnHealthChanged;
 
         private void Update()
         {

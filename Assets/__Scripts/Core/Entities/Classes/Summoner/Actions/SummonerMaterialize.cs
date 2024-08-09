@@ -1,14 +1,14 @@
-﻿using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Data.Player;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Data;
+﻿using Assemblies.Input;
+using Assemblies.Utilities.Timers;
+using Tower.Core.Entities.Classes.Common.Data.Player;
+using Tower.Core.Entities.Classes.Summoner.Actions.Spirit;
+using Tower.Core.Entities.Classes.Summoner.Data;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions
+namespace Tower.Core.Entities.Classes.Summoner.Actions
 {
     public class SummonerMaterialize : NetworkBehaviour
     {
@@ -18,10 +18,10 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions
         private ISpirit _spirit;
         
         private CountdownTimer _materializeTimer;
-        private SummonerNetworkDataContainer _data;
+        private SummonerDataContainer _data;
 
         [Inject]
-        private void Construct(SummonerNetworkDataContainer data, InputReader inputReader, ISpirit spirit)
+        private void Construct(SummonerDataContainer data, InputReader inputReader, ISpirit spirit)
         {
             _data = data;
             _inputReader = inputReader;

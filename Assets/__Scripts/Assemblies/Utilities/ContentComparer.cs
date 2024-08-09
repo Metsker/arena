@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Reflection;
 
-namespace __Scripts.Assemblies.Utilities
+namespace Assemblies.Utilities
 {
     public class ContentComparer
     {

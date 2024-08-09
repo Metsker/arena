@@ -2,12 +2,17 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace __Scripts.Assemblies.Input
+namespace Assemblies.Input
 {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Arena/Input Reader")]
     public class InputReader : ScriptableObject, Controls.IPlayerActions
     {
+        private const float DeadZone = 0.1f;
+        
+        [SerializeField] private float bufferTime = 0.4f;
+        
         public Vector2 MoveVector { get; private set; }
+        public bool IsMovingDown => MoveVector.y < -DeadZone;
         public bool IsEnabled { get; private set; }
         public event Action<InputAction.CallbackContext> Attack;
         public event Action<InputAction.CallbackContext> Move;
@@ -41,6 +46,9 @@ namespace __Scripts.Assemblies.Input
             _inputActions.Disable();
             IsEnabled = false;
         }
+
+        public InputBuffer BuildBuffer() =>
+            new (bufferTime);
 
         public void OnMove(InputAction.CallbackContext context)
         {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces;
+using Assemblies.Network.NetworkLifecycle.Interfaces;
 using Unity.Netcode;
 
-namespace __Scripts.Assemblies.Network.NetworkLifecycle
+namespace Assemblies.Network.NetworkLifecycle
 {
     public class NetworkLifecycleSubject : NetworkBehaviour
     {

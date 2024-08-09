@@ -1,15 +1,15 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Common.Effects;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Classes.Alchemist.Data;
+using Tower.Core.Entities.Common.Effects;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Wierd
+namespace Tower.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Wierd
 {
     public class WierdPotion : Potion
     {
-        public PotionBeltStats.Wierd WierdStats => AlchemistNetworkData.PotionBeltStats.wierd;
+        public PotionsStats.Wierd WierdStats => new PotionsStats.Wierd();
         
         protected override void OnTrigger(Collider2D col2D)
         {
@@ -44,7 +44,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types.
                     //Damage
                     if (col2D.TryGetComponent(out IHealth health))
                     {
-                        float value = AlchemistNetworkData.Damage;
+                        float value = AlchemistData.Damage;
                         float damage = Mathf.Lerp(value * 0.5f, value * 2, Random.value);
                         lowestRoll = () => health.DealDamageRpc(damage); 
                     }

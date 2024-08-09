@@ -1,37 +1,37 @@
-﻿using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Network.NetworkLifecycle;
-using __Scripts.Assemblies.Network.NetworkLifecycle.Interfaces;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Data.Player;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Enums;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+﻿using Assemblies.Input;
+using Assemblies.Network.NetworkLifecycle;
+using Assemblies.Network.NetworkLifecycle.Interfaces;
+using Assemblies.Utilities.Timers;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using JetBrains.Annotations;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Classes.Common.Data.Player;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Enums;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer.Unity;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
+namespace Tower.Core.Entities.Classes.Common.Components.InputActions
 {
     [UsedImplicitly]
     public class PlayerDash : IStartable, ITickable, INetworkLifecycleOwnerObserver, IToggleableAbility
     {
         public bool IsOwner { get; set; }
         public bool Disabled { get; set; }
-        private ActionMapData ActionMapData => classNetworkDataContainer.ActionMapData;
+        private ActionMapData ActionMapData => ClassDataContainer.ActionMapData;
 
         protected readonly PhysicsWrapper physicsWrapper;
         protected readonly CollidersWrapper collidersWrapper;
         protected readonly IEntityModel playerModel;
-        protected readonly IClassNetworkDataContainer classNetworkDataContainer;
-        protected readonly PlayerStaticData staticData;
+        protected readonly IClassDataContainer ClassDataContainer;
+        protected readonly ClassStaticData staticData;
 
         private readonly InputReader _inputReader;
         private readonly ActionToggler _actionToggler;
@@ -41,11 +41,11 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
 
         public PlayerDash(
             InputReader inputReader,
-            IClassNetworkDataContainer classNetworkDataContainer,
+            IClassDataContainer classDataContainer,
             PhysicsWrapper physicsWrapper,
             CollidersWrapper collidersWrapper,
             IEntityModel playerModel,
-            PlayerStaticData staticData,
+            ClassStaticData staticData,
             NetworkLifecycleSubject networkLifecycleSubject,
             ActionToggler actionToggler)
         {
@@ -53,7 +53,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
             this.collidersWrapper = collidersWrapper;
             this.playerModel = playerModel;
             this.physicsWrapper = physicsWrapper;
-            this.classNetworkDataContainer = classNetworkDataContainer;
+            this.ClassDataContainer = classDataContainer;
 
             
             
@@ -143,7 +143,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
         private async void Dash()
         {
             float dashRange = ActionMapData.dashRange;
-            float dashSpeed = staticData.commonStaticData.DashSpeed(dashRange, classNetworkDataContainer.Speed);
+            float dashSpeed = staticData.commonStaticData.DashSpeed(dashRange, ClassDataContainer.Speed);
 
             OnBeforeDashStart();
             

@@ -1,32 +1,30 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Common.UI;
+﻿using Tower.Core.Entities.Classes.Alchemist.Actions.Potions;
+using Tower.Core.Entities.Classes.Alchemist.Data;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.UI
+namespace Tower.Core.Entities.Classes.Alchemist.UI
 {
     public class AlchemistHUDBuilder : NetworkBehaviour
     {
         [SerializeField] private PotionBeltUI potionBeltUI;
         
-        private PotionBelt _potionBelt;
-        private UIFactory _uiFactory;
+        private PotionSelector _potionSelector;
         private PotionTable _potionTable;
 
         [Inject]
-        public void Construct(PotionBelt potionBelt, PotionTable potionTable)
+        public void Construct(PotionSelector potionSelector, PotionTable potionTable)
         {
             _potionTable = potionTable;
-            _potionBelt = potionBelt;
+            _potionSelector = potionSelector;
         }
 
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
             {
-                potionBeltUI.Init(_potionBelt, _potionTable);
+                potionBeltUI.Init(_potionSelector, _potionTable);
             }
         }
     }

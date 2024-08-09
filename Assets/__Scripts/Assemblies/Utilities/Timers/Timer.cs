@@ -1,14 +1,12 @@
 ﻿using System;
 
-namespace __Scripts.Assemblies.Utilities.Timers
+namespace Assemblies.Utilities.Timers
 {
     public abstract class Timer
     {
         protected float initialTime;
         protected float Time { get; set; }
         public bool IsRunning { get; protected set; }
-
-        public float Progress => Time / initialTime;
 
         public Action OnTimerStart = delegate {};
         public Action OnTimerStop = delegate {};
@@ -21,8 +19,14 @@ namespace __Scripts.Assemblies.Utilities.Timers
 
         public void Start(float newValue = 0)
         {
-            Time = newValue == 0 ? initialTime : newValue;
-            
+            if (newValue == 0)
+                Time = initialTime;
+            else
+            {
+                initialTime = newValue;
+                Time = initialTime;
+            }
+
             if (!IsRunning)
             {
                 IsRunning = true;

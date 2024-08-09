@@ -1,27 +1,34 @@
-﻿using __Scripts.Assemblies.Utilities.Extensions;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using Arena.__Scripts.Core.Entities.Common.Effects;
-using Arena.__Scripts.Core.Entities.Common.Effects.Variants;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using Assemblies.Utilities.Extensions;
+using Tower.Core.Entities.Classes.Alchemist.Data;
+using Tower.Core.Entities.Common.Effects;
+using Tower.Core.Entities.Common.Effects.Variants.Debuffs;
+using Tower.Core.Entities.Common.Interfaces;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Toxin
+namespace Tower.Core.Entities.Classes.Alchemist.Actions.Potions.Types.Toxin
 {
     public class ToxinPotion : Potion
     {
-        private PotionBeltStats.Toxin ToxinStats => AlchemistNetworkData.PotionBeltStats.toxin;
+        [SerializeField] private AssetReference spriteReference;
         
+        private PotionsStats.Toxin ToxinStats => AlchemistData.PotionsStats.toxin;
+
         protected override void OnTrigger(Collider2D col2D)
         {
             if (!NetworkManager.Singleton.IsServer)
                 return;
 
-            if (!col2D.TryGetComponents(out IHealth health, out EffectsHandler effectsHandler))
+            if (!col2D.transform.root.TryGetComponents(out IHealth health, out EffectsHandler effectsHandler))
                 return;
             
-            if (effectsHandler.TryAddEffect(ToxinStats.duration, out ToxinDebuff effect, ToxinStats.intervalSec))
-                effect.Initialize(ToxinStats.percentPerTick, AlchemistNetworkData.Damage, health);
+            health.DealDamageRpc(AlchemistData.Damage);
+                
+            effectsHandler.Add(new ToxinDebuff(
+                spriteReference, ToxinStats.duration, ToxinStats.intervalSec, ToxinStats.percentPerTick, health));
+            
+            StackUltimate(ToxinStats.overheat);
         }
     }
 }

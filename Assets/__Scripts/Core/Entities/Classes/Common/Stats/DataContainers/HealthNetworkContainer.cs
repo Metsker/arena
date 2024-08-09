@@ -1,9 +1,9 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
+using Tower.Core.Entities.Common.Components;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
+namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
 {
     public class HealthNetworkContainer : BaseNetworkHealth
     {
@@ -17,7 +17,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
         
         [HideInInspector] public NetworkVariable<int> currentHealth = new ();
         [HideInInspector] public NetworkVariable<int> maxHealth = new ();
-
+        
         public override void OnNetworkSpawn()
         {
             if (!IsServer)

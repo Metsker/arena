@@ -1,9 +1,8 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Unity.Netcode;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
+namespace Tower.Core.Entities.Classes.Summoner.Actions.Spirit
 {
     public interface ISpirit
     {

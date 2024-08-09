@@ -1,26 +1,33 @@
 ﻿#if UNITY_EDITOR
+using Assemblies.Utilities.Debuging;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace __Scripts.Assemblies.Utilities.SceneManagement
+namespace Assemblies.Utilities.SceneManagement
 {
     [InitializeOnLoad]
     public static class SceneRedirect
     {
         static SceneRedirect()
         {
-            SetPlayModeStartScene(EditorBuildSettings.scenes[0].path);
+            UpdatePlayModeStartScene();
         }
 
-        private static void SetPlayModeStartScene(string scenePath)
+        public static void UpdatePlayModeStartScene()
         {
-            SceneAsset startScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);
-            
-            if (startScene != null)
-                EditorSceneManager.playModeStartScene = startScene;
+            if (DebugSettings.RedirectScene)
+            {
+                string scenePath = EditorBuildSettings.scenes[0].path;
+                SceneAsset startScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);
+                
+                if (startScene != null)
+                    EditorSceneManager.playModeStartScene = startScene;
+                else
+                    Debug.Log("Could not find Scene " + scenePath);
+            }
             else
-                Debug.Log("Could not find Scene " + scenePath);
+                EditorSceneManager.playModeStartScene = null;
         }
     }
 }

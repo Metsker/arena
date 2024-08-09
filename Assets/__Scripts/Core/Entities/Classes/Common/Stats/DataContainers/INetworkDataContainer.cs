@@ -1,6 +1,6 @@
-﻿using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using Tower.Core.Entities.Common.Interfaces;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers
+namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
 {
     public interface INetworkDataContainer : IHealth
     {

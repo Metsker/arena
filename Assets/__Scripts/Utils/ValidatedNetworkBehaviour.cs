@@ -1,7 +1,7 @@
 ﻿using KBCore.Refs;
 using Unity.Netcode;
 
-namespace Arena.__Scripts.Utils
+namespace Tower.Utils
 {
     public class ValidatedNetworkBehaviour : NetworkBehaviour
     {

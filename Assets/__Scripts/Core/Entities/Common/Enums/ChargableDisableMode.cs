@@ -1,4 +1,4 @@
-﻿namespace Arena.__Scripts.Core.Entities.Common.Enums
+﻿namespace Tower.Core.Entities.Common.Enums
 {
     public enum ChargableDisableMode
     {

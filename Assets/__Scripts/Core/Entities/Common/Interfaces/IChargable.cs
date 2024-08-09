@@ -1,4 +1,4 @@
-﻿namespace Arena.__Scripts.Core.Entities.Common.Interfaces
+﻿namespace Tower.Core.Entities.Common.Interfaces
 {
     public interface IChargable
     {

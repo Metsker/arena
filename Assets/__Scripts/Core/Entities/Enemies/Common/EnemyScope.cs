@@ -1,7 +1,7 @@
 ﻿using VContainer;
 using VContainer.Unity;
 
-namespace Arena.__Scripts.Core.Entities.Enemies.Common
+namespace Tower.Core.Entities.Enemies.Common
 {
     public class EnemyScope : LifetimeScope
     {

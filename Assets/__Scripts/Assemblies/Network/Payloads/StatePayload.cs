@@ -1,7 +1,7 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-namespace __Scripts.Assemblies.Network.Payloads
+namespace Assemblies.Network.Payloads
 {
     public struct StatePayload : INetworkSerializable
     {

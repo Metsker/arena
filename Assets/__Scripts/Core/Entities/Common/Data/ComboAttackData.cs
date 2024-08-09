@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Arena.__Scripts.Core.Entities.Common.Data
+namespace Tower.Core.Entities.Common.Data
 {
     [Serializable]
     [JsonObject(MemberSerialization.Fields)]

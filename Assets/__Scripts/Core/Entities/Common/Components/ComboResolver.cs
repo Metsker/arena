@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+using Assemblies.Utilities.Timers;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Common.Components
+namespace Tower.Core.Entities.Common.Components
 {
-    public abstract class ComboResolver : NetworkBehaviour
+    public abstract class ComboResolver : NetworkBehaviour, IToggleableAttack
     {
         protected List<ICommand> ComboCommands;
         
@@ -19,6 +20,8 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
         private CountdownTimer _comboResetTimer;
         private Task _currentComboTask;
         private IObjectResolver _container;
+
+        public bool Disabled { get; set; }
 
         [Inject]
         private void Construct(IObjectResolver container)
@@ -62,16 +65,21 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
                     disposable.Dispose();
             }
         }
-        
-        protected void ProgressComboOwner()
+
+        protected bool TryProgressCombo()
         {
-            if (!CanProgressCombo() || _currentComboTask != null && _currentComboTask.Status != TaskStatus.RanToCompletion)
-                return;
+            if (Disabled)
+                return false;
+            
+            if (!CanProgressCombo())
+                return false;
             
             _comboResetTimer.Pause();
 
             ProgressCombo();
             ProgressComboServerRpc();
+
+            return true;
         }
 
         [Rpc(SendTo.Server)]
@@ -107,7 +115,7 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
         protected virtual void OnCombo(ICommand currentCommand)
         {
         }
-        
+
         protected abstract void CreateComboCommands(List<ICommand> comboCommands);
 
         [Rpc(SendTo.Server)]
@@ -122,7 +130,7 @@ namespace Arena.__Scripts.Core.Entities.Common.Components
             ComboPointer = 0;
 
         protected virtual bool CanProgressCombo() =>
-            true;
+            _currentComboTask == null || _currentComboTask.Status == TaskStatus.RanToCompletion;
 
         protected abstract float ComboResetTime();
     }

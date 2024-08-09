@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Pool;
 
-namespace __Scripts.Assemblies.Network.Spawning
+namespace Assemblies.Network.Spawning
 {
     /// <summary>
     /// Object Pool for networked objects, used for controlling how objects are spawned by Netcode. Netcode by default

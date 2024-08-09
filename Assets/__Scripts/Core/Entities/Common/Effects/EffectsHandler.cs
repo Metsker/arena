@@ -1,106 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using __Scripts.Assemblies.Network.Serialization;
-using Arena.__Scripts.Core.Entities.Common.Effects.Variants;
-using JetBrains.Annotations;
+using Assemblies.Network.Serialization;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using Sirenix.Utilities;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Common.Effects.UI;
+using Tower.Core.Entities.Common.Effects.Variants.Base;
+using Tower.Core.Entities.Common.Effects.Variants.Debuffs;
+using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-namespace Arena.__Scripts.Core.Entities.Common.Effects
+namespace Tower.Core.Entities.Common.Effects
 {
     public class EffectsHandler : SerializedNetworkBehaviour
     {
-        [OdinSerialize] private readonly Dictionary<Type, IEffect> _activeEffects = new ();
+        [SerializeField] private EffectsUIHandler uiHandler;
         
-        private readonly Dictionary<Type, IEffect> _effectPool = new ();
-        public event Action<IEffect> EffectAdded;
-        public event Action<IEffect, int> StackableEffectAdded;
-
-        public void TryAddEffect<T>(float duration, float tickDuration = 0) where T : class, IEffect =>
-            TryAddEffect<T>(duration, out _, tickDuration);
-
-        [Pure]
-        public bool TryAddEffect<T>(float duration, out T effect, float tickDuration = 0) where T : class, IEffect
+        [OdinSerialize] private Dictionary<string, IEffect> _activeEffects = new ();
+        
+        public void Add(IEffect effect)
         {
-            if (!_effectPool.TryGetValue(typeof(T), out IEffect element))
+            if (_activeEffects.TryGetValue(effect.Key, out IEffect activeEffect))
             {
-                effect = Activator.CreateInstance<T>();
-                effect.SetHandler(this);
-                
-                _effectPool.Add(typeof(T), effect);
+                activeEffect.ResetTimer(effect.Duration);
+                effect = activeEffect;
             }
             else
             {
-                effect = (T)element;
+                effect.SetHandler(this)
+                    .StartTimer();
                 
-                if (_activeEffects.TryGetValue(typeof(T), out IEffect activeEffect))
-                {
-                    if (activeEffect is IStackable stackable)
-                    {
-                        stackable.Stacks++;
-                        activeEffect.ResetTimer();
-                        StackableEffectAdded?.Invoke(activeEffect, stackable.Stacks);
-                        return false;
-                    }
-
-                    if (effect.CompareTo(activeEffect) <= 0)
-                        return false;
-                }
-                
-                effect.Dispose();
+                _activeEffects.Add(effect.Key, effect);
             }
             
-            _activeEffects.Add(typeof(T), effect);
-
-            if (tickDuration == 0)
-                tickDuration = duration;
-            
-            effect.SetTimer(duration, tickDuration);
-            
-            EffectAdded?.Invoke(effect);
-            
-            return true;
+            if (effect is IStackable stackable)
+            {
+                stackable.Stacks++;
+                AddOrUpdateStackableUIRpc(effect.Key, effect.Duration, stackable.Stacks);
+            }
+            else
+                AddOrUpdateUIRpc(effect.Key, effect.Duration);
         }
 
         [Button]
-        public void ApplyStun()
+        public void ApplyStun(AssetReference reference, int time)
         {
-            TryAddEffect<StunDebuff>(5);
+            uiHandler = FindFirstObjectByType<EffectsUIHandler>();
+            Add(new BleedDebuff(reference, time, 2, 20, FindFirstObjectByType<HealthNetworkContainer>()));
         }
         
-        public bool HasEffectOfType<T>() where T : class, IEffect =>
-            _activeEffects.ContainsKey(typeof(T));
-
-        public bool TryGetEffectOfType<T>(out T effectOfType) where T : class, IEffect
+        public bool TryGet<T>(AssetReference reference, out T effect) where T : class, IEffect
         {
-            effectOfType = default(T);
-            
-            if (!_activeEffects.TryGetValue(typeof(T), out IEffect effect))
-                return false;
-
-            effectOfType = (T)effect;
-            return true;
+            if (_activeEffects.TryGetValue(reference.RuntimeKey.ToString(), out IEffect activeEffect))
+            {
+                effect = (T)activeEffect;
+                return true;
+            }
+            effect = default(T);
+            return false;
         }
+
+        public bool Any<T>() =>
+            _activeEffects.Any(x => x.Value is T);
+
+        public void Remove(string key, bool inform = false)
+        {
+            _activeEffects.Remove(key);
+
+            if (inform)
+                RemoveUIRpc(key);
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void AddOrUpdateUIRpc(string key, float duration) =>
+            uiHandler?.AddOrUpdate(key, duration);
         
-        public void RemoveEffectOfType<T>() where T : class, IEffect
-        {
-            if (!_activeEffects.ContainsKey(typeof(T)))
-                return;
-            
-            _activeEffects[typeof(T)].Dispose();
-        }
+        [Rpc(SendTo.Everyone)]
+        private void AddOrUpdateStackableUIRpc(string key, float duration, int stacks) =>
+            uiHandler?.AddOrUpdate(key, duration, stacks);
 
-        public void RemoveEffectsOfType<T>() where T : IEffect =>
-            _activeEffects
-                .Where(e => e.Key == typeof(T))
-                .ForEach(e => e.Value.Dispose());
-
-        public void RemoveEffectOfType(Type effectType) =>
-            _activeEffects.Remove(effectType);
-
-        public void RemoveAllEffects() =>
-            _activeEffects.ForEach(e => e.Value.Dispose());
+        [Rpc(SendTo.Everyone)]
+        private void RemoveUIRpc(string key) =>
+            uiHandler?.Remove(key);
     }
 }

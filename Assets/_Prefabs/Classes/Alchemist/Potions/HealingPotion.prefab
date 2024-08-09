@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 2941643727322817962, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
+      propertyPath: m_Mass
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3294016567158361476, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Color.b
       value: 0.5137255

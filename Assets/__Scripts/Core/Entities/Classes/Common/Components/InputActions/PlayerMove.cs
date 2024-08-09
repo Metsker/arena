@@ -1,17 +1,17 @@
 using System.Collections.Generic;
-using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Network;
-using __Scripts.Assemblies.Network.Payloads;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+using Assemblies.Input;
+using Assemblies.Network;
+using Assemblies.Network.Payloads;
+using Assemblies.Utilities.Timers;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
+namespace Tower.Core.Entities.Classes.Common.Components.InputActions
 {
     public class PlayerMove : NetworkBehaviour, IToggleableMovement
     {

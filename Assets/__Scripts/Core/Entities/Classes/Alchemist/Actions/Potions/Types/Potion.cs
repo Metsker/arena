@@ -1,9 +1,11 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Alchemist.Data;
-using NTC.Pool;
+﻿using NTC.Pool;
+using Tower.Core.Entities.Classes.Alchemist.Data;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Common.Data;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types
+namespace Tower.Core.Entities.Classes.Alchemist.Actions.Potions.Types
 {
     public abstract class Potion : MonoBehaviour
     {
@@ -11,16 +13,28 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types
         
         private Rigidbody2D _rigidBody2D;
 
-        protected AlchemistNetworkDataContainer AlchemistNetworkData { get; private set; }
+        protected AlchemistDataContainer AlchemistData;
+        private IClassUltimate _classUltimate;
+
+        private bool _triggered;
 
         [Inject]
-        private void Construct(AlchemistNetworkDataContainer alchemistNetworkData)
+        private void Construct(AlchemistDataContainer alchemistData, IClassUltimate classUltimate)
         {
-            AlchemistNetworkData = alchemistNetworkData;
+            AlchemistData = alchemistData;
+            _classUltimate = classUltimate;
         }
-        
+
+        private void OnEnable() =>
+            _triggered = false;
+
         private void OnTriggerEnter2D(Collider2D col2D)
         {
+            if (_triggered)
+                return;
+            
+            _triggered = true;
+            
             OnBeforeTrigger(col2D);
             OnTrigger(col2D);
             OnAfterTrigger(col2D);
@@ -38,5 +52,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types
         {
             NightPool.Despawn(this);
         }
+
+        protected void StackUltimate(int value) =>
+            _classUltimate.StackUltimate(value);
     }
 }

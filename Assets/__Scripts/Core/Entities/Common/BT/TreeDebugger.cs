@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Common.BT
+namespace Tower.Core.Entities.Common.BT
 {
     public class TreeDebugger : MonoBehaviour
     {

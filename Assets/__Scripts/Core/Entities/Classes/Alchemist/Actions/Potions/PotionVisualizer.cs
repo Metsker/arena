@@ -1,41 +1,39 @@
-﻿using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
+﻿using Assemblies.Utilities.Timers;
+using Tower.Core.Entities.Classes.Alchemist.Enums;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions
+namespace Tower.Core.Entities.Classes.Alchemist.Actions.Potions
 {
     public class PotionVisualizer : NetworkBehaviour
     {
         [SerializeField] private SpriteRenderer potionRenderer;
         
-        private PotionBelt _potionBelt;
+        private PotionSelector _potionSelector;
 
         private readonly CountdownTimer _countdownTimer = new (0);
 
         [Inject]
-        private void Construct(PotionBelt potionBelt)
+        private void Construct(PotionSelector potionSelector)
         {
-            _potionBelt = potionBelt;
+            _potionSelector = potionSelector;
         }
 
         private void Awake()
         {
-            potionRenderer.gameObject.SetActive(true);
-            potionRenderer.sprite = _potionBelt.GetSelectedPotionSprite();
+            /*potionRenderer.gameObject.SetActive(true);
+            potionRenderer.sprite = _potionSelector.GetSelectedPotionSprite();*/
         }
 
         public override void OnNetworkSpawn()
         {
-            _potionBelt.SelectedCd.OnValueChanged += OnSelectedCdChanged;
-            _potionBelt.SelectedType.OnValueChanged += OnSelectedTypeChanged;
+            _potionSelector.SelectedType.OnValueChanged += OnSelectedTypeChanged;
         }
 
         public override void OnNetworkDespawn()
         {
-            _potionBelt.SelectedCd.OnValueChanged -= OnSelectedCdChanged;
-            _potionBelt.SelectedType.OnValueChanged -= OnSelectedTypeChanged;
+            _potionSelector.SelectedType.OnValueChanged -= OnSelectedTypeChanged;
         }
 
         private void Update()
@@ -45,7 +43,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions
 
         private void OnSelectedTypeChanged(PotionType previousValue, PotionType newValue)
         {
-            OnSelectedCdChanged(0, _potionBelt.SelectedCd.Value);
+            //OnSelectedCdChanged(0, _potionSelector.SelectedCd.Value);
         }
 
         private void OnSelectedCdChanged(float _, float remainingCd)
@@ -56,7 +54,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions
                 _countdownTimer.Stop();
                 
                 potionRenderer.gameObject.SetActive(true);
-                potionRenderer.sprite = _potionBelt.GetSelectedPotionSprite();
+                potionRenderer.sprite = _potionSelector.GetSelectedPotionSprite();
             }
             else
             {
@@ -66,7 +64,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions
                 _countdownTimer.OnTimerStop = () =>
                 {
                     potionRenderer.gameObject.SetActive(true);
-                    potionRenderer.sprite = _potionBelt.GetSelectedPotionSprite();
+                    potionRenderer.sprite = _potionSelector.GetSelectedPotionSprite();
                 };
                 _countdownTimer.Start();
             }

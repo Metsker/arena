@@ -4,16 +4,16 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using __Scripts.Assemblies.Utilities;
-using Arena.__Scripts.Core.Entities.Common.Data;
+using Assemblies.Utilities;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using Tower.Core.Entities.Common.Data;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Stats.SO
+namespace Tower.Core.Entities.Classes.Common.Stats.SO
 {
     public abstract class SyncableData<T> : SerializedScriptableObject where T : TypeId
     {

@@ -1,6 +1,6 @@
 ﻿using VContainer;
 
-namespace __Scripts.Assemblies.Utilities.Extensions
+namespace Assemblies.Utilities.Extensions
 {
     public static class VContainerExtensions
     {

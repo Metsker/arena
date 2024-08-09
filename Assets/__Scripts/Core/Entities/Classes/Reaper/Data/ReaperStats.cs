@@ -2,7 +2,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Data
+namespace Tower.Core.Entities.Classes.Reaper.Data
 {
     [Serializable]
     public struct ReaperStats : INetworkSerializable

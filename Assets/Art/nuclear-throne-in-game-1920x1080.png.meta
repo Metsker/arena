@@ -156,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nuclear-throne-in-game-1920x1080_0: 3295238506636260954
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

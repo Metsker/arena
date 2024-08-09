@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using System.Threading.Tasks;
+using Tower.Core.Entities.Classes.Summoner.Actions.Spirit;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
+namespace Tower.Core.Entities.Classes.Summoner.Actions.Attack.Commands
 {
     public class FinalSpiritAttackCommand : ICommand
     {

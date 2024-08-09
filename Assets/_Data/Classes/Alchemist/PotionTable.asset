@@ -22,8 +22,6 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b617b31243f431c488ffd54247375452, type: 3}
     - {fileID: -2692197570500414531, guid: 107707099d161b242aabbc372028da1f, type: 3}
     - {fileID: 21300000, guid: 29043d7bcc73c7946864bcbb1ccf8f72, type: 3}
-    - {fileID: 7561947486395992549, guid: af68f6b16cf2a4746b41bf7610ce6668, type: 3}
-    - {fileID: 21300000, guid: a6c3cbbba5198ae4baa31ec27a8a7305, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -31,12 +29,12 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _table
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums.PotionType,
-        Assembly-CSharp],[Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData,
+      Data: 0|System.Collections.Generic.Dictionary`2[[Tower.Core.Entities.Classes.Alchemist.Enums.PotionType,
+        Assembly-CSharp],[Tower.Core.Entities.Classes.Alchemist.Data.PotionData,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums.PotionType,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Tower.Core.Entities.Classes.Alchemist.Enums.PotionType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -58,7 +56,7 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
     - Name: prefab
       Entry: 10
       Data: 0
@@ -67,16 +65,16 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.2216981
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.35470292
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -97,7 +95,7 @@ MonoBehaviour:
       Data: 1
     - Name: $v
       Entry: 7
-      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
     - Name: prefab
       Entry: 10
       Data: 2
@@ -106,16 +104,16 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.8509804
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.410172552
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.410172552
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -136,7 +134,7 @@ MonoBehaviour:
       Data: 2
     - Name: $v
       Entry: 7
-      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
     - Name: prefab
       Entry: 10
       Data: 4
@@ -145,16 +143,16 @@ MonoBehaviour:
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.184313715
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.6067869
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.831372559
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -175,31 +173,31 @@ MonoBehaviour:
       Data: 3
     - Name: $v
       Entry: 7
-      Data: Arena.__Scripts.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
+      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionData, Assembly-CSharp
     - Name: prefab
-      Entry: 10
-      Data: 6
+      Entry: 6
+      Data: 
     - Name: progressBarColor
       Entry: 7
       Data: UnityEngine.Color, UnityEngine.CoreModule
     - Name: 
       Entry: 4
-      Data: 0.7288388
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.211730123
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 0.735849
+      Data: 0
     - Name: 
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: sprite
-      Entry: 10
-      Data: 7
+      Entry: 6
+      Data: 
     - Name: 
       Entry: 8
       Data: 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace __Scripts.Assemblies.Utilities.Extensions
+namespace Assemblies.Utilities.Extensions
 {
     public static class RendererExtensions {
         /// <summary>

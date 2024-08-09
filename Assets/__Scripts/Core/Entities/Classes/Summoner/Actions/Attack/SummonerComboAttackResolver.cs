@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Data;
-using Arena.__Scripts.Core.Entities.Common.Data.Class;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Common.Components.Physics;
+using Tower.Core.Entities.Classes.Summoner.Actions.Attack.Commands;
+using Tower.Core.Entities.Classes.Summoner.Actions.Spirit;
+using Tower.Core.Entities.Classes.Summoner.Data;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
+namespace Tower.Core.Entities.Classes.Summoner.Actions.Attack
 {
     public class SummonerComboAttackResolver : ClassComboAttackResolver
     {
         [SerializeField] private RiftModel riftModelPrefab;
 
-        private SummonerStaticData SummonerStaticData => PlayerStaticData.summonerStaticData;
+        private SummonerStaticData SummonerStaticData => ClassStaticData.summonerStaticData;
 
-        private SummonerNetworkDataContainer _summonerNetworkDataContainer;
+        private SummonerDataContainer _summonerDataContainer;
         private ISpirit _spirit;
         private GroundCheck _groundCheck;
 
@@ -24,9 +24,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
         private List<ICommand> _dematerializeComboCommands;
 
         [Inject]
-        private void Construct(SummonerNetworkDataContainer summonerNetworkDataContainer, GroundCheck groundCheck, ISpirit spirit)
+        private void Construct(SummonerDataContainer summonerDataContainer, GroundCheck groundCheck, ISpirit spirit)
         {
-            _summonerNetworkDataContainer = summonerNetworkDataContainer;
+            _summonerDataContainer = summonerDataContainer;
             _groundCheck = groundCheck;
             _spirit = spirit;
         }
@@ -93,23 +93,23 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack
             switch (currentCommand)
             {
                 case RiftAttackCommand riftAttackCommand:
-                    riftAttackCommand.SyncStats(_summonerNetworkDataContainer.SummonerStats.riftAttackRange);
+                    riftAttackCommand.SyncStats(_summonerDataContainer.SummonerStats.riftAttackRange);
                     break;
                 case SpiritAttackCommand spiritAttackCommand:
-                    spiritAttackCommand.SyncStats(_summonerNetworkDataContainer.Damage);
+                    spiritAttackCommand.SyncStats(_summonerDataContainer.Damage);
                     break;
                 case FinalSpiritAttackCommand finalSpiritAttackCommand:
-                    finalSpiritAttackCommand.SyncStats(_summonerNetworkDataContainer.Damage * SummonerStaticData.FinalSpiritAttackDamageMult);
+                    finalSpiritAttackCommand.SyncStats(_summonerDataContainer.Damage * SummonerStaticData.FinalSpiritAttackDamageMult);
                     break;
             }
         }
 
         protected override bool CanProgressCombo()
         {
-            if (!_spirit.IsMaterialized && ComboPointer == 0)
-                return _groundCheck.IsActuallyOnGround;
+            if (!base.CanProgressCombo())
+                return false;
 
-            return true;
+            return _spirit.IsMaterialized || ComboPointer != 0 || _groundCheck.IsOnGroundNoCoyote;
         }
 
         protected override void OnComboReset()

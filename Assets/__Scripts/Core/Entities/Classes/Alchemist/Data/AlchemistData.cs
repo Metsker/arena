@@ -1,19 +1,26 @@
 ﻿using System;
-using Arena.__Scripts.Core.Entities.Classes.Common.Data.Player;
+using Sirenix.OdinInspector;
+using Tower.Core.Entities.Classes.Common.Data.Player;
 using Unity.Netcode;
+using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Data
+namespace Tower.Core.Entities.Classes.Alchemist.Data
 {
     [Serializable]
     public class AlchemistData : ClassData
     {
-        public PotionBeltStats potionBeltStats;
+        public PotionsStats potionsStats;
+        [Space]
+        public int maxOverheat = 100;
+        public float ultASBuff = 0.5f;
 
         public override void NetworkSerialize<T>(BufferSerializer<T> serializer)
         {
             base.NetworkSerialize(serializer);
             
-            serializer.SerializeValue(ref potionBeltStats);
+            serializer.SerializeValue(ref potionsStats);
+            serializer.SerializeValue(ref maxOverheat);
+            serializer.SerializeValue(ref ultASBuff);
         }
     }
 }

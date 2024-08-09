@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using __Scripts.Assemblies.Utilities.Extensions;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Data;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Data.Class;
-using Arena.__Scripts.Core.Entities.Common.Effects;
-using Arena.__Scripts.Core.Entities.Common.Effects.Variants;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.UI;
-using Arena.__Scripts.Utils;
+using Assemblies.Utilities.Extensions;
+using Assemblies.Utilities.Timers;
 using KBCore.Refs;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Classes.Summoner.Data;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Effects;
+using Tower.Core.Entities.Common.Effects.Variants.Debuffs;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.UI;
+using Tower.Utils;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
+using StunDebuff = Tower.Core.Entities.Common.Effects.Variants.Debuffs.StunDebuff;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
+namespace Tower.Core.Entities.Classes.Summoner.Actions.Spirit
 {
     public class Spirit : ValidatedNetworkBehaviour, ISpirit
     {
@@ -30,8 +30,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
         private SummonerStats SummonerStats => _data.SummonerStats;
         private SummonerStaticData StaticData => _staticData.summonerStaticData;
 
-        private SummonerNetworkDataContainer _data;
-        private PlayerStaticData _staticData;
+        private SummonerDataContainer _data;
+        private ClassStaticData _staticData;
         
         private readonly CountdownTimer _materializeTimer = new (0);
 
@@ -44,7 +44,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
         public event Action OnDematerialize;
 
         [Inject]
-        private void Construct(SummonerNetworkDataContainer data, PlayerStaticData staticData)
+        private void Construct(SummonerDataContainer data, ClassStaticData staticData)
         {
             _data = data;
             _staticData = staticData;
@@ -91,11 +91,15 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
 
             TargetHealth.DealDamageRpc(damage);
 
-            if (!TargetHealth.Object.TryGetComponent(out EffectsHandler effectsHandler))
+            if (!TargetHealth.Actor.TryGetComponent(out EffectsHandler effectsHandler))
                 return;
 
-            if (effectsHandler.TryAddEffect(SummonerStats.bleedDuration, out BleedDebuff bleedDebuff, BleedTickDuration))
-                bleedDebuff.Initialize(SummonerStats.bleedDamage, TargetHealth);
+            effectsHandler.Add(new BleedDebuff(
+                StaticData.BleedSpriteReference,
+                SummonerStats.bleedDuration,
+                BleedTickDuration,
+                SummonerStats.bleedDamage,
+                TargetHealth));
         }
 
         public void Materialize()
@@ -176,7 +180,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit
             foreach (Collider2D target in _stunTargets)
             {
                 if (target.TryGetComponent(out EffectsHandler effectsHandler) && target.HasComponent<ActionToggler>())
-                    effectsHandler.TryAddEffect<StunDebuff>(SummonerStats.stunDuration);
+                    effectsHandler.Add(new StunDebuff(_staticData.commonStaticData.stunSpriteReference, SummonerStats.stunDuration));
             }
         }
     }

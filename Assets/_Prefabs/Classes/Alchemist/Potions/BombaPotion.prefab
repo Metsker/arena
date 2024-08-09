@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2941643727322817962, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_Mass
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2941643727322817962, guid: 81534d6d0248ac040ab7001f3b6a760c, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
@@ -125,6 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5021eabb33dc4fb3a09a19b612343570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   bombaAffectLayerMask:
     serializedVersion: 2
-    m_Bits: 2560
+    m_Bits: 8421376

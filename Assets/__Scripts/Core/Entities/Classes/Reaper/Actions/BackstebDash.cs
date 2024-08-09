@@ -1,28 +1,27 @@
-﻿using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Network.NetworkLifecycle;
-using __Scripts.Assemblies.Utilities.Extensions;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using Assemblies.Input;
+using Assemblies.Network.NetworkLifecycle;
+using Assemblies.Utilities.Extensions;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using JetBrains.Annotations;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
+namespace Tower.Core.Entities.Classes.Reaper.Actions
 {
     [UsedImplicitly]
     public class BackstebDash : PlayerDash
     {
         public Vector2 ExitOffset =>
-            new Vector2(classNetworkDataContainer.AttackRange - collidersWrapper.HalfHitBoxWidth, 0) 
+            new Vector2(ClassDataContainer.AttackRange - collidersWrapper.HalfHitBoxWidth, 0) 
             * playerModel.FacingSign;
 
-        public BackstebDash(InputReader inputReader, IClassNetworkDataContainer classNetworkDataContainer, PhysicsWrapper physicsWrapper, CollidersWrapper collidersWrapper, IEntityModel playerModel, PlayerStaticData staticData, NetworkLifecycleSubject networkLifecycleSubject, ActionToggler actionToggler) : base(inputReader, classNetworkDataContainer, physicsWrapper, collidersWrapper, playerModel, staticData, networkLifecycleSubject, actionToggler)
+        public BackstebDash(InputReader inputReader, IClassDataContainer classDataContainer, PhysicsWrapper physicsWrapper, CollidersWrapper collidersWrapper, IEntityModel playerModel, ClassStaticData staticData, NetworkLifecycleSubject networkLifecycleSubject, ActionToggler actionToggler) : base(inputReader, classDataContainer, physicsWrapper, collidersWrapper, playerModel, staticData, networkLifecycleSubject, actionToggler)
         {
         }
 
@@ -34,7 +33,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
             if (hit.transform == null || !hit.transform.TryGetComponent(out IHealth health))
                 return base.DashAction(hit, dashSpeed);
             
-            health.DealDamageRpc(classNetworkDataContainer.Damage);
+            health.DealDamageRpc(ClassDataContainer.Damage);
 
             Vector2 point = playerModel.GetFarthestExitPoint(hit.collider.bounds).With(y: physicsWrapper.Position.y);
             

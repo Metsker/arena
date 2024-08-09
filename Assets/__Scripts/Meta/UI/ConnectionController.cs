@@ -1,11 +1,11 @@
-using __Scripts.Assemblies.Utilities.Debuging;
+using Assemblies.Utilities.Debuging;
 using Generated;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace Arena.__Scripts.Meta.UI
+namespace Tower.Meta.UI
 {
     [RequireComponent(typeof(UIDocument))]
     public class ConnectionController : MonoBehaviour
@@ -15,7 +15,7 @@ namespace Arena.__Scripts.Meta.UI
 
         private void Awake()
         {
-            if (DebugData.IsDebug)
+            if (DebugSettings.DebugMode)
             {
                 NetworkManager.Singleton.StartHost();
                 LoadCore();
@@ -55,7 +55,7 @@ namespace Arena.__Scripts.Meta.UI
             
             _playersInRoom++;
             
-            if (_playersInRoom < DebugData.PlayersToWait)
+            if (_playersInRoom < DebugSettings.PlayersToWait)
                 return;
             
             LoadCore();

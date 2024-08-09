@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace __Scripts.Assemblies.Network.Spawning
+namespace Assemblies.Network.Spawning
 {
     public class NetworkPlayerSpawner : MonoBehaviour
     {
@@ -26,7 +26,7 @@ namespace __Scripts.Assemblies.Network.Spawning
             foreach (ulong client in clientscompleted)
             {
                 NetworkObject playerObj = Instantiate(playerPrefab);
-                playerObj.SpawnAsPlayerObject(client, true);
+                playerObj.SpawnAsPlayerObject(client, false);
             }
         }
     }

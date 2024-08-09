@@ -1,4 +1,4 @@
-﻿namespace __Scripts.Assemblies.Utilities.Timers
+﻿namespace Assemblies.Utilities.Timers
 {
     public class StopwatchTimer : Timer
     {

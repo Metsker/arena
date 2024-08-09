@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Actions.Potions.Types;
-using Arena.__Scripts.Core.Entities.Classes.Alchemist.Enums;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
+using Tower.Core.Entities.Classes.Alchemist.Actions.Potions.Types;
+using Tower.Core.Entities.Classes.Alchemist.Enums;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Alchemist.Data
+namespace Tower.Core.Entities.Classes.Alchemist.Data
 {
     [CreateAssetMenu(fileName = "PotionTable", menuName = "Classes/Alchemist/Potion Table")]
     public class PotionTable : SerializedScriptableObject

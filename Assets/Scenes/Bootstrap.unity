@@ -218,7 +218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4631335349027422727, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
       propertyPath: DebugSimulator.PacketDelayMS
-      value: 130
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6650785096247773733, guid: 313016d01d792ac4c9bd3cdb204c51da, type: 3}
       propertyPath: NetworkConfig.TickRate

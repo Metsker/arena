@@ -1,17 +1,16 @@
 ﻿using System;
-using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Utilities.Extensions;
-using __Scripts.Assemblies.Utilities.Timers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Reaper.Data;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Data.Class;
-using Arena.__Scripts.Core.Entities.Common.Enums;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+using Assemblies.Input;
+using Assemblies.Utilities.Extensions;
+using Assemblies.Utilities.Timers;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Reaper.Data;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Enums;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using UniRx;
 using UniRx.Triggers;
 using Unity.Netcode;
@@ -19,7 +18,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
+namespace Tower.Core.Entities.Classes.Reaper.Actions
 {
     public class ReaperHook : NetworkBehaviour, IToggleableAbility
     {
@@ -30,9 +29,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
 
         private InputReader _inputReader;
         private IEntityModel _playerModel;
-        private ReaperNetworkDataContainer _networkDataContainer;
+        private ReaperDataContainer _dataContainer;
         private ActionToggler _actionToggler;
-        private PlayerStaticData _staticData;
+        private ClassStaticData _staticData;
 
         private CountdownTimer _cdTimer;
         private IDisposable _hookDisposable;
@@ -40,15 +39,15 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
 
         [Inject]
         private void Construct(
-            ReaperNetworkDataContainer networkDataContainer,
-            PlayerStaticData staticData,
+            ReaperDataContainer dataContainer,
+            ClassStaticData staticData,
             IEntityModel playerModel,
             InputReader inputReader,
             ActionToggler actionToggler)
         {
             _staticData = staticData;
             _actionToggler = actionToggler;
-            _networkDataContainer = networkDataContainer;
+            _dataContainer = dataContainer;
             _inputReader = inputReader;
             _playerModel = playerModel;
             
@@ -64,7 +63,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
                 return;
 
             _inputReader.Action2 += OnAction2;
-            _cdTimer = new CountdownTimer(_networkDataContainer.ActionMapData.action2Cd);
+            _cdTimer = new CountdownTimer(_dataContainer.ActionMapData.action2Cd);
         }
 
         public override void OnNetworkDespawn()
@@ -101,7 +100,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
             Vector2 size = hookView.SpriteRenderer.size;
             float startSize = size.y;
             float sizeY = startSize;
-            float range = sizeY * _networkDataContainer.ReaperStats.action2Range;
+            float range = sizeY * _dataContainer.ReaperStats.action2Range;
             
             _hookDisposable?.Dispose();
 
@@ -128,7 +127,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
                         {
                             if (IsOwner)
                             {
-                                _cdTimer.Start(_networkDataContainer.ActionMapData.action2Cd);
+                                _cdTimer.Start(_dataContainer.ActionMapData.action2Cd);
                                 _actionToggler.EnableAll();
                             }
                             hookView.Deactivate();
@@ -149,7 +148,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
 
                     if (IsServer && hit.TryGetComponent(out IHealth health))
                         health.DealDamageRpc(
-                            _networkDataContainer.ReaperStats.action2BaseDamage + _networkDataContainer.Damage);
+                            _dataContainer.ReaperStats.action2BaseDamage + _dataContainer.Damage);
                     
                     hookViewTransform.parent = hit.transform;
 
@@ -172,7 +171,7 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions
                         {
                             if (IsOwner)
                             {
-                                _cdTimer.Start(_networkDataContainer.ActionMapData.action2Cd * _networkDataContainer.ReaperStats.action2HitRefundMult);
+                                _cdTimer.Start(_dataContainer.ActionMapData.action2Cd * _dataContainer.ReaperStats.action2HitRefundMult);
                                 _actionToggler.EnableAll();
                             }
                             hookView.Deactivate();

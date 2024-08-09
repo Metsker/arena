@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using __Scripts.Assemblies.Input;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+using Assemblies.Input;
+using Tower.Core.Entities.Classes.Common.Components.Physics;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
+namespace Tower.Core.Entities.Classes.Common.Components.InputActions
 {
     public class PlayerPassThrough : NetworkBehaviour, IToggleableMovement
     {
@@ -40,10 +41,10 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions
             if (Disabled)
                 return;
 
-            if (_inputReader.MoveVector.y >= 0)
+            if (!_inputReader.IsMovingDown)
                 return;
             
-            if (!_groundCheck.IsActuallyOnGround)
+            if (!_groundCheck.IsOnGroundNoCoyote)
                 return;
 
             if (!Physics2D.OverlapBox(castPoint.position, size, 0, castMask.value))

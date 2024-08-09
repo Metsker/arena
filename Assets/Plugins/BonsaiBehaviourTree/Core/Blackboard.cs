@@ -225,8 +225,9 @@ namespace Bonsai.Core
 
     private void NotifyObservers(KeyEvent e)
     {
-      foreach (Action<KeyEvent> observer in observers)
+      for (int index = 0; index < observers.Count; index++)
       {
+        Action<KeyEvent> observer = observers[index];
         observer(e);
       }
     }

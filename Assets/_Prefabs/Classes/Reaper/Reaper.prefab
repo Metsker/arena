@@ -14912,6 +14912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reaper
       objectReference: {fileID: 0}
+    - target: {fileID: 8210893486642548229, guid: e319e87ce1da40f4b83ad7416536e859, type: 3}
+      propertyPath: castMask.m_Bits
+      value: 2097152
+      objectReference: {fileID: 0}
     - target: {fileID: 8899146507952955834, guid: e319e87ce1da40f4b83ad7416536e859, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -14971,6 +14975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncableData: {fileID: 11400000, guid: 97193dc60f1d6804d87109496b62f7c6, type: 2}
+  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
 --- !u!114 &2566653803989286274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15009,20 +15014,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Arena.__Scripts.Core.CoreScope
+    TypeName: Tower.Core.CoreScope
   autoRun: 1
   autoInjectGameObjects:
   - {fileID: 2864156233861061052}
   playerModel: {fileID: 6265226940002173066}
-  playerCanvas: {fileID: 3852524894710416787}
+  playerLocalCanvas: {fileID: 3852524894710416787}
   groundCheck: {fileID: 4516215570694692047}
   animator: {fileID: 8182965597849992274}
   physicsWrapper: {fileID: 6481729312119612206}
   collidersWrapper: {fileID: 7468689237716437764}
   actionToggler: {fileID: 5036651520671316977}
+  classUltimate: {fileID: 0}
   networkLifecycleSubject: {fileID: 524508107699635948}
   networkClassDataContainer: {fileID: 1984352582696529277}
-  playerStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
+  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
 --- !u!114 &7766268452420889071
 MonoBehaviour:
   m_ObjectHideFlags: 0

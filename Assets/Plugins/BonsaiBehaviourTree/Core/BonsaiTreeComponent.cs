@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Bonsai.Core
 {
-  public interface IBonsaiTreeComponent
+  public interface IBonsaiTreeVisualizer
   {
     /// <summary>
     /// The tree instance running in game.
@@ -11,7 +11,7 @@ namespace Bonsai.Core
     BehaviourTree Tree { get; }
   }
 
-  public class BonsaiTreeComponent : MonoBehaviour, IBonsaiTreeComponent
+  public class BonsaiTreeVisualizer : MonoBehaviour, IBonsaiTreeVisualizer
   {
     /// <summary>
     /// The tree blueprint asset used.

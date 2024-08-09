@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common.Data.Enemy
+namespace Tower.Core.Entities.Classes.Common.Data.Enemy
 {
     public class EnemyStats
     {

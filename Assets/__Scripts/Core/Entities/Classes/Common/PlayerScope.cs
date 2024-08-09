@@ -1,32 +1,34 @@
-﻿using __Scripts.Assemblies.Network.NetworkLifecycle;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components.Wrappers;
-using Arena.__Scripts.Core.Entities.Classes.Common.Stats.DataContainers;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
+﻿using Assemblies.Network.NetworkLifecycle;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Common.Components.Physics;
+using Tower.Core.Entities.Classes.Common.Components.UI;
+using Tower.Core.Entities.Classes.Common.Components.Wrappers;
+using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Common
+namespace Tower.Core.Entities.Classes.Common
 {
     public abstract class PlayerScope<TContainer> : LifetimeScope where TContainer : INetworkDataContainer
     {
         [Header("View")]
         [SerializeField] private PlayerModel playerModel;
-        [SerializeField] private PlayerCanvas playerCanvas;
+        [SerializeField] private PlayerLocalCanvas playerLocalCanvas;
         [SerializeField] private GroundCheck groundCheck;
         [SerializeField] private Animator animator;
         [Header("Logic")]
         [SerializeField] private PhysicsWrapper physicsWrapper;
         [SerializeField] private CollidersWrapper collidersWrapper;
         [SerializeField] private ActionToggler actionToggler;
+        [SerializeField] private ClassUltimateBase classUltimate;
         [Header("Network")]
         [SerializeField] protected NetworkLifecycleSubject networkLifecycleSubject;
         [Header("Data")]
         [SerializeField] protected TContainer networkClassDataContainer;
-        [SerializeField] protected SyncablePlayerStaticData playerStaticData;
+        [SerializeField] protected SyncableClassStaticData classStaticData;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -34,7 +36,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common
 
             builder.RegisterInstance(networkLifecycleSubject);
             builder.RegisterInstance(playerModel).As<IEntityModel>();
-            builder.RegisterInstance(playerCanvas);
+            builder.RegisterInstance(playerLocalCanvas);
+            builder.RegisterInstance(classUltimate).As<IClassUltimate>();
             builder.RegisterInstance(groundCheck);
             builder.RegisterInstance(physicsWrapper);
             builder.RegisterInstance(collidersWrapper);
@@ -48,10 +51,12 @@ namespace Arena.__Scripts.Core.Entities.Classes.Common
         
         private void RegisterData(IContainerBuilder builder)
         {
-            builder.RegisterInstance(networkClassDataContainer)
-                .As<IClassNetworkDataContainer, INetworkDataContainer, IHealth, TContainer>();
+            groundCheck.SetCoyoteTime(classStaticData.AvailableData.commonStaticData.coyoteTime);
             
-            builder.RegisterInstance(playerStaticData.AvailableData);
+            builder.RegisterInstance(networkClassDataContainer)
+                .As<IClassDataContainer, INetworkDataContainer, IHealth, TContainer>();
+            
+            builder.RegisterInstance(classStaticData.AvailableData);
         }
     }
 }

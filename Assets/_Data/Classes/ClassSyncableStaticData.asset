@@ -1,0 +1,294 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd3c3a2c72949d4932b2b2efe7a8f9b, type: 3}
+  m_Name: ClassSyncableStaticData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: localData
+      Entry: 7
+      Data: 0|Tower.Core.Entities.Common.Data.ClassStaticData, Assembly-CSharp
+    - Name: commonStaticData
+      Entry: 7
+      Data: 1|Tower.Core.Entities.Common.Data.CommonStaticData, Assembly-CSharp
+    - Name: groundDrag
+      Entry: 4
+      Data: 0.1
+    - Name: airDrag
+      Entry: 4
+      Data: 0.975
+    - Name: gravityStrength
+      Entry: 4
+      Data: -31.25
+    - Name: gravityScale
+      Entry: 4
+      Data: 3.185525
+    - Name: fallGravityMult
+      Entry: 4
+      Data: 2
+    - Name: dashDuration
+      Entry: 4
+      Data: 0.2
+    - Name: attackLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 8421376
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: dashBlockLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 3670016
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: jumpHeight
+      Entry: 4
+      Data: 2.5
+    - Name: jumpTimeToApex
+      Entry: 4
+      Data: 0.4
+    - Name: jumpForce
+      Entry: 4
+      Data: 12.5
+    - Name: secondaryJumpsForceModifier
+      Entry: 4
+      Data: 0.9
+    - Name: jumpCutGravityMult
+      Entry: 4
+      Data: 2
+    - Name: jumpHangGravityMult
+      Entry: 4
+      Data: 0.5
+    - Name: jumpHangVelocityThreshold
+      Entry: 4
+      Data: 1
+    - Name: coyoteTime
+      Entry: 4
+      Data: 0.2
+    - Name: comboResetTime
+      Entry: 4
+      Data: 0.5
+    - Name: stunSpriteReference
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: alchemistStaticData
+      Entry: 7
+      Data: 2|Tower.Core.Entities.Classes.Alchemist.Data.AlchemistStaticData, Assembly-CSharp
+    - Name: VerticalShootForce
+      Entry: 4
+      Data: 1
+    - Name: PotionUltStacks
+      Entry: 3
+      Data: 10
+    - Name: OverheatSec
+      Entry: 4
+      Data: 2.5
+    - Name: ResetSec
+      Entry: 4
+      Data: 0.5
+    - Name: ColdOutDelay
+      Entry: 4
+      Data: 2
+    - Name: OverheatSpeedBuff
+      Entry: 4
+      Data: 0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: reaperStaticData
+      Entry: 7
+      Data: 3|Tower.Core.Entities.Classes.Reaper.Data.ReaperStaticData, Assembly-CSharp
+    - Name: attackBoxHeight
+      Entry: 4
+      Data: 0.191
+    - Name: comboModifiers
+      Entry: 6
+      Data: 
+    - Name: glideTimeModifier
+      Entry: 4
+      Data: 0.617
+    - Name: glideEase
+      Entry: 3
+      Data: 0
+    - Name: hookThrowDuration
+      Entry: 4
+      Data: 0
+    - Name: hookThrowEase
+      Entry: 3
+      Data: 0
+    - Name: hookReturnDuration
+      Entry: 4
+      Data: 0
+    - Name: hookReturnEase
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: summonerStaticData
+      Entry: 7
+      Data: 4|Tower.Core.Entities.Classes.Summoner.Data.SummonerStaticData, Assembly-CSharp
+    - Name: RiftTweenSpeed
+      Entry: 4
+      Data: 3
+    - Name: FinalSpiritAttackDamageMult
+      Entry: 3
+      Data: 2
+    - Name: RiftTweenEase
+      Entry: 3
+      Data: 4
+    - Name: StunLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 32768
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BleedSpriteReference
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: remoteData
+      Entry: 7
+      Data: 5|Tower.Core.Entities.Common.Data.ClassStaticData, Assembly-CSharp
+    - Name: commonStaticData
+      Entry: 7
+      Data: 6|Tower.Core.Entities.Common.Data.CommonStaticData, Assembly-CSharp
+    - Name: groundDrag
+      Entry: 4
+      Data: 0
+    - Name: airDrag
+      Entry: 4
+      Data: 0
+    - Name: gravityStrength
+      Entry: 4
+      Data: 0
+    - Name: gravityScale
+      Entry: 4
+      Data: 0
+    - Name: fallGravityMult
+      Entry: 4
+      Data: 0
+    - Name: dashDuration
+      Entry: 4
+      Data: 0
+    - Name: attackLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: dashBlockLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: jumpHeight
+      Entry: 4
+      Data: 0
+    - Name: jumpTimeToApex
+      Entry: 4
+      Data: 0
+    - Name: jumpForce
+      Entry: 4
+      Data: 0
+    - Name: secondaryJumpsForceModifier
+      Entry: 4
+      Data: 0
+    - Name: jumpCutGravityMult
+      Entry: 4
+      Data: 0
+    - Name: jumpHangGravityMult
+      Entry: 4
+      Data: 0
+    - Name: jumpHangVelocityThreshold
+      Entry: 4
+      Data: 0
+    - Name: coyoteTime
+      Entry: 4
+      Data: 0
+    - Name: comboResetTime
+      Entry: 4
+      Data: 0
+    - Name: stunSpriteReference
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: alchemistStaticData
+      Entry: 6
+      Data: 
+    - Name: reaperStaticData
+      Entry: 6
+      Data: 
+    - Name: summonerStaticData
+      Entry: 7
+      Data: 7|Tower.Core.Entities.Classes.Summoner.Data.SummonerStaticData, Assembly-CSharp
+    - Name: RiftTweenSpeed
+      Entry: 4
+      Data: 0
+    - Name: FinalSpiritAttackDamageMult
+      Entry: 3
+      Data: 0
+    - Name: RiftTweenEase
+      Entry: 3
+      Data: 0
+    - Name: StunLayerMask
+      Entry: 7
+      Data: UnityEngine.LayerMask, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: BleedSpriteReference
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  useProxy: 0

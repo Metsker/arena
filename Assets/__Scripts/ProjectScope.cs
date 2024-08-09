@@ -1,10 +1,10 @@
-﻿using __Scripts.Assemblies.Input;
-using __Scripts.Assemblies.Network.Messages;
+﻿using Assemblies.Input;
+using Assemblies.Network.Messages;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Arena.__Scripts
+namespace Tower
 {
     public class ProjectScope : LifetimeScope
     {

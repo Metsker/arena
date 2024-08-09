@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Reaper.Data;
-using Arena.__Scripts.Core.Entities.Common.Data;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Unity.Netcode;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Reaper.Data;
+using Tower.Core.Entities.Common.Data;
+using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
 using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
+namespace Tower.Core.Entities.Classes.Reaper.Actions.Attack
 {
     public class ReaperComboAttackResolver : ClassComboAttackResolver
     {
         [SerializeField] private AttackCommandDependency[] attackCommandDependencies;
         
-        private ReaperNetworkDataContainer _reaperNetworkData;
+        private ReaperDataContainer _reaperData;
 
         [Inject]
-        private void Construct(ReaperNetworkDataContainer reaperNetworkData)
+        private void Construct(ReaperDataContainer reaperData)
         {
-            _reaperNetworkData = reaperNetworkData;
+            _reaperData = reaperData;
         }
 
         protected override void CreateComboCommands(List<ICommand> comboCommands)
@@ -29,8 +28,8 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
                 comboCommands.Add(new AttackCommand(
                     dependency.animationName,
                     dependency.particleSystem,
-                    PlayerStaticData.reaperStaticData.attackBoxHeight,
-                    PlayerStaticData.commonStaticData.attackLayerMask,
+                    ClassStaticData.reaperStaticData.attackBoxHeight,
+                    ClassStaticData.commonStaticData.attackLayerMask,
                     ActionToggler));
             }
         }
@@ -57,9 +56,9 @@ namespace Arena.__Scripts.Core.Entities.Classes.Reaper.Actions.Attack
         protected override void OnCombo(ICommand currentCommand)
         {
             AttackCommand attackCommand = (AttackCommand)currentCommand;
-            ComboAttackData comboAttackData = PlayerStaticData.reaperStaticData.comboModifiers[ComboPointer];
-            int damage = Mathf.RoundToInt(_reaperNetworkData.Damage * comboAttackData.damageModifier);
-            float range = _reaperNetworkData.AttackRange * comboAttackData.rangeModifier;
+            ComboAttackData comboAttackData = ClassStaticData.reaperStaticData.comboModifiers[ComboPointer];
+            int damage = Mathf.RoundToInt(_reaperData.Damage * comboAttackData.damageModifier);
+            float range = _reaperData.AttackRange * comboAttackData.rangeModifier;
             
             attackCommand.SyncStats(damage, range);
         }

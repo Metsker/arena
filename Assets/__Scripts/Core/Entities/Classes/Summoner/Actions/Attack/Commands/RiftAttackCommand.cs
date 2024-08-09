@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
-using __Scripts.Assemblies.Utilities.Extensions;
-using Arena.__Scripts.Core.Entities.Classes.Common.Components;
-using Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Spirit;
-using Arena.__Scripts.Core.Entities.Common.Interfaces;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
 using DG.Tweening;
+using Tower.Core.Entities.Classes.Common.Components.InputActions;
+using Tower.Core.Entities.Classes.Common.Components.Physics;
+using Tower.Core.Entities.Classes.Summoner.Actions.Spirit;
+using Tower.Core.Entities.Common.Interfaces;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using UniRx;
 using UniRx.Triggers;
-using Unity.Netcode;
-using UnityEngine;
 using VContainer;
 using Object = UnityEngine.Object;
 
-namespace Arena.__Scripts.Core.Entities.Classes.Summoner.Actions.Attack.Commands
+namespace Tower.Core.Entities.Classes.Summoner.Actions.Attack.Commands
 {
     public class RiftAttackCommand : ICommand, IProgressable, IDisposable
     {

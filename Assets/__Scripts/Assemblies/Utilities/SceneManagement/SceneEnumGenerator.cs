@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 
-namespace __Scripts.Assemblies.Utilities.SceneManagement
+namespace Assemblies.Utilities.SceneManagement
 {
     [InitializeOnLoad]
     public static class SceneEnumGenerator

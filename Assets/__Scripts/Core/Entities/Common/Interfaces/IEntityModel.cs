@@ -1,8 +1,8 @@
-﻿using Arena.__Scripts.Core.Entities.Classes.Common.Components.InputActions;
-using Arena.__Scripts.Core.Entities.Common.Interfaces.Toggleables;
+﻿using Tower.Core.Entities.Classes.Common.Components.InputActions.Enums;
+using Tower.Core.Entities.Common.Interfaces.Toggleables;
 using UnityEngine;
 
-namespace Arena.__Scripts.Core.Entities.Common.Interfaces
+namespace Tower.Core.Entities.Common.Interfaces
 {
     public interface IEntityModel : IToggleableMovement
     {

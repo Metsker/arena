@@ -1,15 +1,24 @@
 ﻿using Bonsai.Core;
 using Unity.Netcode;
 using UnityEngine;
+using VContainer;
 
-namespace Arena.__Scripts.Core.Entities.Common.BT
+namespace Tower.Core.Entities.Common.BT
 {
-    public class NetworkBonsaiTree : NetworkBehaviour, IBonsaiTreeComponent
+    public class NetworkBonsaiTree : NetworkBehaviour, IBonsaiTreeVisualizer
     {
         [SerializeField] private BehaviourTree treeBlueprint;
+        
+        private IObjectResolver _resolver;
 
         public BehaviourTree Tree { get; private set; }
 
+        [Inject]
+        private void Construct(IObjectResolver resolver)
+        {
+            _resolver = resolver;
+        }
+        
         public override void OnNetworkSpawn()
         {
             if (!IsServer)
@@ -19,6 +28,9 @@ namespace Arena.__Scripts.Core.Entities.Common.BT
             {
                 Tree = BehaviourTree.Clone(treeBlueprint);
                 Tree.actor = gameObject;
+                
+                foreach (BehaviourNode node in Tree.Nodes)
+                    _resolver.Inject(node);
             }
             else
             {
