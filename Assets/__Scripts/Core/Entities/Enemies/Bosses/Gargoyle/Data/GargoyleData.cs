@@ -1,28 +1,31 @@
-﻿using DG.Tweening;
-using UnityEngine;
+﻿using System;
+using Assemblies.Utilities.Attributes;
+using Tower.Core.Entities.Enemies.Common;
+using Unity.Netcode;
 
 namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Data
 {
-    [CreateAssetMenu(fileName = "GargoyleData", menuName = "StaticData/GargoyleData")]
-    public class GargoyleData : ScriptableObject
+    [Serializable]
+    public class GargoyleData : BossData
     {
-        [Header("Drop")]
-        public Ease flightUpEase;
-        public Ease flightSideEase;
-        [Header("Stats")]
-        public float attackRange;
-        public float fireRange = 5;
-        public float damage;
-        [Header("Run")]
-        public float stepDuration;
-        public float stepSpeed;
-        [Header("Jump")]
-        public Ease jumpEase;
-        public float jumpDuration = 0.75f;
-        public float jumpPower = 2;
-        [Header("LayerMasks")]
-        public LayerMask boundsLayer;
-        public LayerMask playerLayer;
-        public LayerMask platformLayers;
+        public GargoyleStats gargoyleStats;
+        
+        public override void NetworkSerialize<T>(BufferSerializer<T> serializer)
+        {
+            base.NetworkSerialize(serializer);
+
+            serializer.SerializeValue(ref gargoyleStats);
+        }
+    }
+
+    [Serializable]
+    public struct GargoyleStats : INetworkSerializable
+    {
+        [DefaultValue(2)] public float fireRangeModifier;  
+        
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            serializer.SerializeValue(ref fireRangeModifier);
+        }
     }
 }

@@ -26,8 +26,8 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
             if (!autoInit)
                 return;
 
-            SetMaxHealth(initialMaxHealth);
-            SetCurrentHealth(initialHealth);
+            SetMaxHealthRpc(initialMaxHealth);
+            SetCurrentHealthRpc(initialHealth);
         }
 
         public void ManualInit(int newHealth, int newMaxHealth)
@@ -38,20 +38,22 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
                 return;
             }
 
-            SetMaxHealth(newMaxHealth);
-            SetCurrentHealth(newHealth);
+            SetMaxHealthRpc(newMaxHealth);
+            SetCurrentHealthRpc(newHealth);
         }
         
         protected override int GetCurrentHealth() =>
             currentHealth.Value;
 
-        protected override void SetCurrentHealth(int value) =>
+        [Rpc(SendTo.Server)]
+        protected override void SetCurrentHealthRpc(int value) =>
             currentHealth.Value = value;
 
         protected override int GetMaxHealth() =>
             maxHealth.Value;
 
-        protected override void SetMaxHealth(int value) =>
+        [Rpc(SendTo.Server)]
+        protected override void SetMaxHealthRpc(int value) =>
             maxHealth.Value = value;
     }
 }

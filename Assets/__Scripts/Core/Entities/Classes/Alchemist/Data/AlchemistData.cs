@@ -9,18 +9,15 @@ namespace Tower.Core.Entities.Classes.Alchemist.Data
     [Serializable]
     public class AlchemistData : ClassData
     {
+        public AlchemistStats alchemistStats;
         public PotionsStats potionsStats;
-        [Space]
-        public int maxOverheat = 100;
-        public float ultASBuff = 0.5f;
 
         public override void NetworkSerialize<T>(BufferSerializer<T> serializer)
         {
             base.NetworkSerialize(serializer);
             
+            serializer.SerializeValue(ref alchemistStats);
             serializer.SerializeValue(ref potionsStats);
-            serializer.SerializeValue(ref maxOverheat);
-            serializer.SerializeValue(ref ultASBuff);
         }
     }
 }

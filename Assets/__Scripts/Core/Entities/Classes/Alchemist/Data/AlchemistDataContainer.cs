@@ -10,11 +10,10 @@ namespace Tower.Core.Entities.Classes.Alchemist.Data
         public NetworkVariable<PotionType> selectedPotionType = new (writePerm: NetworkVariableWritePermission.Owner);
 
         //Define setters
+        public AlchemistStats AlchemistStats => Data.Value.alchemistStats;
         public PotionsStats PotionsStats => Data.Value.potionsStats;
         public AlchemistStaticData StaticData => ClassStaticData.alchemistStaticData;
-        public int MaxOverheat => Data.Value.maxOverheat;
-        public float UltASBuff => Data.Value.ultASBuff;
-        
+
         public readonly IReadOnlyList<PotionType> AvailableTypes = new List<PotionType>
         {
             PotionType.Toxin,

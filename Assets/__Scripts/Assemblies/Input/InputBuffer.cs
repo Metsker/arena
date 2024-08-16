@@ -7,15 +7,12 @@ namespace Assemblies.Input
 {
     public class InputBuffer : IDisposable
     {
-        public bool IsBuffered => _disposable != null;
-        
         private readonly float _time;
         
         private IDisposable _disposable;
 
         internal InputBuffer(float time)
         {
-            //test
             _time = time;
         }
 

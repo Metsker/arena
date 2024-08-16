@@ -22,10 +22,10 @@ namespace Tower.Core.Entities.Common.Effects.Variants.Polymorphs
         }
 
         public override void OnApply() =>
-            _classNetworkDataContainer.AddSpeed(_speedAmount);
+            _classNetworkDataContainer.AddSpeedRpc(_speedAmount);
 
         public override void OnDispose() =>
-            _classNetworkDataContainer.AddSpeed(-_speedAmount);
+            _classNetworkDataContainer.AddSpeedRpc(-_speedAmount);
 
         public override EffectSide GetEffectSide() =>
             _speedAmount > 0 ? EffectSide.Buff : EffectSide.Debuff;

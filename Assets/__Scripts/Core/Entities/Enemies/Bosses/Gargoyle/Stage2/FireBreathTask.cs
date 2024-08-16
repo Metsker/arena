@@ -42,7 +42,8 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage2
         {
             IEnumerable<Transform> players = Players
                 .Select(t => t.PlayerObject.transform)
-                .Where(t => Vector2.Distance(Actor.transform.position, t.position) <= data.fireRange)
+                .Where(t => Vector2.Distance(Actor.transform.position, t.position) <= 
+                    DataContainer.CurrentStage.attackRange * DataContainer.GargoyleStats.fireRangeModifier)
                 .ToList();
 
             List<Transform> leftFrom = players.Where(t => t.LeftFrom(Actor.transform)).ToList();
@@ -66,7 +67,7 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage2
             void Process(IReadOnlyCollection<Transform> list)
             {
                 list = list.OrderBy(t => Vector2.Distance(Actor.transform.position, t.position)).ToList();
-                _fireBreath.PerformFireBreath(list.Last().position);
+                _fireBreath.PerformFireBreathRpc(list.Last().position);
                 _targetsFound = true;
             }
         }

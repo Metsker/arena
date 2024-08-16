@@ -10,18 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c135a00573a49c9971c98e172c5b67f, type: 3}
-  m_Name: GargoyleData
+  m_Name: GargoyleStaticData
   m_EditorClassIdentifier: 
+  stepDuration: 5
+  jumpEase: 2
+  jumpPower: 3.5
+  jumpDuration: 0.5
   flightUpEase: 4
   flightSideEase: 1
-  attackRange: 3
-  fireRange: 5
-  damage: 10
-  stepDuration: 5
-  stepSpeed: 3
-  jumpEase: 2
-  jumpDuration: 0.5
-  jumpPower: 3.5
   boundsLayer:
     serializedVersion: 2
     m_Bits: 64

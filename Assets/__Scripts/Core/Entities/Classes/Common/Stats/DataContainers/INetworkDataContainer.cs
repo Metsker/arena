@@ -8,9 +8,9 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
         float Speed { get; }
         float AttacksCd { get; }
         float AttackRange { get; }
-        void AddSpeed(float amount);
-        void SetSpeed(float value);
-        void AddAttackSpeed(float amount);
-        void AddDamage(int amount);
+        void AddSpeedRpc(float amount);
+        void SetSpeedRpc(float value);
+        void AddAttackSpeedRpc(float amount);
+        void AddDamageRpc(int amount);
     }
 }

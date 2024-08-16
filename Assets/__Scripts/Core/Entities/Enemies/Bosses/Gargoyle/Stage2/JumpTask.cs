@@ -19,9 +19,9 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage2
 
             if (target != null)
                 _jumpTween = Actor.transform
-                    .DOJump(target.transform.position, data.jumpPower, 1, data.jumpDuration)
+                    .DOJump(target.transform.position, StaticData.jumpPower, 1, StaticData.jumpDuration)
                     .SetLink(Actor)
-                    .SetEase(data.jumpEase);
+                    .SetEase(StaticData.jumpEase);
         }
         
         public override Status Run() =>

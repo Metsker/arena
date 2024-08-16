@@ -19,7 +19,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
 {
     public class OverheatSystem : NetworkBehaviour
     {
-        public bool IsOverheated => _overheat.Value == _alchemistDataContainer.MaxOverheat;
+        public bool IsOverheated => _overheat.Value == _alchemistDataContainer.AlchemistStats.maxOverheat;
         public bool IsCold => _overheat.Value == 0;
         private AlchemistStaticData AlchemistStaticData => _classStaticData.alchemistStaticData;
         private ProgressBar ProgressBar => _playerLocalCanvas.ProgressBar;
@@ -84,7 +84,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
             _overheat.Value = 0;
             if (_speedChanged)
             {
-                _alchemistDataContainer.AddSpeed(-AlchemistStaticData.OverheatSpeedBuff);
+                _alchemistDataContainer.AddSpeedRpc(-AlchemistStaticData.OverheatSpeedBuff);
                 _speedChanged = false;
             }
             _actionToggler.Enable<IToggleableAttack>();
@@ -98,7 +98,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
             AddOverheat(type);
 
             ProgressBar.SetColor(new Color(1f, 0.41f, 0f));
-            ProgressBar.Fill((float)_overheat.Value / _alchemistDataContainer.MaxOverheat)
+            ProgressBar.Fill((float)_overheat.Value / _alchemistDataContainer.AlchemistStats.maxOverheat)
                 .OnComplete(() =>
                 {
                     _disposable.Clear();
@@ -120,7 +120,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
         {
             //Play fx
             _actionToggler.Disable<IToggleableAttack>();
-            _alchemistDataContainer.AddSpeed(AlchemistStaticData.OverheatSpeedBuff);
+            _alchemistDataContainer.AddSpeedRpc(AlchemistStaticData.OverheatSpeedBuff);
             _speedChanged = true;
 
             ProgressBar.PunchScale();
@@ -140,6 +140,6 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
         }
 
         private void Clamp() =>
-            _overheat.Value = Mathf.Clamp(_overheat.Value, 0, _alchemistDataContainer.MaxOverheat);
+            _overheat.Value = Mathf.Clamp(_overheat.Value, 0, _alchemistDataContainer.AlchemistStats.maxOverheat);
     }
 }

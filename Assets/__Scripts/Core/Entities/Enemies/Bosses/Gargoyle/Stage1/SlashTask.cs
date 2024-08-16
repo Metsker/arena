@@ -17,7 +17,7 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage1
             Transform target = NetworkManager.Singleton.ConnectedClients.Values
                 .Select(t => t.PlayerObject.transform)
                 .FirstOrDefault(t =>
-                    SameHeightAsHitBox(t) && XDistance(t) <= data.attackRange);
+                    SameHeightAsHitBox(t) && XDistance(t) <= DataContainer.CurrentStage.attackRange);
 
             if (target == null)
                 _targetFound = false;

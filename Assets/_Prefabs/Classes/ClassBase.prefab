@@ -1038,7 +1038,8 @@ GameObject:
   - component: {fileID: 902394478819115148}
   - component: {fileID: 3370425808100126841}
   - component: {fileID: 3013141088720549178}
-  m_Layer: 8
+  - component: {fileID: 5630951705219198078}
+  m_Layer: 9
   m_Name: ClassBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1652,7 +1653,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _activeEffects
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Arena.__Scripts.Core.Entities.Common.Effects.Variants.Base.IEffect,
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Tower.Core.Entities.Common.Effects.Variants.Base.IEffect,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -1710,6 +1711,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 8632528581707868082}
+--- !u!114 &5630951705219198078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989301949692420801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec584b2242354c4b90007f764962f80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: health
+      Entry: 6
+      Data: 
 --- !u!1 &8021125514469611945
 GameObject:
   m_ObjectHideFlags: 0

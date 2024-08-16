@@ -11,18 +11,21 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle
     public abstract class GargoyleTaskBase : Task
     {
         private const float DownHeightThreshold = -0.5f;
-        
-        [SerializeField] protected GargoyleData data;
-        
+
+        protected GargoyleStaticData StaticData => _gargoyleDataContainer.GargoyleStaticData;
+        protected GargoyleDataContainer DataContainer => _gargoyleDataContainer;
+
         protected static NetworkManager NetworkManager => NetworkManager.Singleton;
         protected static IEnumerable<NetworkClient> Players => NetworkManager.ConnectedClients.Values;
         protected static int PlayersCount => NetworkManager.ConnectedClients.Count;
 
+        private GargoyleDataContainer _gargoyleDataContainer;
         private CollidersWrapper _collidersWrapper;
 
         [Inject]
-        private void Construct(CollidersWrapper collidersWrapper)
+        private void Construct(GargoyleDataContainer bossDataContainer, CollidersWrapper collidersWrapper)
         {
+            _gargoyleDataContainer = bossDataContainer;
             _collidersWrapper = collidersWrapper;
         }
         

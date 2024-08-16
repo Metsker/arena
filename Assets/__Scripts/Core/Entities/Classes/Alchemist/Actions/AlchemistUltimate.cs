@@ -29,7 +29,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Actions
             return DOTween.Sequence()
                 .AppendCallback(() =>
                 {
-                    _dataContainer.AddAttackSpeed(_dataContainer.UltASBuff);
+                    _dataContainer.AddAttackSpeedRpc(_dataContainer.AlchemistStats.ultASBuff);
                     overheatSystem.Disable();
                     overheatSystem.ResetOverheat();
 
@@ -43,7 +43,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Actions
                 .AppendInterval(Duration)
                 .AppendCallback(() =>
                 {
-                    _dataContainer.AddAttackSpeed(-_dataContainer.UltASBuff);
+                    _dataContainer.AddAttackSpeedRpc(-_dataContainer.AlchemistStats.ultASBuff);
                     overheatSystem.Enable();
                 });
         }

@@ -43,7 +43,7 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage2
 
         private async Awaitable StepCoroutine()
         {
-            float time = data.stepDuration;
+            float time = StaticData.stepDuration;
             
             while (time > 0)
             {
@@ -59,7 +59,7 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage2
                         break;
                     }
                 }
-                Actor.transform.position = Vector3.MoveTowards(Actor.transform.position, _target.position, data.stepSpeed * Time.deltaTime).With(y: Actor.transform.position.y);
+                Actor.transform.position = Vector3.MoveTowards(Actor.transform.position, _target.position, DataContainer.CurrentStage.speed * Time.deltaTime).With(y: Actor.transform.position.y);
                 await Awaitable.EndOfFrameAsync();
             }
         }

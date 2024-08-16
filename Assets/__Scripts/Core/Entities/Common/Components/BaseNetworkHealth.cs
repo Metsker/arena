@@ -12,14 +12,14 @@ namespace Tower.Core.Entities.Common.Components
             private set
             {
                 int prevValue = CurrentHealth;
-                SetCurrentHealth(value);
+                SetCurrentHealthRpc(value);
                 InformAboutHealthChangeRpc(prevValue, value);
             }
         }
         public int MaxHealth 
         {
             get => GetMaxHealth();
-            private set => SetMaxHealth(value);
+            private set => SetMaxHealthRpc(value);
         }
 
         public GameObject Actor => gameObject;
@@ -105,8 +105,8 @@ namespace Tower.Core.Entities.Common.Components
             HealthChanged?.Invoke(oldValue, newValue);
         
         protected abstract int GetCurrentHealth();
-        protected abstract void SetCurrentHealth(int value);
+        protected abstract void SetCurrentHealthRpc(int value);
         protected abstract int GetMaxHealth();
-        protected abstract void SetMaxHealth(int value);
+        protected abstract void SetMaxHealthRpc(int value);
     }
 }

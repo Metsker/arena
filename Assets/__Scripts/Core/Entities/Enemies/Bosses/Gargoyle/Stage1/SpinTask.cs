@@ -18,7 +18,7 @@ namespace Tower.Core.Entities.Enemies.Bosses.Gargoyle.Stage1
         {
             List<Transform> players = NetworkManager.Singleton.ConnectedClients.Values
                 .Select(t => t.PlayerObject.transform)
-                .Where(t => SameHeightAsHitBox(t) && XDistance(t) <= data.attackRange)
+                .Where(t => SameHeightAsHitBox(t) && XDistance(t) <= DataContainer.CurrentStage.attackRange)
                 .ToList();
             
             _targetsFound = 

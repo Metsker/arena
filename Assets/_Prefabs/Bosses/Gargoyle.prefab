@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8064575875018728499}
   - component: {fileID: 4355635032266466890}
+  - component: {fileID: 81637916201783744}
   m_Layer: 15
   m_Name: Hitbox
   m_TagString: Untagged
@@ -78,6 +79,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.9967012, y: 5.263044}
   m_EdgeRadius: 0
+--- !u!114 &81637916201783744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306178053733580077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3bb773bae114b1abea23e3e3bb4df10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2533449591471979025
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,10 +331,12 @@ GameObject:
   - component: {fileID: 8225099604013286014}
   - component: {fileID: 3863775294296079538}
   - component: {fileID: 7884280958732533987}
-  - component: {fileID: 2081841415428671422}
   - component: {fileID: 7212053405302793863}
   - component: {fileID: 5861789969778144963}
   - component: {fileID: 1651852625802023303}
+  - component: {fileID: -700216543826934409}
+  - component: {fileID: -5068133803747007003}
+  - component: {fileID: 177073930326192281}
   m_Layer: 14
   m_Name: Gargoyle
   m_TagString: Untagged
@@ -441,7 +456,7 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 7448454968132547818}
   healthBarPrefab: {fileID: 8606494433699812121, guid: dc892c74bd85a5c47b5285766696db1f, type: 3}
-  health: {fileID: 2081841415428671422}
+  dataContainer: {fileID: -700216543826934409}
   physicsWrapper: {fileID: 3863775294296079538}
   collidersWrapper: {fileID: 1651852625802023303}
   groundCheck: {fileID: 7597596908091809285}
@@ -473,25 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireVfxPrefab: {fileID: 6505403164132751751, guid: b3503e8897bc3ea44b9e2e22170012af, type: 3}
   fireOrigin: {fileID: 5746815335930981594}
---- !u!114 &2081841415428671422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7448454968132547818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 740f0342b6514140aca5965a7eb0672c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoInit: 1
-  initialHealth: 500
-  initialMaxHealth: 550
-  currentHealth:
-    m_InternalValue: 0
-  maxHealth:
-    m_InternalValue: 0
 --- !u!114 &7212053405302793863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +557,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitBox: {fileID: 4355635032266466890}
   physicsBox: {fileID: 8555365199602046948}
+--- !u!114 &-700216543826934409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448454968132547818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8697a23c3e7e4470a9c4041956a6d716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncableData: {fileID: 11400000, guid: a624e27638b292f4f8dc1b994b9f24ac, type: 2}
+  gargoyleStaticData: {fileID: 11400000, guid: 5bf2f809a4197b44fa1e84e412fa6e77, type: 2}
+--- !u!114 &-5068133803747007003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448454968132547818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 0
+  SlerpPosition: 1
+--- !u!114 &177073930326192281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448454968132547818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9116657266520994877
 GameObject:
   m_ObjectHideFlags: 0

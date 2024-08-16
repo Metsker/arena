@@ -40,11 +40,9 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
                 Data.Value = syncableData.CopyData();
         }
 
-        public void AddSpeed(float amount)
+        [Rpc(SendTo.Server)]
+        public void AddSpeedRpc(float amount)
         {
-            if (!IsServer)
-                throw new NotServerException();
-            
             float speed = Speed;
             speed += amount;
             speed = Mathf.Clamp(speed, MinSpeed, MaxSpeed);
@@ -53,20 +51,16 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
             MarkVarDirty();
         }
 
-        public void SetSpeed(float value)
-        {
-            if (!IsServer)
-                throw new NotServerException();
-            
+        [Rpc(SendTo.Server)]
+        public void SetSpeedRpc(float value)
+        { 
             ClassData.baseStats.speed = value;
             MarkVarDirty();
         }
 
-        public void AddAttackSpeed(float amount)
+        [Rpc(SendTo.Server)]
+        public void AddAttackSpeedRpc(float amount)
         {
-            if (!IsServer)
-                throw new NotServerException();
-            
             float attacksPerSec = AttacksPerSec;
             attacksPerSec += amount;
             attacksPerSec = Mathf.Clamp(attacksPerSec, MinAttacksPerSec, MaxAttacksPerSec);
@@ -75,11 +69,9 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
             MarkVarDirty();
         }
 
-        public void AddDamage(int amount)
+        [Rpc(SendTo.Server)]
+        public void AddDamageRpc(int amount)
         {
-            if (!IsServer)
-                throw new NotServerException();
-            
             ClassData.baseStats.damage += amount;
             MarkVarDirty();
         }
@@ -87,11 +79,9 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
         protected override int GetCurrentHealth() =>
             ClassData.baseStats.health;
 
-        protected override void SetCurrentHealth(int value)
+        [Rpc(SendTo.Server)]
+        protected override void SetCurrentHealthRpc(int value)
         {
-            if (!IsServer)
-                throw new NotServerException();
-            
             ClassData.baseStats.health = value;
             MarkVarDirty();
         }
@@ -99,23 +89,14 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
         protected override int GetMaxHealth() =>
             ClassData.baseStats.maxHealth;
 
-        protected override void SetMaxHealth(int value)
+        [Rpc(SendTo.Server)]
+        protected override void SetMaxHealthRpc(int value)
         {
-            if (!IsServer)
-                throw new NotServerException();
-            
             ClassData.baseStats.maxHealth = value;
             MarkVarDirty();
         }
 
         private void MarkVarDirty() =>
             Data.SetDirty(true);
-    }
-
-    public class NotServerException : Exception
-    {
-        public NotServerException() : base("Cannot modify data on client!")
-        {
-        }
     }
 }

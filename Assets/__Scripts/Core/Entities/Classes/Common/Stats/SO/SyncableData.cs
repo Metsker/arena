@@ -48,6 +48,11 @@ namespace Tower.Core.Entities.Classes.Common.Stats.SO
         }
         
         [PropertySpace]
+        [Button]
+        public void PrintLocalBeautified() =>
+            Debug.Log(JsonConvert.SerializeObject(localData, Formatting.Indented));
+
+        [PropertySpace]
         [Button(ButtonStyle.FoldoutButton, Expanded = true)]
         public bool CompareLocalToRemote()
         {
@@ -59,7 +64,7 @@ namespace Tower.Core.Entities.Classes.Common.Stats.SO
             Debug.LogWarning(compareResult);
             return false;
         }
-
+        
         [PropertySpace]
         [Button]
         public async void SyncLocalWithServer()
@@ -73,7 +78,6 @@ namespace Tower.Core.Entities.Classes.Common.Stats.SO
                 localData = data.document;
             else
                 Debug.LogWarning("Document was null");
-            
         }
         
         [Button]

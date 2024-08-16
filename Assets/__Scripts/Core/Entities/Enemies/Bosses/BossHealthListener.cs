@@ -38,8 +38,6 @@ namespace Tower.Core.Entities.Enemies.Bosses
         {
             if (_health.RemainingHeathNormalized <= 0.5f)
                 tree.Tree.blackboard.Set("BelowHalf", true);
-            else
-                tree.Tree.blackboard.Unset("BelowHalf");
             
             if (_health.Dead)
                 tree.Tree.blackboard.Set("Dead", true);
