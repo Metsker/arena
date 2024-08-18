@@ -1,10 +1,10 @@
-﻿using System;
-using Tower.Core.Entities.Classes.Common.Data.Player;
+﻿using Tower.Core.Entities.Classes.Common.Data.Player;
 using Tower.Core.Entities.Classes.Common.Stats.SO;
 using Tower.Core.Entities.Common.Components;
 using Tower.Core.Entities.Common.Data;
 using Unity.Netcode;
 using UnityEngine;
+using VContainer;
 
 namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
 {
@@ -20,19 +20,26 @@ namespace Tower.Core.Entities.Classes.Common.Stats.DataContainers
         private const float MaxAttacksPerSec = 5;
         
         [SerializeField] private SyncableData<T> syncableData;
-        [SerializeField] private SyncableClassStaticData classStaticData;
-        
+
         public ActionMapData ActionMapData => ClassData.actionMapData;
-        public ClassStaticData ClassStaticData => classStaticData.AvailableData;
+        public ClassStaticData ClassStaticData => _classStaticData;
         public float AttacksCd => 1 / AttacksPerSec;
         public float Speed => ClassData.baseStats.speed;
         public int Damage => ClassData.baseStats.damage;
         public float AttackRange => ClassData.baseStats.attackRange;
         private float AttacksPerSec => ClassData.baseStats.attacksPerSec;
-        
+
         private ClassData ClassData => Data.Value;
 
         protected readonly NetworkVariable<T> Data = new ();
+        
+        private ClassStaticData _classStaticData;
+
+        [Inject]
+        private void Construct(ClassStaticData classStatic)
+        {
+            _classStaticData = classStatic;
+        }
         
         public override void OnNetworkSpawn()
         {

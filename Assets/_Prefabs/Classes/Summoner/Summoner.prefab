@@ -1468,7 +1468,7 @@ MonoBehaviour:
   classUltimate: {fileID: 0}
   networkLifecycleSubject: {fileID: 3906142130128940493}
   networkClassDataContainer: {fileID: 7600945692239654177}
-  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
+  classStaticData: {fileID: 11400000, guid: f2af5871ac894544d8fad71d1a613c5d, type: 2}
   spirit: {fileID: 4142811915511225921}
 --- !u!114 &671669351947330807
 MonoBehaviour:
@@ -1496,7 +1496,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncableData: {fileID: 11400000, guid: 6b334c8df2e9c7a4cb5839d8789ed5fe, type: 2}
-  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
 --- !u!114 &4745995915498588176
 MonoBehaviour:
   m_ObjectHideFlags: 0

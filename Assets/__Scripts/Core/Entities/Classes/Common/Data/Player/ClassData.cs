@@ -5,7 +5,7 @@ using Unity.Netcode;
 namespace Tower.Core.Entities.Classes.Common.Data.Player
 {
     [Serializable]
-    public abstract class ClassData : TypeId, INetworkSerializable
+    public abstract class ClassData : INetworkSerializable
     {
         public BaseStats baseStats;
         public ActionMapData actionMapData;

@@ -1,319 +1,223 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Assemblies.Utilities;
-using JetBrains.Annotations;
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using Notion.Client;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using Tower.Core.Entities.Common.Data;
+using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Tower.Core.Entities.Classes.Common.Stats.SO
 {
-    public abstract class SyncableData<T> : SerializedScriptableObject where T : TypeId
+    public abstract class SyncableData<T> : SerializedScriptableObject
     {
-        private const string PlayerAPIKey = "E2UsSLZL7RPfpjToB4wlt8e3DDw06D9XvvGziUpskaoWlSwXecPxQ6gg6WSqGHfd";
-        private const string DbUrl = "https://data.mongodb-api.com/app/data-qypln/endpoint/data/v1/action/";
+        private const string PlayerAPIKey = "secret_Lfxkhxxv5xGZgtb2TOn446HiMJ6FRW8kaXsYXlNtElH";
+        private const string DbId = "a588fda322aa4f349e71078b9ca30057";
+        private const string TitleColumnName = "Type";
+        private const string ConfigColumnName = "Config";
 
-        public T AvailableData {
+        private T AvailableData {
             get
             {
-                if (!Application.isEditor)
-                    return remoteData ?? localData;
+                if (remoteData != null)
+                    return remoteData;
                 
-                return localData; 
+                Debug.LogWarning($"No remote data available for {TypeId}. Using local");
+                return localData;
             }
         }
-        
-        [OdinSerialize] protected T localData;
-        [OdinSerialize, ReadOnly] protected T remoteData;
 
-        [SerializeField] private bool useProxy;
+        [OdinSerialize] private T localData;
+        [ShowInInspector, NonSerialized, ReadOnly] private T remoteData;
         
-        private string APIKey => string.IsNullOrEmpty(_overrideAPIKey) ? PlayerAPIKey : _overrideAPIKey;
+        private static string TypeId => typeof(T).GetNiceName();
 
         public T CopyData() => (T)SerializationUtility.CreateCopy(AvailableData);
 
         protected virtual void OnEnable()
         {
-            if (Application.isEditor)
-                return;
-
-            SyncRemoteWithServer();
+            PullRemote();
         }
-        
-        [PropertySpace]
+
         [Button]
-        public void PrintLocalBeautified() =>
-            Debug.Log(JsonConvert.SerializeObject(localData, Formatting.Indented));
-
-        [PropertySpace]
-        [Button(ButtonStyle.FoldoutButton, Expanded = true)]
-        public bool CompareLocalToRemote()
+        [BoxGroup("Control")]
+        [HorizontalGroup("Control/Horizontal")]
+        [GUIColor("Green")]
+        private async void PullLocal()
         {
-            string compareResult = ContentComparer.Compare(localData, remoteData);
+            T data = await ResolveQuery();
 
-            if (compareResult == null)
-                return true;
-            
-            Debug.LogWarning(compareResult);
-            return false;
+            if (data != null)
+                localData = data;
         }
-        
-        [PropertySpace]
-        [Button]
-        public async void SyncLocalWithServer()
-        {
-            DBDataWrapper data = await Find();
 
-            if (data == null)
-                return;
-            
-            if (data.document != null)
-                localData = data.document;
-            else
-                Debug.LogWarning("Document was null");
-        }
-        
         [Button]
-        public async void SyncRemoteWithServer()
+        [HorizontalGroup("Control/Horizontal")]
+        [GUIColor("Blue")]
+        private async void PullRemote()
         {
-            DBDataWrapper data = await Find();
+            T data = await ResolveQuery();
             
-            if (data == null)
-                return;
-            
-            if (data.document != null)
-                remoteData = data.document;
-            else
-                Debug.LogWarning("Document was null");
+            if (data != null)
+                remoteData = data;
         }
-        
-        [Button]
-        public void ClearRemote() =>
-            remoteData = null;
 
-        [PropertySpace]
-        [PropertyOrder(7), ShowInInspector, NonSerialized] private string _overrideAPIKey;
-        [PropertyOrder(8),Button]
-        public async void PostLocalToServer()
+        [Button(Style = ButtonStyle.Box)]
+        [BoxGroup("Control")]
+        [GUIColor("Orange")]
+        public async void PushLocal(string apiKey)
         {
-            DBDataWrapper data = await Find();
-            
-            if (data is { document: not null })
+            NotionClient client = NotionClientFactory.Create(new ClientOptions
             {
-                Debug.Log("Replace");
-                Replace();
+                AuthToken = apiKey
+            });
+
+            PaginatedList<Page> query = await QueryDatabase();
+
+            switch (query.Results.Count)
+            {
+                case 0:
+                    await CreatePage(client);
+                    Debug.Log("Page created");
+                    break;
+                case 1:
+                    await UpdatePage(client, query.Results[0].Id);
+                    Debug.Log("Page updated");
+                    break;
+                case > 1:
+                    Debug.LogWarning("Something went wrong. Found: " + query.Results.Count);
+                    return;
             }
-            else
+            remoteData = (T)SerializationUtility.CreateCopy(localData);
+        }
+
+        [Button(Style = ButtonStyle.CompactBox, Expanded = true)]
+        [BoxGroup("Control")]
+        private CompareResult CompareData()
+        {
+            string difference = DeepComparer.Compare(localData, remoteData);
+
+            if (string.IsNullOrEmpty(difference))
+                return CompareResult.Synced;
+
+            Debug.LogWarning(difference);
+            return CompareResult.Unsynced;
+        }
+        
+        private async UniTask<T> ResolveQuery()
+        {
+            PaginatedList<Page> pages = await QueryDatabase();
+
+            if (pages.Results.Count != 1)
             {
-                Debug.Log("Insert");
-                Insert();
+                Debug.LogWarning("Something went wrong. Found: " + pages.Results.Count + " for " + TypeId);
+                return default(T);
             }
-            
-            SyncRemoteWithServer();
-        }
-        
-        private async void Insert()
-        {
-            const string url = DbUrl + "insertOne";
-            string postData = JsonConvert.SerializeObject(new InsertPayload(localData));
 
-            Debug.Log(postData);
-            
-            string result = await SmartCall(url, postData);
-
-            Debug.Log("Result of insert: " + result);
-        }
-
-        private async void Replace()
-        {
-            const string url = DbUrl + "replaceOne";
-            string postData = JsonConvert.SerializeObject(new ReplacePayload(localData));
-
-            string result = await SmartCall(url, postData);
-
-            Debug.Log(result);
-        }
-
-        private async Task<DBDataWrapper> Find()
-        {
-            const string url = DbUrl + "findOne";
-            string postData = JsonConvert.SerializeObject(new FilterPayload(localData.Id));
-
-            string result = await SmartCall(url, postData);
-
-            return JsonConvert.DeserializeObject<DBDataWrapper>(result);
-        }
-
-        private async Task<string> SmartCall(string url, string postData)
-        {
-            string result = await DirectCall(url, postData);
-
-            if (!string.IsNullOrEmpty(result))
-                return result;
-
-            if (!useProxy)
-                return result;
-            
-            Debug.Log("Proxy is used");
-                
-            result = await ProxyCall(url, postData);
-
-            return result;
-        }
-        
-        private async Task<string> DirectCall(string url, string postData)
-        {
-            using UnityWebRequest req = new (url, UnityWebRequest.kHttpVerbPOST);
-            
-            req.SetRequestHeader("Content-Type", "application/ejson");
-            req.SetRequestHeader("Accept", "application/json");
-            req.SetRequestHeader("apiKey", APIKey);
-            
-            req.downloadHandler = new DownloadHandlerBuffer();
-            req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(postData));
-            
-            await req.SendWebRequest();
-
-            Log(req);
-            
-            return req.downloadHandler.text;
-        }
-        
-        private async Task<string> ProxyCall(string url, string postData)
-        {
-            List<string> proxies = new()
+            foreach (KeyValuePair<string, PropertyValue> props in pages.Results[0].Properties)
             {
-                "117.250.3.58:8080",
+                if (props is not { Key: ConfigColumnName, Value: RichTextPropertyValue propertyValue })
+                    continue;
+
+                return JsonConvert.DeserializeObject<T>(propertyValue.RichText[0].PlainText);
+            }
+
+            Debug.LogWarning("Something went wrong. No config found");
+            return default(T);
+        }
+
+        private static async UniTask<PaginatedList<Page>> QueryDatabase()
+        {
+            NotionClient client = NotionClientFactory.Create(new ClientOptions
+            {
+                AuthToken = PlayerAPIKey
+            });
+            TitleFilter titleFilter = new (TitleColumnName, equal: TypeId);
+            DatabasesQueryParameters queryParams = new ()
+            {
+                Filter = titleFilter
             };
 
-            await Awaitable.BackgroundThreadAsync();
+            return await client.Databases.QueryAsync(DbId, queryParams);
+        }
 
-            int proxyIndex = 0;
-            int tryCount = 0;
-            
-            while (proxyIndex < proxies.Count && useProxy)
-            {
-                try
+        private async UniTask CreatePage(INotionClient client)
+        {
+            PagesCreateParameters pagesCreateParameters = PagesCreateParametersBuilder
+                .Create(new DatabaseParentInput
                 {
-                    tryCount++;
-                    if (tryCount == 3)
+                    DatabaseId = DbId
+                })
+                .AddProperty(TitleColumnName,
+                    new TitlePropertyValue
                     {
-                        proxyIndex++;
-                        tryCount = 0;
-                    }
-                    
-                    string entry = proxies[proxyIndex];
+                        Title = new List<RichTextBase>
+                        {
+                            new RichTextText
+                            {
+                                Text = new Text
+                                {
+                                    Content = TypeId
+                                }
+                            }
+                        }
+                    })
+                .AddProperty(ConfigColumnName,
+                    new RichTextPropertyValue
+                    {
+                        RichText = new List<RichTextBase>
+                        {
+                            new RichTextText
+                            {
+                                Text = new Text
+                                {
+                                    Content = JsonConvert.SerializeObject(localData, Formatting.Indented)
+                                },
+                                Annotations = new Annotations
+                                {
+                                    IsCode = true
+                                }
+                            }
+                        }
+                    })
+                .Build();
 
-                    Debug.Log("Using " + entry);
-                    
-                    string[] entryData = entry.Split(':');
-                    string proxyHost = entryData[0];
-                    int proxyPort = int.Parse(entryData[1]);
-                
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                    request.Method = WebRequestMethods.Http.Post;
-                    request.Proxy = new WebProxy(proxyHost, proxyPort);
-                    request.Accept = "application/json";
-                    request.ContentType = "application/ejson";
-                    request.KeepAlive = false;
-                    request.Headers.Add($"apiKey: {APIKey}");
-            
-                    ASCIIEncoding encoding = new ();
-                    byte[] data = encoding.GetBytes(postData);
-                    request.ContentLength = data.Length;
-                    Stream newStream = request.GetRequestStream();
-                    await newStream.WriteAsync(data, 0, data.Length);
-                    newStream.Close();
-            
-                    WebResponse response = await request.GetResponseAsync();
-                    
-                    using StreamReader stream = new (
-                        response.GetResponseStream()!, Encoding.UTF8);
+            await client.Pages.CreateAsync(pagesCreateParameters);
+        }
 
-                    string result = await stream.ReadToEndAsync();
-                    
-                    Debug.Log("Successful call");
-                    return result;
-                }
-                catch (Exception e)
+        private async UniTask UpdatePage(INotionClient client, string id)
+        {
+            await client.Pages.UpdatePropertiesAsync(id, new Dictionary<string, PropertyValue>
+            {
                 {
-                    Debug.LogWarning(e);
+                    ConfigColumnName, new RichTextPropertyValue
+                    {
+                        RichText = new List<RichTextBase>
+                        {
+                            new RichTextText
+                            {
+                                Text = new Text
+                                {
+                                    Content = JsonConvert.SerializeObject(localData, Formatting.Indented)
+                                },
+                                Annotations = new Annotations
+                                {
+                                    IsCode = true
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-            
-            return string.Empty;
+            });
         }
 
-
-        private static void Log(UnityWebRequest req)
+        private enum CompareResult
         {
-            if (req.result == UnityWebRequest.Result.Success)
-                Debug.Log($"{req.responseCode}: {req.downloadHandler.text}");
-            else
-                Debug.LogWarning($"{req.responseCode}: {req.error}: {req.downloadHandler.text}");
-        }
-
-        private class DBDataWrapper
-        {
-            public T document;
-        }
-
-        private class InsertPayload : MongoPayload
-        {
-            [UsedImplicitly]
-            public readonly T document;
-
-            public InsertPayload(T document)
-            {
-                this.document = document;
-            }
-        }
-
-        private class ReplacePayload : FilterPayload
-        {
-            [UsedImplicitly]
-            public readonly T replacement;
-
-            public ReplacePayload(T replacement) : base(replacement.Id)
-            {
-                this.replacement = replacement;
-            }
-        }
-
-        private class FilterPayload : MongoPayload
-        {
-            [UsedImplicitly]
-            public readonly Filter filter;
-
-            public FilterPayload(string id)
-            {
-                filter = new Filter(id);
-            }
-        }
-
-        private class Filter
-        {
-            [JsonProperty("_id")]
-            public readonly string id;
-
-            public Filter(string id)
-            {
-                this.id = id;
-            }
-        }
-
-        private class MongoPayload
-        {
-            [UsedImplicitly] public readonly string dataSource = "UnityCluster";
-            [UsedImplicitly] public readonly string database = "Arena";
-            [UsedImplicitly] public readonly string collection = "Configs";
+            None,
+            Synced,
+            Unsynced
         }
     }
 }

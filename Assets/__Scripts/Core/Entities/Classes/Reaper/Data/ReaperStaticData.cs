@@ -13,17 +13,18 @@ namespace Tower.Core.Entities.Classes.Reaper.Data
     public class ReaperStaticData
     {
         [Header("Attack")]
-        [Range(0.1f, 2)] public readonly float attackBoxHeight;
-        [UsedImplicitly] public readonly Dictionary<int, ComboAttackData> comboModifiers;
+        [Range(0.1f, 2)] 
+        public readonly float attackBoxHeight;
         
         [Header("Glide")]
-        [Range(0.5f, 2)] public readonly float glideTimeModifier;
         public readonly Ease glideEase;
         
         [Header("Hook")]
-        [Range(0.1f, 2)] public readonly float hookThrowDuration;
+        [Range(0.1f, 2)] 
+        public readonly float hookThrowDuration;
         public readonly Ease hookThrowEase;
-        [Range(0.1f, 2)] public readonly float hookReturnDuration;
+        [Range(0.1f, 2)] 
+        public readonly float hookReturnDuration;
         public readonly Ease hookReturnEase;
     }
 }

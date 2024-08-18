@@ -14999,7 +14999,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncableData: {fileID: 11400000, guid: 97193dc60f1d6804d87109496b62f7c6, type: 2}
-  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
 --- !u!114 &2566653803989286274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15052,7 +15051,7 @@ MonoBehaviour:
   classUltimate: {fileID: 0}
   networkLifecycleSubject: {fileID: 524508107699635948}
   networkClassDataContainer: {fileID: 1984352582696529277}
-  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
+  classStaticData: {fileID: 11400000, guid: f2af5871ac894544d8fad71d1a613c5d, type: 2}
 --- !u!114 &7766268452420889071
 MonoBehaviour:
   m_ObjectHideFlags: 0

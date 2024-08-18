@@ -2800,7 +2800,7 @@ MonoBehaviour:
   classUltimate: {fileID: 6298727661591002100}
   networkLifecycleSubject: {fileID: 480565813788696412}
   networkClassDataContainer: {fileID: 3774576226803245432}
-  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
+  classStaticData: {fileID: 11400000, guid: f2af5871ac894544d8fad71d1a613c5d, type: 2}
   potionTable: {fileID: 11400000, guid: 16b0bbf669b522b4ab3270c89b9348c8, type: 2}
   potionLauncher: {fileID: 4838693892863341619}
 --- !u!114 &3774576226803245432
@@ -2816,7 +2816,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncableData: {fileID: 11400000, guid: b1ef675447162624184b894803cd5e98, type: 2}
-  classStaticData: {fileID: 11400000, guid: d54acfb61c9298b44b3cb7738532e97b, type: 2}
   selectedPotionType:
     m_InternalValue: 0
 --- !u!114 &4838693892863341619

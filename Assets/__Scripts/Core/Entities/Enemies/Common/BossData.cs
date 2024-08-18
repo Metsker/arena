@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Tower.Core.Entities.Enemies.Common
 {
     [Serializable]
-    public abstract class BossData : TypeId, INetworkSerializable
+    public abstract class BossData : INetworkSerializable
     {
         public int health;
         public int maxHealth;

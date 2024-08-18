@@ -84,6 +84,18 @@ MonoBehaviour:
     - Name: ultASBuff
       Entry: 4
       Data: 0.5
+    - Name: OverheatSec
+      Entry: 4
+      Data: 2.5
+    - Name: ResetSec
+      Entry: 4
+      Data: 0.5
+    - Name: ColdOutDelay
+      Entry: 4
+      Data: 2
+    - Name: OverheatSpeedBuff
+      Entry: 4
+      Data: 0.5
     - Name: 
       Entry: 8
       Data: 
@@ -147,130 +159,3 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: remoteData
-      Entry: 7
-      Data: 1|Tower.Core.Entities.Classes.Alchemist.Data.AlchemistData, Assembly-CSharp
-    - Name: baseStats
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Common.Data.Player.BaseStats, Assembly-CSharp
-    - Name: health
-      Entry: 3
-      Data: 0
-    - Name: maxHealth
-      Entry: 3
-      Data: 0
-    - Name: speed
-      Entry: 4
-      Data: 0
-    - Name: damage
-      Entry: 3
-      Data: 0
-    - Name: attacksPerSec
-      Entry: 4
-      Data: 0
-    - Name: attackRange
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: actionMapData
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Common.Data.Player.ActionMapData, Assembly-CSharp
-    - Name: action1Cd
-      Entry: 4
-      Data: 0
-    - Name: action2Cd
-      Entry: 4
-      Data: 0
-    - Name: dashCd
-      Entry: 4
-      Data: 0
-    - Name: dashRange
-      Entry: 3
-      Data: 0
-    - Name: jumpCount
-      Entry: 3
-      Data: 0
-    - Name: ultStacks
-      Entry: 3
-      Data: 0
-    - Name: ultDuration
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: alchemistStats
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Alchemist.Data.AlchemistStats, Assembly-CSharp
-    - Name: maxOverheat
-      Entry: 3
-      Data: 0
-    - Name: ultASBuff
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: potionsStats
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionsStats, Assembly-CSharp
-    - Name: toxin
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionsStats+Toxin, Assembly-CSharp
-    - Name: percentPerTick
-      Entry: 3
-      Data: 0
-    - Name: intervalSec
-      Entry: 3
-      Data: 0
-    - Name: duration
-      Entry: 3
-      Data: 0
-    - Name: overheat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: healing
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionsStats+Healing, Assembly-CSharp
-    - Name: onHitHealAmount
-      Entry: 3
-      Data: 0
-    - Name: maxHPScaling
-      Entry: 4
-      Data: 0
-    - Name: overheat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: bomba
-      Entry: 7
-      Data: Tower.Core.Entities.Classes.Alchemist.Data.PotionsStats+Bomba, Assembly-CSharp
-    - Name: duration
-      Entry: 3
-      Data: 0
-    - Name: damageScaling
-      Entry: 4
-      Data: 0
-    - Name: aoe
-      Entry: 3
-      Data: 0
-    - Name: overheat
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  useProxy: 0

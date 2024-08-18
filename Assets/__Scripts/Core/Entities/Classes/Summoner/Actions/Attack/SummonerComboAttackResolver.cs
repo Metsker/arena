@@ -38,7 +38,7 @@ namespace Tower.Core.Entities.Classes.Summoner.Actions.Attack
                 _spirit,
                 _groundCheck,
                 ActionToggler,
-                SummonerStaticData.RiftTweenSpeed,
+                _summonerDataContainer.SummonerStats.RiftSpeed,
                 SummonerStaticData.RiftTweenEase);
             SpiritAttackCommand spiritAttackCommand = new (_spirit);
             FinalSpiritAttackCommand finalSpiritAttackCommand = new (_spirit);
@@ -99,7 +99,7 @@ namespace Tower.Core.Entities.Classes.Summoner.Actions.Attack
                     spiritAttackCommand.SyncStats(_summonerDataContainer.Damage);
                     break;
                 case FinalSpiritAttackCommand finalSpiritAttackCommand:
-                    finalSpiritAttackCommand.SyncStats(_summonerDataContainer.Damage * SummonerStaticData.FinalSpiritAttackDamageMult);
+                    finalSpiritAttackCommand.SyncStats(_summonerDataContainer.Damage * _summonerDataContainer.SummonerStats.FinalComboDamageMult);
                     break;
             }
         }

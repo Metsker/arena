@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Notion.Net</id>
+    <version>4.2.0</version>
+    <authors>Vedant Koditkar</authors>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>notion-logo.png</icon>
+    <readme>README.md</readme>
+    <description>A Notion API dotnet client</description>
+    <releaseNotes>See https://github.com/notion-dotnet/notion-sdk-net/releases/tag/4.2.0</releaseNotes>
+    <tags>notion client api json sdk notion.net</tags>
+    <repository type="git" url="https://github.com/notion-dotnet/notion-sdk-net" commit="18d3dabba75fa1a1ac72ad0ddca07fd76b5169b2" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="JsonSubTypes" version="1.8.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

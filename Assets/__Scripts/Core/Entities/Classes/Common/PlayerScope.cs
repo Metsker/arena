@@ -28,7 +28,7 @@ namespace Tower.Core.Entities.Classes.Common
         [SerializeField] protected NetworkLifecycleSubject networkLifecycleSubject;
         [Header("Data")]
         [SerializeField] protected TContainer networkClassDataContainer;
-        [SerializeField] protected SyncableClassStaticData classStaticData;
+        [SerializeField] protected ClassStaticData classStaticData;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -51,12 +51,12 @@ namespace Tower.Core.Entities.Classes.Common
         
         private void RegisterData(IContainerBuilder builder)
         {
-            groundCheck.SetCoyoteTime(classStaticData.AvailableData.commonStaticData.coyoteTime);
+            groundCheck.SetCoyoteTime(classStaticData.commonStaticData.coyoteTime);
             
             builder.RegisterInstance(networkClassDataContainer)
                 .As<IClassDataContainer, INetworkDataContainer, IHealth, TContainer>();
             
-            builder.RegisterInstance(classStaticData.AvailableData);
+            builder.RegisterInstance(classStaticData);
         }
     }
 }

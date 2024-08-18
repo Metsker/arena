@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Tower.Core.Entities.Common.Data;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Tower.Core.Entities.Classes.Reaper.Data
 {
     [Serializable]
+    [JsonObject(MemberSerialization.Fields)]
     public struct ReaperStats : INetworkSerializable
     {
         [Space]
@@ -19,6 +23,9 @@ namespace Tower.Core.Entities.Classes.Reaper.Data
         public float action2HitRefundMult;
         [Space]
         public float ultimateStunDurationSec;
+        [Header("Static")]
+        public readonly Dictionary<int, ComboAttackData> comboModifiers;
+        [Range(0.5f, 2)] public readonly float glideTimeModifier;
         
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {

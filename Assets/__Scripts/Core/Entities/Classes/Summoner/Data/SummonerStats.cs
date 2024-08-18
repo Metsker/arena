@@ -1,11 +1,13 @@
 ﻿using System;
 using Assemblies.Utilities.Attributes;
+using Newtonsoft.Json;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Tower.Core.Entities.Classes.Summoner.Data
 {
     [Serializable]
+    [JsonObject(MemberSerialization.Fields)]
     public struct SummonerStats : INetworkSerializable
     {
         [Header("Attack")]
@@ -19,6 +21,10 @@ namespace Tower.Core.Entities.Classes.Summoner.Data
         [DefaultValue(250)] public int materializeHealth;
         [DefaultValue(2)] public float stunRadius;
         [DefaultValue(1)] public float stunDuration;
+        
+        [Header("Static")]
+        [DefaultValue(3)] public readonly float RiftSpeed;
+        [DefaultValue(2)] public readonly int FinalComboDamageMult;
         
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
         {

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Assemblies.Utilities
 {
-    public class ContentComparer
+    public class DeepComparer
     {
         public static string Compare(object obj1, object obj2, string path = "")
         {

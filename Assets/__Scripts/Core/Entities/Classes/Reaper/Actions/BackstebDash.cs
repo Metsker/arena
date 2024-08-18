@@ -8,6 +8,7 @@ using JetBrains.Annotations;
 using Tower.Core.Entities.Classes.Common.Components.InputActions;
 using Tower.Core.Entities.Classes.Common.Components.Wrappers;
 using Tower.Core.Entities.Classes.Common.Stats.DataContainers;
+using Tower.Core.Entities.Classes.Reaper.Data;
 using Tower.Core.Entities.Common.Data;
 using Tower.Core.Entities.Common.Interfaces;
 using UnityEngine;
@@ -17,12 +18,22 @@ namespace Tower.Core.Entities.Classes.Reaper.Actions
     [UsedImplicitly]
     public class BackstebDash : PlayerDash
     {
+        private readonly ReaperDataContainer _reaperDataContainer;
         public Vector2 ExitOffset =>
             new Vector2(ClassDataContainer.AttackRange - collidersWrapper.HalfHitBoxWidth, 0) 
             * playerModel.FacingSign;
 
-        public BackstebDash(InputReader inputReader, IClassDataContainer classDataContainer, PhysicsWrapper physicsWrapper, CollidersWrapper collidersWrapper, IEntityModel playerModel, ClassStaticData staticData, NetworkLifecycleSubject networkLifecycleSubject, ActionToggler actionToggler) : base(inputReader, classDataContainer, physicsWrapper, collidersWrapper, playerModel, staticData, networkLifecycleSubject, actionToggler)
+        public BackstebDash(
+            InputReader inputReader,
+            ReaperDataContainer reaperDataContainer,
+            PhysicsWrapper physicsWrapper,
+            CollidersWrapper collidersWrapper,
+            IEntityModel playerModel,
+            ClassStaticData staticData,
+            NetworkLifecycleSubject networkLifecycleSubject,
+            ActionToggler actionToggler) : base(inputReader, reaperDataContainer, physicsWrapper, collidersWrapper, playerModel, staticData, networkLifecycleSubject, actionToggler)
         {
+            _reaperDataContainer = reaperDataContainer;
         }
 
         /// <summary>
@@ -38,7 +49,7 @@ namespace Tower.Core.Entities.Classes.Reaper.Actions
             Vector2 point = playerModel.GetFarthestExitPoint(hit.collider.bounds).With(y: physicsWrapper.Position.y);
             
             return physicsWrapper.Rigidbody2D
-                .DOMove(point + ExitOffset, dashSpeed * staticData.reaperStaticData.glideTimeModifier)
+                .DOMove(point + ExitOffset, dashSpeed * _reaperDataContainer.ReaperStats.glideTimeModifier)
                 .SetEase(staticData.reaperStaticData.glideEase)
                 .SetSpeedBased()
                 .OnComplete(() => playerModel.Flip(true));

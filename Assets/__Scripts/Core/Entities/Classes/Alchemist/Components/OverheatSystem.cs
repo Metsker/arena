@@ -84,7 +84,7 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
             _overheat.Value = 0;
             if (_speedChanged)
             {
-                _alchemistDataContainer.AddSpeedRpc(-AlchemistStaticData.OverheatSpeedBuff);
+                _alchemistDataContainer.AddSpeedRpc(-_alchemistDataContainer.AlchemistStats.OverheatSpeedBuff);
                 _speedChanged = false;
             }
             _actionToggler.Enable<IToggleableAttack>();
@@ -120,23 +120,23 @@ namespace Tower.Core.Entities.Classes.Alchemist.Components
         {
             //Play fx
             _actionToggler.Disable<IToggleableAttack>();
-            _alchemistDataContainer.AddSpeedRpc(AlchemistStaticData.OverheatSpeedBuff);
+            _alchemistDataContainer.AddSpeedRpc(_alchemistDataContainer.AlchemistStats.OverheatSpeedBuff);
             _speedChanged = true;
 
             ProgressBar.PunchScale();
             ProgressBar.SetColor(Color.red);
 
-            yield return new WaitForSeconds(AlchemistStaticData.OverheatSec);
+            yield return new WaitForSeconds(_alchemistDataContainer.AlchemistStats.OverheatSec);
 
-            ProgressBar.Fill(0, AlchemistStaticData.ResetSec).OnComplete(ResetOverheat);
+            ProgressBar.Fill(0, _alchemistDataContainer.AlchemistStats.ResetSec).OnComplete(ResetOverheat);
         }
 
         private IEnumerator ColdOutCoroutine()
         {
-            yield return new WaitForSeconds(AlchemistStaticData.ColdOutDelay);
+            yield return new WaitForSeconds(_alchemistDataContainer.AlchemistStats.ColdOutDelay);
 
             _overheat.Value = 0;
-            ProgressBar.Fill(0, AlchemistStaticData.ResetSec);
+            ProgressBar.Fill(0, _alchemistDataContainer.AlchemistStats.ResetSec);
         }
 
         private void Clamp() =>

@@ -43,7 +43,7 @@ MonoBehaviour:
       Entry: 4
       Data: 1
     - Name: damage
-      Entry: 4
+      Entry: 3
       Data: 10
     - Name: speed
       Entry: 4
@@ -64,8 +64,8 @@ MonoBehaviour:
       Entry: 4
       Data: 0.5
     - Name: damage
-      Entry: 4
-      Data: 10
+      Entry: 3
+      Data: 20
     - Name: speed
       Entry: 4
       Data: 0.5
@@ -96,28 +96,3 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: remoteData
-      Entry: 7
-      Data: 4|Tower.Core.Entities.Enemies.Bosses.Gargoyle.Data.GargoyleData, Assembly-CSharp
-    - Name: health
-      Entry: 3
-      Data: 0
-    - Name: maxHealth
-      Entry: 3
-      Data: 0
-    - Name: stages
-      Entry: 6
-      Data: 
-    - Name: gargoyleStats
-      Entry: 7
-      Data: Tower.Core.Entities.Enemies.Bosses.Gargoyle.Data.GargoyleStats, Assembly-CSharp
-    - Name: fireRangeModifier
-      Entry: 4
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-  useProxy: 0

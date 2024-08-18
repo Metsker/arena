@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Sirenix.OdinInspector;
 using Tower.Core.Entities.Classes.Alchemist.Data;
 using Tower.Core.Entities.Classes.Reaper.Data;
 using Tower.Core.Entities.Classes.Summoner.Data;
@@ -7,9 +6,8 @@ using UnityEngine;
 
 namespace Tower.Core.Entities.Common.Data
 {
-    [Serializable]
-    [JsonObject(MemberSerialization.Fields)]
-    public class ClassStaticData : TypeId
+    [CreateAssetMenu(fileName = "ClassStaticData", menuName = "Data/Static/ClassStaticData", order = 0)]
+    public class ClassStaticData : SerializedScriptableObject
     {
         [Header("Common")]
         public readonly CommonStaticData commonStaticData;

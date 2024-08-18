@@ -56,7 +56,7 @@ namespace Tower.Core.Entities.Classes.Reaper.Actions.Attack
         protected override void OnCombo(ICommand currentCommand)
         {
             AttackCommand attackCommand = (AttackCommand)currentCommand;
-            ComboAttackData comboAttackData = ClassStaticData.reaperStaticData.comboModifiers[ComboPointer];
+            ComboAttackData comboAttackData = _reaperData.ReaperStats.comboModifiers[ComboPointer];
             int damage = Mathf.RoundToInt(_reaperData.Damage * comboAttackData.damageModifier);
             float range = _reaperData.AttackRange * comboAttackData.rangeModifier;
             
